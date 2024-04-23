@@ -19,12 +19,13 @@
               <thead>
               <tr>
                 <th>No</th>
+                <th>Tanggal Masuk</th>
                 <th>Jenis Surat Masuk</th>
                 <th>Pengirim</th>
                 <th>Perihal</th>
                 <th>Disposisi</th>
                 <th>Lampiran</th>
-                <th>Aksi</th>
+                <th id="unhide">Aksi</th>
               </tr>
               </thead>
               <tbody>
@@ -32,6 +33,7 @@
                 @foreach ($surat_masuk as $p)
                         <tr>
                     <td>{{ $loop->iteration }}</td>
+                    <td>{{ $p->tanggal_masuk }}</td>
                     <td>{{ $p->jenis_surat }}</td>
                     <td>{{ $p->pengirim }}</td>
                     <td>{{ $p->perihal }}</td>
@@ -56,7 +58,7 @@
                           <span class="badge badge-warning">Tidak ada lampiran</span>
                       @endif
                   </td>
-                    <td>
+                    <td id="unhide">
                       <a href="#" class="btn btn-sm btn-warning btn-edit" data-toggle="modal" data-target="#modal-surat-masuk-edit" data-id="{{ $p->id }}" style="color: black">
                         <i class="fas fa-edit"></i>  Edit
                      </a>

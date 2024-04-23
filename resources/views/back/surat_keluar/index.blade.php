@@ -19,6 +19,7 @@
               <thead>
               <tr>
                 <th>No</th>
+                <th>Tanggal Keluar</th>
                 <th>Jenis Surat Keluar</th>
                 <th>Penerima</th>
                 <th>Perihal</th>
@@ -32,6 +33,7 @@
                 @foreach ($surat_keluar as $p)
                         <tr>
                     <td>{{ $loop->iteration }}</td>
+                    <td>{{ $p->tanggal_keluar }}</td>
                     <td>{{ $p->jenis_surat }}</td>
                     <td>{{ $p->penerima }}</td>
                     <td>{{ $p->perihal }}</td>

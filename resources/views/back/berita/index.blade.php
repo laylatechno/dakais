@@ -30,6 +30,7 @@
                     <th>Ringkasan</th>
                     <th>Gambar</th>
                     <th>Urutan</th>
+                    <th>Status</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
@@ -127,6 +128,22 @@
                       <label for="urutan">Urutan</label>
                       <input type="number" class="form-control" id="urutan" name="urutan" placeholder="Masukkan Urutan">
                     </div>
+
+                    <div class="form-group" id="status_container">
+                      <label for="status">Status</label>
+                      <select class="form-control" name="status" id="status">
+                          <option value="">--Pilih Status--</option>
+                          <option value="Aktif" {{ old('status') == 'Aktif' ? 'selected' : '' }}>
+                              Aktif
+                          </option>
+                          <option value="Non Aktif" {{ old('status') == 'Non Aktif' ? 'selected' : '' }}>
+                              Non Aktif
+                          </option>
+                      </select>
+                  </div>
+                 
+          
+
 
 
                     
@@ -245,6 +262,20 @@
                       <input type="number" class="form-control" id="urutan_edit" name="urutan" placeholder="Masukkan Urutan">
                     </div>
 
+                    
+                    <div class="form-group" id="status_container_edit">
+                      <label for="status_edit">Status</label>
+                      <select class="form-control" name="status" id="status_edit">
+                          <option value="">--Pilih Status--</option>
+                          <option value="Aktif" {{ old('status') == 'Aktif' ? 'selected' : '' }}>
+                              Aktif
+                          </option>
+                          <option value="Non Aktif" {{ old('status') == 'Non Aktif' ? 'selected' : '' }}>
+                              Non Aktif
+                          </option>
+                      </select>
+                  </div>
+
 
                     
                      
@@ -334,6 +365,7 @@
                   searchable: false
               },
              { data: 'urutan', name: 'urutan' },
+             { data: 'status', name: 'status' },
              { data: 'action', name: 'action', orderable: false, searchable: false }
          ],
          "createdRow": function(row, data, dataIndex) {
@@ -383,8 +415,9 @@
     var isi = document.getElementById('isi').value.trim();
     var sumber = document.getElementById('sumber').value.trim();
     var urutan = document.getElementById('urutan').value.trim();
+    var status = document.getElementById('status').value.trim();
     var gambar = document.getElementById('gambar').files[0];
-    if (!tanggal_posting || !judul_berita || !slug || !penulis || !kategori_berita_id || !ringkasan || !isi || !sumber || !urutan || !gambar) {
+    if (!tanggal_posting || !judul_berita || !slug || !penulis || !kategori_berita_id || !ringkasan || !isi || !sumber || !urutan || !status || !gambar) {
     Swal.fire({
         icon: 'error',
         title: 'Oops...',
@@ -450,6 +483,7 @@ $(document).on('click', '.btn_edit_berita', function(e) {
               $('#ringkasan_edit').val(data.ringkasan);
               $('#sumber_edit').val(data.sumber);
               $('#urutan_edit').val(data.urutan);
+              $('#status_edit').val(data.status);
               // $('#isi2').val(data.isi);
               $('#isi2').summernote('code', data.isi);
       

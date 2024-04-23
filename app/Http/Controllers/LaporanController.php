@@ -2,13 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Barang;
 use App\Models\Guru;
 use App\Models\Kelas;
+use App\Models\MutasiBarang;
 use App\Models\NilaiSiswaHead;
 use App\Models\Pemasukan;
 use App\Models\Pengeluaran;
 use App\Models\Profil;
 use App\Models\Siswa;
+use App\Models\SuratKeluar;
+use App\Models\SuratMasuk;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
@@ -115,6 +119,63 @@ class LaporanController extends Controller
         return view('back.laporan.keuangan.index',compact('pemasukan','pengeluaran','profil','filterStartDate', 'filterEndDate'));
     }
 
+    public function surat(Request $request)
+    {
+        $filterStartDate = $request->start_date ?? Carbon::today()->toDateString();
+        $filterEndDate = $request->end_date ?? Carbon::today()->toDateString();
+    
+        $masuk = SuratMasuk::when($filterStartDate && $filterEndDate, function ($q) use ($filterStartDate, $filterEndDate) {
+                return $q->whereDate('tanggal_masuk', '>=', $filterStartDate)
+                    ->whereDate('tanggal_masuk', '<=', $filterEndDate);
+            })
+            ->get();
+
+        $keluar = SuratKeluar::when($filterStartDate && $filterEndDate, function ($q) use ($filterStartDate, $filterEndDate) {
+                return $q->whereDate('tanggal_keluar', '>=', $filterStartDate)
+                    ->whereDate('tanggal_keluar', '<=', $filterEndDate);
+            })
+            ->get();
+     
+        $profil = Profil::where('id', 1)->first();
+        return view('back.laporan.surat.index',compact('masuk','keluar','profil','filterStartDate', 'filterEndDate'));
+    }
+
+    public function barang(Request $request)
+    {
+        $filterStartDate = $request->start_date ?? Carbon::today()->toDateString();
+        $filterEndDate = $request->end_date ?? Carbon::today()->toDateString();
+    
+        $barang = Barang::when($filterStartDate && $filterEndDate, function ($q) use ($filterStartDate, $filterEndDate) {
+                return $q->whereDate('tanggal_masuk', '>=', $filterStartDate)
+                    ->whereDate('tanggal_masuk', '<=', $filterEndDate);
+            })
+            ->join('kategori_barang', 'barang.kategori_barang_id', '=', 'kategori_barang.id')
+            ->join('ruangan', 'barang.ruangan_id', '=', 'ruangan.id')
+            ->select('barang.*', 'kategori_barang.nama_kategori_barang', 'ruangan.nama_ruangan')
+            ->get();
+    
+        return view('back.laporan.barang.index', compact('barang', 'filterStartDate', 'filterEndDate'));
+    }
+
+    public function mutasi_barang(Request $request)
+{
+    $filterStartDate = $request->start_date ?? Carbon::today()->toDateString();
+    $filterEndDate = $request->end_date ?? Carbon::today()->toDateString();
+
+    $mutasi_barang = MutasiBarang::when($filterStartDate && $filterEndDate, function ($q) use ($filterStartDate, $filterEndDate) {
+            return $q->whereDate('tanggal_mutasi', '>=', $filterStartDate)
+                ->whereDate('tanggal_mutasi', '<=', $filterEndDate);
+        })
+        ->join('ruangan as ruangan_asal', 'mutasi_barang.ruangan_id_asal', '=', 'ruangan_asal.id')
+        ->join('ruangan as ruangan_tujuan', 'mutasi_barang.ruangan_id_tujuan', '=', 'ruangan_tujuan.id')
+        ->join('barang', 'mutasi_barang.barang_id', '=', 'barang.id') // Join dengan tabel barang
+        ->select('mutasi_barang.*', 'ruangan_asal.nama_ruangan as nama_ruangan_asal', 'ruangan_tujuan.nama_ruangan as nama_ruangan_tujuan', 'barang.nama_barang') // Menambahkan kolom nama_barang
+        ->get();
+
+    return view('back.laporan.mutasi_barang.index', compact('mutasi_barang', 'filterStartDate', 'filterEndDate'));
+}
+
+    
     
     
     

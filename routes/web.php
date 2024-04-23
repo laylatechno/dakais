@@ -15,6 +15,7 @@ use App\Http\Controllers\TestimoniController;
 use App\Http\Controllers\FaqController;
 use App\Http\Controllers\GaleriController;
 use App\Http\Controllers\GuruController;
+use App\Http\Controllers\HitungController;
 use App\Http\Controllers\JadwalPelajaranController;
 use App\Http\Controllers\JenisUjianController;
 use App\Http\Controllers\JurusanController;
@@ -22,6 +23,7 @@ use App\Http\Controllers\KategoriBarangController;
 use App\Http\Controllers\KategoriBeritaController;
 use App\Http\Controllers\KategoriGaleriController;
 use App\Http\Controllers\KategoriProdukController;
+use App\Http\Controllers\KegiatanController;
 use App\Http\Controllers\KelasController;
 use App\Http\Controllers\KurikulumController;
 use App\Http\Controllers\MapelController;
@@ -74,8 +76,8 @@ use App\Models\Penjualan;
 
 
 // Home
-Route::get('/', [AuthController::class, 'login'])->name('login');
-Route::post('/', [AuthController::class, 'authenticate']);
+Route::get('/auth', [AuthController::class, 'login'])->name('login');
+Route::post('/auth', [AuthController::class, 'authenticate']);
 
 // MASTER
 Route::resource('tahunajaran', TahunAjaranController::class)->middleware('auth');
@@ -88,6 +90,19 @@ Route::resource('jurusan', JurusanController::class)->middleware('auth');
 
 
 
+
+
+
+Route::get('/', [HomeController::class, 'index']);
+Route::get('/tentang', [HomeController::class, 'tentang']);
+Route::get('/guru', [HomeController::class, 'guru']);
+Route::get('/kegiatan_sekolah', [HomeController::class, 'kegiatan_sekolah']);
+Route::get('/kegiatan_sekolah/{id}', [HomeController::class, 'kegiatan_sekolah_detail'])->name('kegiatan_sekolah.kegiatan_sekolah_detail');
+
+Route::get('/berita_sekolah', [HomeController::class, 'berita_sekolah']);
+Route::get('/berita_sekolah/{slug}', [HomeController::class, 'berita_sekolah_detail'])->name('berita_sekolah.berita_sekolah_detail');
+Route::get('/berita_sekolah/kategori/{id}', [HomeController::class, 'berita_sekolah_by_category_id'])->name('berita_sekolah.by_category_id');
+Route::get('/berita_sekolah/cari', [HomeController::class, 'cari_berita'])->name('berita_sekolah.cari_berita');
 
 
 
@@ -118,6 +133,8 @@ Route::resource('users', UserController::class)->middleware('auth');
 Route::resource('slider', SliderController::class)->middleware('auth');
 Route::resource('about', AboutController::class)->middleware('auth');
 Route::resource('mitra', MitraController::class)->middleware('auth');
+ 
+
 
 
 
@@ -359,7 +376,17 @@ Route::get('/assets', [GaleriController::class, 'assets']);
 
  
 
+ 
+Route::resource('hitung', HitungController::class)->middleware('auth');
+Route::get('/hitung/{id}/edit', [HitungController::class, 'edit'])->name('hitung.edit');
+Route::put('/hitung/update/{id}', [HitungController::class, 'update'])->name('hitung.update');
+Route::delete('/hitung/{id}', [HitungController::class, 'destroy'])->name('hitung.destroy');
 
+
+Route::resource('kegiatan', KegiatanController::class)->middleware('auth');
+Route::get('/kegiatan/{id}/edit', [KegiatanController::class, 'edit'])->name('kegiatan.edit');
+Route::put('/kegiatan/update/{id}', [KegiatanController::class, 'update'])->name('kegiatan.update');
+Route::delete('/kegiatan/{id}', [KegiatanController::class, 'destroy'])->name('kegiatan.destroy');
 
 
 
@@ -371,3 +398,6 @@ Route::get('laporan/siswa', [LaporanController::class, 'siswa'])->middleware('au
 Route::get('laporan/kelas', [LaporanController::class, 'kelas'])->middleware('auth')->name('laporan.kelas');
 Route::get('laporan/nilai_siswa', [LaporanController::class, 'nilai_siswa'])->middleware('auth')->name('laporan.nilai_siswa');
 Route::get('laporan/keuangan', [LaporanController::class, 'keuangan'])->middleware('auth')->name('laporan.keuangan');
+Route::get('laporan/surat', [LaporanController::class, 'surat'])->middleware('auth')->name('laporan.surat');
+Route::get('laporan/barang', [LaporanController::class, 'barang'])->middleware('auth')->name('laporan.barang');
+Route::get('laporan/mutasi_barang', [LaporanController::class, 'mutasi_barang'])->middleware('auth')->name('laporan.mutasi_barang');

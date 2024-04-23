@@ -26,6 +26,7 @@
               <th>Jumlah Barang Rusak</th>
               <th>Ruangan</th>
               <th>PIC</th>
+              <th>Status</th>
               <th>Gambar</th>
               <th>Aksi</th>
             </tr>
@@ -42,6 +43,7 @@
                   <td>{{ $p->kondisi_rusak }}</td>
                   <td>{{ $p->ruangan->nama_ruangan }}</td>
                   <td>{{ $p->pic }}</td>
+                  <td>{{ $p->status }}</td>
                   <td>
                     @if($p->gambar)
                         <a href="/upload/barang/{{ $p->gambar}}" target="_blank">

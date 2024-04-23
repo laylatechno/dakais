@@ -1,6 +1,6 @@
 @extends('back.layouts.app')
-@section('title','Laporan Halaman Kelas')
-@section('subtitle','Menu Kelas')
+@section('title','Laporan Nilai Siswa')
+@section('subtitle','Menu Nilai Siswa')
 
 <!-- Add these links in the head section of your layout file -->
 
@@ -10,7 +10,7 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">Laporan Data Kelas - SMPIT Maryam</h3>
+                <h3 class="card-title">Laporan Data Nilai Siswa - SMPIT Maryam</h3>
             </div>
             <!-- /.card-header -->
             <div class="card-body">

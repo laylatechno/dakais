@@ -1,626 +1,569 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
-
-  <title>MAU BIKIN CV</title>
-  <meta content="" name="description">
-  <meta content="" name="keywords">
-
-  <!-- Favicons -->
-  <link href="{{ asset('themplete/front')}}/assets/img/favicon.png" rel="icon">
-  <link href="{{ asset('themplete/front')}}/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
-
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
-
-  <!-- Vendor CSS Files -->
-  <link href="{{ asset('themplete/front')}}/assets/vendor/aos/aos.css" rel="stylesheet">
-  <link href="{{ asset('themplete/front')}}/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="{{ asset('themplete/front')}}/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link href="{{ asset('themplete/front')}}/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-  <link href="{{ asset('themplete/front')}}/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-  <link href="{{ asset('themplete/front')}}/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
-
-  <!-- Template Main CSS File -->
-  <link href="{{ asset('themplete/front')}}/assets/css/style.css" rel="stylesheet">
-
-  <!-- =======================================================
-  * Template Name: Flexor
-  * Updated: Sep 18 2023 with Bootstrap v5.3.2
-  * Template URL: https://bootstrapmade.com/flexor-free-multipurpose-bootstrap-template/
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
+@extends('front.app')
+@section('title', 'Halaman Awal')
+@section('subtitle', 'Menu Awal')
 
 
-  <style>
-    
-    
-    #myBtn {
-      display: none;
-      position: fixed;
-      bottom: 80px;
-      right: 13px;
-      z-index: 99;
-      font-size: 14px;
-      border: none;
-      outline: none;
-      background-color: #057bcc;
-      color: white;
-      cursor: pointer;
-      padding: 15px;
-      border-radius: 4px;
-    }
-    
-    #myBtn:hover {
-      background-color: #555;
-    }
-    </style>
-</head>
+@section('content')
 
-<body>
+    <!-- Start Hero Area -->
+    <section class="hero-area">
+        <div class="hero-slider">
+            <!-- Single Slider -->
+            @foreach ($slider as $p)
+                <div class="hero-inner overlay" style="background-image: url('/upload/slider/{{ $p->gambar }}');">
+                    <div class="container">
+                        <div class="row ">
+                            <div class="col-lg-8 offset-lg-2 col-md-12 co-12">
+                                <div class="home-slider">
+                                    <div class="hero-text">
+                                        <h5 class="wow fadeInUp" data-wow-delay=".3s">{{ $profil->nama_sekolah }}</h5>
+                                        <h1 class="wow fadeInUp" data-wow-delay=".5s">{{ $p->nama_slider }}</h1>
+                                        <p class="wow fadeInUp" data-wow-delay=".7s">{{ $p->keterangan }}</p>
+                                        <div class="button wow fadeInUp" data-wow-delay=".9s">
+                                            <a href="#tentang-kami" class="btn">Tentang Kami</a>
 
-  <!-- ======= Top Bar ======= -->
-  <section id="topbar" class="d-flex align-items-center">
-    <div class="container d-flex justify-content-center justify-content-md-between">
-      <div class="contact-info d-flex align-items-center">
-        <i class="bi bi-envelope d-flex align-items-center"><a href="mailto:{{ $profile->email}}">{{ $profile->email}}</a></i>
-        <i class="bi bi-phone d-flex align-items-center ms-4"><span>{{ $profile->no_telp}}</span></i>
-      </div>
-
-      <div class="cta d-none d-md-flex align-items-center">
-        <a href="#about" class="scrollto">Buat CV Sekarang</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- ======= Header ======= -->
-  <header id="header" class="d-flex align-items-center">
-    <div class="container d-flex align-items-center justify-content-between">
-
-      <div class="logo">
-        {{-- <h1><a href="/">MaubikinCV</a></h1> --}}
-        <a href="/"><img src="{{ asset('themplete/front')}}/assets/img/logo.png" alt="" class="img-fluid"></a>
-        <!-- Uncomment below if you prefer to use an image logo -->
-        <!-- <a href="index.html"><img src="{{ asset('themplete/front')}}/assets/img/logo.png" alt="" class="img-fluid"></a>-->
-      </div>
-
-      <nav id="navbar" class="navbar">
-        <ul>
-          <li><a class="nav-link scrollto" href="/">Home</a></li>
-          <li><a class="nav-link scrollto" href="#about">Tentang Kami</a></li>
-          {{-- <li><a class="nav-link scrollto" href="#services">Layanan</a></li> --}}
-          {{-- <li><a class="nav-link scrollto" href="#testimonials">Testimoni</a></li> --}}
-          <li><a class="nav-link scrollto " href="#portfolio">Pilihan Template</a></li>
-          <li><a class="nav-link scrollto" href="#faq">FAQ</a></li>
-          {{-- <li><a class="nav-link scrollto" href="#pricing">Biaya</a></li> --}}
-          {{-- <li><a href="blog.html">Blog</a></li> --}}
-          {{-- <li class="dropdown"><a href="#"><span>Drop Down</span> <i class="bi bi-chevron-down"></i></a>
-            <ul>
-              <li><a href="#">Drop Down 1</a></li>
-              <li class="dropdown"><a href="#"><span>Deep Drop Down</span> <i class="bi bi-chevron-right"></i></a>
-                <ul>
-                  <li><a href="#">Deep Drop Down 1</a></li>
-                  <li><a href="#">Deep Drop Down 2</a></li>
-                  <li><a href="#">Deep Drop Down 3</a></li>
-                  <li><a href="#">Deep Drop Down 4</a></li>
-                  <li><a href="#">Deep Drop Down 5</a></li>
-                </ul>
-              </li>
-              <li><a href="#">Drop Down 2</a></li>
-              <li><a href="#">Drop Down 3</a></li>
-              <li><a href="#">Drop Down 4</a></li>
-            </ul>
-          </li> --}}
-          <li><a class="nav-link scrollto" href="#clients"><i class="bx bx-user"></i> . Akun Saya</a></li>
-          {{-- <li><a class="nav-link scrollto" href="#contact">Kontak</a></li> --}}
-        </ul>
-        <i class="bi bi-list mobile-nav-toggle"></i>
-      </nav><!-- .navbar -->
-
-    </div>
-  </header><!-- End Header -->
-
-  <!-- ======= Hero Section ======= -->
-  <section id="hero" class="d-flex flex-column justify-content-center align-items-center">
-    <div class="container" data-aos="fade-in">
-      <h1>Selamat Datang Di <span style="color: #f4ac1e">Maubikincv.com</span></h1>
-      <h2>Bikin CV Online dan Surat Lamaran Kerja Cepat dan Mudah</h2>
-      <div class="d-flex align-items-center">
-        <i class="bx bxs-right-arrow-alt get-started-icon"></i>
-        <a href="/customers" class="btn-get-started scrollto">Buat CV Sekarang</a>
-      </div>
-    </div>
-  </section><!-- End Hero -->
-
-  <main id="main">
-
-    <!-- ======= Why Us Section ======= -->
-    <section id="why-us" class="why-us">
-      <div class="container">
-
-        <div class="row">
-          <div class="col-xl-4 col-lg-5" data-aos="fade-up">
-            <div class="content">
-              <h3>Kenapa memilih MaubikinCV?</h3>
-              <p>
-                <?php ?>
-                @foreach ($profils as $p)
-                <p>{{ $p->keterangan}}</p>
-                <?php ?>
-                @endforeach
-              </p>
-              <div class="text-center">
-                <a href="#" class="more-btn">Learn More <i class="bx bx-chevron-right"></i></a>
-              </div>
-            </div>
-          </div>
-          <div class="col-xl-8 col-lg-7 d-flex">
-            <div class="icon-boxes d-flex flex-column justify-content-center">
-              <div class="row">
-
-
-
-                <?php ?>
-                @foreach ($alasans as $p)
-                
-                  
-                  
-                    <div class="col-xl-4 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
-                      <div class="icon-box mt-4 mt-xl-0">
-                        <i class="{{ $p->icon}}"></i>
-                        <h4>{{ $p->nama}}</h4>
-                        <p>{{ $p->keterangan}}</p>
-                      </div>
+                                            <a href="courses-grid.html" class="btn alt-btn">Selengkapnya</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                     
-                     
-                
-                  
-                <?php ?>
+                </div>
+            @endforeach
+
+            <!--/ End Single Slider -->
+        </div>
+    </section>
+    <!--/ End Hero Area -->
+
+    <!-- Start Features Area -->
+    <section class="features">
+        <div class="container-fluid">
+            <div class="single-head">
+                <div class="row">
+                    @foreach ($about as $p)
+                        <div class="col-lg-4 col-md-4 col-12 padding-zero">
+                            <!-- Start Single Feature -->
+                            <div class="single-feature">
+                                <h3><a href="{{ $p->link }}">{{ $p->nama_about }}</a></h3>
+                                <p>{{ $p->keterangan }}</p>
+                                <div class="button">
+                                    <a href="{{ $p->link }}" class="btn">Selengkapnya <i
+                                            class="lni lni-arrow-right"></i></a>
+                                </div>
+                            </div>
+                            <!-- End Single Feature -->
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- /End Features Area -->
+
+    <style>
+        /* Pop-up dengan posisi fixed dan z-index tinggi */
+        .popup {
+            display: none;
+            /* Tersembunyi secara default */
+            position: fixed;
+            /* Tetap di tempat meskipun halaman digulir */
+            top: 0;
+            left: 0;
+            width: 100%;
+            /* Mengisi seluruh lebar layar */
+            height: 100%;
+            /* Mengisi seluruh tinggi layar */
+            background-color: rgba(0, 0, 0, 0.5);
+            /* Latar belakang semi-transparan */
+            justify-content: center;
+            /* Pusatkan konten secara horizontal */
+            align-items: center;
+            /* Pusatkan konten secara vertikal */
+            z-index: 1000;
+            /* Pastikan pop-up berada di lapisan paling atas */
+        }
+
+        /* Konten pop-up */
+        .popup-content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            position: relative;
+            /* Dibutuhkan untuk tombol penutup */
+        }
+
+        /* Tombol penutup */
+        .close {
+            position: absolute;
+            /* Tetap di posisi yang sama dalam konten */
+            top: 10px;
+            right: 10px;
+            font-size: 20px;
+            cursor: pointer;
+        }
+    </style>
+    <!-- Start About Us Area -->
+    <section class="about-us section" id="tentang-kami">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-12">
+                    <div class="about-left">
+                        <div class="about-title align-left">
+                            <span class="wow fadeInDown" data-wow-delay=".2s">Tentang {{ $profil->nama_sekolah }}</span>
+                            <br><br>
+                            <h2 class="wow fadeInUp" data-wow-delay=".4s">Selamat Datang</h2>
+                            <p class="wow fadeInUp" data-wow-delay=".6s" style="margin-top: -15px;">{{ $profil->deskripsi }}
+                            </p>
+
+                            <div class="button wow fadeInUp" data-wow-delay="1s">
+                                @php
+                                    $no_telp = str_replace(['-', ' ', '+'], '', $profil->no_telp); // Menghapus tanda tambah (+), spasi, dan tanda hubung jika ada
+                                    $pesan = 'Hallo.. !! Apakah berkenan saya bertanya terkait informasi sekolah ?';
+                                    $encoded_pesan = urlencode($pesan); // Meng-encode pesan agar aman dalam URL
+                                    $whatsapp_url = "https://wa.me/{$no_telp}?text={$encoded_pesan}"; // Membuat URL lengkap
+                                @endphp
+                                <a href="{{ $whatsapp_url }}" class="btn" target="_blank">Selengkapnya</a>
+                                <a href="javascript:void(0)" class="video btn" id="openPopup" style="margin: 5px;"> Play
+                                    Video <i class="lni lni-play"></i></a>
+
+
+                                <!-- Pop-up yang berisi iframe YouTube -->
+                                <div id="popup" class="popup">
+                                    <div class="popup-content">
+                                        <!-- Tombol untuk menutup pop-up -->
+                                        <span id="closePopup" class="close">&times;</span>
+                                        <!-- Video YouTube dalam iframe -->
+                                        <iframe id="youtubeVideo" src="" width="450" height="205"
+                                            frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                                    </div>
+                                </div>
+
+                                <script>
+                                    const youtubeUrl = "{{ $profil->youtube }}";
+                                </script>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-12">
+                    <div class="about-right wow fadeInRight" data-wow-delay=".4s">
+                        <img src="/upload/profil/{{ $profil->gambar }}" alt="#" style="border-radius: 5%;">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- /End About Us Area -->
+
+
+    <!-- Start Achivement Area -->
+    <section class="our-achievement section overlay">
+        <div class="container">
+            <div class="row">
+                @foreach ($hitung as $p)
+                    <div class="col-lg-3 col-md-3 col-12">
+                        <div class="single-achievement wow fadeInUp" data-wow-delay=".2s">
+                            <h3 class="counter"><span id="secondo1" class="countup"
+                                    cup-end="{{ $p->jumlah }}">{{ $p->hitung }}</span>+</h3>
+                            <h4>{{ $p->nama_hitung }}</h4>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+    </section>
+    <!-- End Achivement Area -->
+
+    <!-- Start Events Area-->
+    <section class="events section">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="section-title">
+                        <div class="section-icon wow zoomIn" data-wow-delay=".4s">
+                            <i class="lni lni-bookmark"></i>
+                        </div>
+                        <h2 class="wow fadeInUp" data-wow-delay=".4s">Kegiatan</h2>
+                        <p class="wow fadeInUp" data-wow-delay=".6s">Lihat dan nantikan kegiatan yang akan diadakan di
+                            sekolah kami serta tunggu kegiatan menarik lainnya</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                @foreach ($kegiatan as $p)
+                    <div class="col-lg-4 col-md-6 col-12">
+                        <!-- Start Single Event -->
+                        <div class="single-event wow fadeInUp" data-wow-delay=".2s">
+                            <div class="event-image">
+                       
+                                <a href="{{ route('kegiatan_sekolah.kegiatan_sekolah_detail', $p->id) }}">
+                                    <img src="/upload/kegiatan/{{ $p->gambar }}" alt="#" class="event-image">
+                                </a>
+
+                                @php
+                                    // Mengonversi tanggal_kegiatan menjadi format Carbon, lalu memisahkan tanggal dan bulan
+                                    $date = \Carbon\Carbon::parse($p->tanggal_kegiatan)->format('d'); // Tanggal saja
+                                    $month = \Carbon\Carbon::parse($p->tanggal_kegiatan)->format('F'); // Nama bulan penuh
+                                @endphp
+
+                                <p class="date"><span>{{ $date }}<br>{{ $month }}</span></p>
+
+                            </div>
+                            <div class="content">
+                                <h3><a href="{{ route('kegiatan_sekolah.kegiatan_sekolah_detail', $p->id) }}">{{ $p->nama_kegiatan }}</a></h3>
+                                @php
+                                    $cleaned_text = strip_tags($p->deskripsi); // Menghilangkan semua tag HTML
+                                    $truncated_text =
+                                        strlen($cleaned_text) > 150
+                                            ? substr($cleaned_text, 0, 150) . '...'
+                                            : $cleaned_text; // Membatasi hingga 150 karakter
+                                @endphp
+
+                                <p>{{ $truncated_text }}</p>
+                            </div>
+                            <div class="bottom-content">
+
+
+
+                                <span class="time">
+                                    <i class="lni lni-timer"></i>
+                                    <a href="{{ route('kegiatan_sekolah.kegiatan_sekolah_detail', $p->id) }}">{{ $p->tempat }}</a> |
+                                    <a href="{{ route('kegiatan_sekolah.kegiatan_sekolah_detail', $p->id) }}">{{ $p->tanggal_kegiatan }} | {{ $p->jam }}</a>
+                                    <br>
+
+                                </span>
+                            </div>
+                        </div>
+                        <!-- End Single Event -->
+                    </div>
+                @endforeach
+                <div class="button" style="text-align: center; margin-top:25px;">
+                    <a href="/kegiatan">
+                        <button class="btn">Selengkapnya</button>
+                    </a>
+
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End Events Area-->
+
+    <!-- Start Teachers -->
+    <section id="teachers" class="teachers section">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="section-title align-center gray-bg">
+                        <div class="section-icon wow zoomIn" data-wow-delay=".4s">
+                            <i class="lni lni-users"></i>
+                        </div>
+                        <h2 class="wow fadeInUp" data-wow-delay=".4s">Guru Berpengalaman</h2>
+                        <p class="wow fadeInUp" data-wow-delay=".6s">Siap mendampingi tumbuh kembang anak anda dengan
+                            kualitas terbaik.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                @foreach ($guru as $p)
+                    <!-- Single Team -->
+                    <div class="col-lg-6 col-md-6 col-12">
+                        <div class="single-team wow fadeInUp" data-wow-delay=".2s">
+                            <div class="row">
+                                <div class="col-lg-5 col-12">
+                                    <!-- Image -->
+                                    <div class="image">
+                                        <img src="/upload/guru/{{ $p->gambar }}" alt="#">
+                                    </div>
+                                    <!-- End Image -->
+                                </div>
+                                <div class="col-lg-7 col-12">
+                                    <div class="info-head">
+                                        <!-- Info Box -->
+                                        <div class="info-box">
+                                            <span class="designation">{{ $p->posisi }}</span>
+                                            <h4 class="name"><a href="">{{ $p->nama_guru }}</a>
+                                            </h4>
+                                            <p>{{ $p->motto }}.</p>
+                                        </div>
+                                        <!-- End Info Box -->
+                                        <!-- Social -->
+                                        <ul class="social">
+
+                                            <li><a href="mailto:{{ trim($p->email) }}" target="_blank"><i
+                                                        class="lni lni-envelope"></i></a></li>
+
+
+                                            <li><a href="{{ $p->instagram }}" target="_blank"><i
+                                                        class="lni lni-instagram"></i></a>
+                                            </li>
+
+                                        </ul>
+                                        <!-- End Social -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Single Team -->
                 @endforeach
 
+                <div class="button" style="text-align: center; margin-top:25px;">
+                    <a href="/guru">
+                        <button class="btn">Selengkapnya</button>
+                    </a>
 
-              </div>
+                </div>
             </div>
-          </div>
         </div>
+    </section>
+    <!--/ End Teachers Area -->
 
-      </div>
-    </section><!-- End Why Us Section -->
-
-    <!-- ======= About Section ======= -->
-    <section id="about" class="about section-bg">
-      <div class="container">
-
-        <div class="row">
-          <div class="col-xl-5 col-lg-6 video-box d-flex justify-content-center align-items-stretch position-relative" data-aos="fade-right">
-            <a href="https://www.youtube.com/watch?v=jDDaplaOz7Q" class="glightbox play-btn mb-4"></a>
-          </div>
-
-          <div class="col-xl-7 col-lg-6 icon-boxes d-flex flex-column align-items-stretch justify-content-center py-5 px-lg-5">
-            <h4 data-aos="fade-up">About us</h4>
-            <h3 data-aos="fade-up">Tentang Kami MaubikinCV</h3>
-            <p data-aos="fade-up">MaubikinCV adalah platform untuk membuat CV (Curriculum Vitae) / Resume secara online
-              dengan mudah dan praktis. MaubikinCV memiliki berbagai pilihan template desain CV yang
-              menarik. Hanya dengan beberapa klik, Anda akan memiliki CV profesional yang bisa
-              membedakan Anda di mata pemberi kerja.</p>
-
-            <div class="icon-box" data-aos="fade-up">
-              <div class="icon"><i class="bx bx-fingerprint"></i></div>
-              <h4 class="title"><a href="">Layanan 1</a></h4>
-              <p class="description">Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident</p>
-            </div>
-
-            <div class="icon-box" data-aos="fade-up" data-aos-delay="100">
-              <div class="icon"><i class="bx bx-gift"></i></div>
-              <h4 class="title"><a href="">Layanan 2</a></h4>
-              <p class="description">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque</p>
-            </div>
-
-            <div class="icon-box" data-aos="fade-up" data-aos-delay="200">
-              <div class="icon"><i class="bx bx-atom"></i></div>
-              <h4 class="title"><a href="">Layanan 3</a></h4>
-              <p class="description">Explicabo est voluptatum asperiores consequatur magnam. Et veritatis odit. Sunt aut deserunt minus aut eligendi omnis</p>
-            </div>
-
-          </div>
-        </div>
-
-      </div>
-    </section><!-- End About Section -->
-
- 
-  
-
-    <!-- ======= Contact Section ======= -->
-    <section id="contact" class="contact">
-      <div class="container">
-
-       
-
-        <div class="row justify-content-center" data-aos="fade-up" data-aos-delay="300">
-           
-          <form action="http://127.0.0.1:8000/customers2"  >
-            <div class="text-center php-email-form">
-              <button type="submit" style="color:white;"  >Buat CV Sekarang</button>
-            </div>
-          </form>
-          
-         
-          
-
-        </div>
-
-      </div>
-    </section><!-- End Contact Section -->
-
-    <!-- ======= Testimonials Section ======= -->
-    <section id="testimonials" class="testimonials">
-      <div class="container position-relative" data-aos="fade-up">
-
-        <div class="testimonials-slider swiper" data-aos="fade-up" data-aos-delay="100">
-          <div class="swiper-wrapper">
-
-
-            
-            <?php ?>
-            @foreach ($testimonis as $p)
-            
-              
-              
-               
-            
-              
-         
-
-            <div class="swiper-slide">
-              <div class="testimonial-item">
-                <img src="/upload/{{ $p->gambar}}" class="testimonial-img" alt="">
-                <h3>{{ $p->nama}}</h3>
-                {{-- <h4>Ceo &amp; Founder</h4> --}}
-                <p>
-                  <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-                  {{ $p->keterangan}}
-                  <i class="bx bxs-quote-alt-right quote-icon-right"></i>
-                </p>
-              </div>
-            </div><!-- End testimonial item -->
-
-            <?php ?>
-            @endforeach
- 
-
-          </div>
-          <div class="swiper-pagination"></div>
-        </div>
-
-      </div>
-    </section><!-- End Testimonials Section -->
-
-  
-    
-
-
-      <!-- ======= Portfolio Section ======= -->
-      <section id="portfolio" class="portfolio">
+    <!-- Start Testimonials Area -->
+    <section class="testimonials section">
         <div class="container">
-  
-          <div class="section-title">
-            <h2 data-aos="fade-up">Contoh Themplete</h2>
-            <p data-aos="fade-up">"Kami hadirkan The Complete Curriculum Vitae - solusi unggulan untuk memaksimalkan potensi karier Anda. Ini adalah panduan komprehensif yang akan membantu Anda membuat CV yang menarik dan profesional. Dengan templat yang modern, tips penulisan yang canggih, dan panduan langkah demi langkah.</p>
-          </div>
-  
-          <div class="row" data-aos="fade-up" data-aos-delay="100">
-            <div class="col-lg-12 d-flex justify-content-center">
-              <ul id="portfolio-flters">
-                {{-- <li data-filter="*" class="filter-active">All</li>
-                <li data-filter=".filter-app">App</li>
-                <li data-filter=".filter-card">Card</li>
-                <li data-filter=".filter-web">Web</li> --}}
-              </ul>
+            <div class="row">
+                <div class="col-12">
+                    <div class="section-title align-center gray-bg">
+                        <div class="section-icon wow zoomIn" data-wow-delay=".4s">
+                            <i class="lni lni-quotation"></i>
+                        </div>
+                        <h2 class="wow fadeInUp" data-wow-delay=".4s">Apa kata Alumni</h2>
+                        <p class="wow fadeInUp" data-wow-delay=".6s">Testimoni menarik dari para alumni tentang sekolah
+                            kami</p>
+                    </div>
+                </div>
             </div>
-          </div>
-  
-          <div class="row portfolio-container" data-aos="fade-up" data-aos-delay="200">
+            <div class="row testimonial-slider">
+                @foreach ($testimoni as $p)
+                    <div class="col-lg-4 col-md-6 col-12">
+                        <!-- Start Single Testimonial -->
+                        <div class="single-testimonial">
+                            <div class="text">
+                                <p>"{{ $p->keterangan }}"</p>
+                            </div>
+                            <div class="author">
+                                <img src="/upload/testimoni/{{ $p->gambar }}" alt="#">
+                                <h4 class="name">
+                                    {{ $p->nama_testimoni }}
+                                    <span class="deg">~</span>
+                                </h4>
+                            </div>
+                        </div>
+                        <!-- End Single Testimonial -->
+                    </div>
+                @endforeach
 
-              
-            <?php ?>
-            @foreach ($portofolios as $p)
-            
-            <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-              <img src="/upload/{{ $p->gambar}}" class="img-fluid" alt="">
-              <div class="portfolio-info">
-                <h4>{{ $p->nama}}</h4>
-                <p>{{ $p->keterangan}}</p>
-                <a href="/upload/{{ $p->gambar}}" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="{{ $p->nama}}"><i class="bx bx-plus"></i></a>
-                <a href="{{ $p->link}}" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
-              </div>
             </div>
-  
-
-            <?php ?>
-            @endforeach
-  
-       
-    
-  
-          </div>
-  
         </div>
-      </section><!-- End Portfolio Section -->
+    </section>
+    <!-- End Testimonial Area -->
+
+    <!-- Start Newsletter Area -->
+    <section class="newsletter-area section">
+        <div class="container">
+            <div class="row ">
+                <div class="col-lg-6 offset-lg-3 col-md-12 col-12">
+                    <div class="newsletter-title">
+                        <i class="lni lni-quotation"></i>
+                        <h2>Daftarkan Segera</h2>
+                        <p>{{ $profil->alamat }}</p>
+                        <hr>
+                        <h6>({{ $profil->no_telp }}) - <a href="mailto:{{ $profil->email }}"
+                                target="_blank">{{ $profil->email }}</a></h6>
+                    </div>
+                    <!-- Start Newsletter Form -->
+                    <div class="subscribe-text wow fadeInUp" data-wow-delay=".2s">
 
 
+                        <div class="button">
+                            <a href="">
+                                <button class="btn">Daftar!</button>
+                            </a>
 
-      
- 
+                        </div>
 
+                        <ul class="newsletter-social">
+                            <li><a href="{{ $profil->facebook }}" target="_blank"><i
+                                        class="lni lni-facebook-original"></i></a></li>
+                            <li><a href="{{ $profil->youtube }}" target="_blank"><i class="lni lni-youtube"></i></a>
+                            </li>
+                            <li><a href="{{ $profil->instagram }}" target="_blank"><i class="lni lni-instagram"></i></a>
+                            </li>
 
-
-
-           <!-- ======= F.A.Q Section ======= -->
-     <section id="faq" class="faq section-bg">
-      <div class="container">
-
-        <div class="section-title">
-          <h2 data-aos="fade-up">F.A.Q</h2>
-          <p data-aos="fade-up">Pertanyaan yang Sering Diajukan (FAQ) kami adalah sumber informasi penting untuk memahami lebih dalam tentang produk atau layanan kami. Di sini, Anda akan menemukan jawaban yang lengkap dan jelas untuk pertanyaan-pertanyaan umum yang sering diajukan oleh pelanggan kami</p>
+                        </ul>
+                    </div>
+                    <!-- End Newsletter Form -->
+                </div>
+            </div>
         </div>
-
-        <div class="faq-list">
-          <ul>
-
-            
-            <?php ?>
-            @foreach ($faqs as $p)
-            
-                  
-            <li data-aos="fade-up" data-aos-delay="100">
-              <i class="bx bx-help-circle icon-help"></i> <a data-bs-toggle="collapse" data-bs-target="#faq-list-{{ $p->urutan}}" class="collapsed">{{ $p->pertanyaan}} <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
-              <div id="faq-list-{{ $p->urutan}}" class="collapse" data-bs-parent=".faq-list">
-                <p>
-                  {{ $p->jawaban}}
-                </p>
-              </div>
-            </li>
-
-  
-
-            <?php ?>
-            @endforeach
+    </section>
+    <!-- /End Newsletter Area -->
 
 
- 
-          </ul>
+
+    <!-- Start Latest News Area -->
+    <div class="latest-news-area section">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="section-title">
+                        <div class="section-icon wow zoomIn" data-wow-delay=".4s">
+                            <i class="lni lni-quotation"></i>
+                        </div>
+                        <h2 class="wow fadeInUp" data-wow-delay=".4s">Blog Terakhir</h2>
+                        <p class="wow fadeInUp" data-wow-delay=".6s">Dapatkan informasi terbaru yang menarik dan
+                            informatif untuk anda semua dari berbagai macam kategori yang ada</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                @foreach ($berita as $p)
+                    <div class="col-lg-4 col-md-6 col-12">
+                        <!-- Single News -->
+                        <div class="single-news custom-shadow-hover wow fadeInUp" data-wow-delay=".2s">
+                            <div class="image">
+                                <a href=""><img class="thumb" src="/upload/berita/{{ $p->gambar }}"
+                                        alt="#"></a>
+                            </div>
+                            <div class="content-body">
+                                <div class="meta-data">
+                                    <ul>
+                                        <li>
+                                            <i class="lni lni-tag"></i>
+                                            <a href="javascript:void(0)">
+                                                {{ $p->kategoriBerita->nama_kategori_berita }}</a>
+                                        </li>
+                                        <li>
+                                            <i class="lni lni-calendar"></i>
+                                            <a href="javascript:void(0)"> {{ $p->tanggal_posting }}</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <h4 class="title"><a href="{{ route('berita_sekolah.berita_sekolah_detail', $p->slug) }}"> {{ $p->judul_berita }}</a></h4>
+                                @php
+                                    $cleaned_text = strip_tags($p->isi); // Menghilangkan semua tag HTML
+                                    $truncated_text =
+                                        strlen($cleaned_text) > 150
+                                            ? substr($cleaned_text, 0, 150) . '...'
+                                            : $cleaned_text; // Membatasi hingga 150 karakter
+                                @endphp
+
+                                <p>{{ $truncated_text }}</p>
+
+                                <div class="button">
+                                    <a href="{{ route('berita_sekolah.berita_sekolah_detail', $p->slug) }}" class="btn">Selengkapnya</a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End Single News -->
+                    </div>
+                @endforeach
+            </div>
         </div>
-
-      </div>
-    </section><!-- End F.A.Q Section -->
-
-
-    <!-- ======= Clients Section ======= -->
-     <section id="clients" class="clients">
-      <div class="section-title">
-        <h2 data-aos="fade-up">Metode Pembayaran</h2>
-        <p data-aos="fade-up">Kini anda lebih mudah dan praktis untuk melakukan pembayaran kapanpun dan dimanapun</p>
-      </div>
-      <div class="container" data-aos="fade-up">
-
-        <div class="clients-slider swiper">
-          <div class="swiper-wrapper align-items-center">
-
-            <?php ?>
-            @foreach ($metodes as $p)
-            
-                  
-            <div class="swiper-slide"><img src="/upload/{{ $p->gambar}}" class="img-fluid" alt="{{ $p->nama}}"></div>
-  
-
-            <?php ?>
-            @endforeach
-
-           
- 
-          </div>
-          <div class="swiper-pagination"></div>
-        </div>
-
-      </div>  
-    </section><!-- End Clients Section -->
+    </div>
+    <!-- End Latest News Area -->
+    <br>
+    <div class="popular-courses circle carousel-shadow ">
+        <div class="container">
+            <div class="site-heading text-center mt-2">
 
 
 
-    
- 
+                <div class="embedsocial-hashtag" data-ref="b26fd1fe91a65d10f5149e8f3626d0b6f15255aa"></div>
+                <script>
+                    (function(d, s, id) {
+                        var js;
+                        if (d.getElementById(id)) {
+                            return;
+                        }
+                        js = d.createElement(s);
+                        js.id = id;
+                        js.src = "https://embedsocial.com/cdn/ht.js";
+                        d.getElementsByTagName("head")[0].appendChild(js);
+                    }(document, "script", "EmbedSocialHashtagScript"));
+                </script>
 
-  </main><!-- End #main -->
 
-  <!-- ======= Footer ======= -->
-  <footer id="footer">
 
-    <div class="footer-top">
-      <div class="container">
-        <div class="row">
-
-          <div class="col-lg-3 col-md-6 footer-contact">
-            <a href="/"><img src="{{ asset('themplete/front')}}/assets/img/logo.png" alt="" class="img-fluid"></a>
-            <p>
-              {{ $profile->alamat}} <br><br>
-              <strong>Phone:</strong>   {{ $profile->no_telp}}<br>
-              <strong>Email:</strong>  {{ $profile->email}}<br>
-            </p>
-          </div>
-
-          <div class="col-lg-2 col-md-6 footer-links">
-             
-            <ul>
-              <li><i class="bx bx-chevron-right"></i> <a href="/">Home</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#about">About us</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#" data-bs-toggle="modal" data-bs-target="#myModal">Kebijakan</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#" data-bs-toggle="modal" data-bs-target="#myModal2">Syarat & Ketentuan Layanan</a></li>
-              
-          </div>
-
-          <div class="col-lg-3 col-md-6 footer-links">
-             
-            <ul>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Blog</a></li>
-               
-            </ul>
-          </div>
-
-          <div class="col-lg-4 col-md-6 footer-newsletter">
-            
-              <h4 style="display: inline-block;">Join Our Newsletter</h4>
-            
-            <p>Gabung bersama kami untuk mendapatkan informasi selengkapnya</p>
-            <form action="" method="post">
-              <input type="email" name="email"><input type="submit" value="Subscribe">
-            </form>
-          </div>
+            </div>
 
         </div>
-      </div>
     </div>
 
-    <div class="container d-lg-flex py-4">
+    <!-- Start Clients Area -->
+    <div class="client-logo-section">
+        <div class="container">
+            <div class="client-logo-wrapper">
+                <div class="client-logo-carousel d-flex align-items-center justify-content-between">
+                    @foreach ($mitra as $p)
+                        <div class="client-logo">
+                            <a href="{{ $p->website }}">
+                                <img src="/upload/mitra/{{ $p->gambar }}" alt="">
+                            </a>
 
-      <div class="me-lg-auto text-center text-lg-start">
-        <div class="copyright">
-          &copy; Copyright <strong><span>MaubikinCV</span></strong>. All Rights Reserved
+                        </div>
+                    @endforeach
+                </div>
+            </div>
         </div>
-        <div class="credits">
-          <!-- All the links in the footer should remain intact. -->
-          <!-- You can delete the links only if you purchased the pro version. -->
-          <!-- Licensing information: https://bootstrapmade.com/license/ -->
-          <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/flexor-free-multipurpose-bootstrap-template/ -->
-          Designed by <a href="">BootstrapMade</a>
-        </div>
-      </div>
-      <div class="social-links text-center text-lg-right pt-3 pt-lg-0">
-        <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
-        <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
-        <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
-        <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
-        <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
-      </div>
     </div>
-  </footer><!-- End Footer -->
+    <!-- End Clients Area -->
 
-  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+    <script>
+        document.getElementById("openPopup").addEventListener("click", function() {
+            const popup = document.getElementById("popup");
+            const youtubeVideo = document.getElementById("youtubeVideo");
 
+            // Ganti "watch?v=" dengan "embed/" untuk digunakan dalam iframe
+            const videoId = youtubeUrl.split("watch?v=")[1]; // Ambil ID video
+            const embedUrl = "https://www.youtube.com/embed/" + videoId; // Buat URL embed
 
+            youtubeVideo.src = embedUrl; // Setel URL ke iframe
+            popup.style.display = "flex"; // Tampilkan pop-up
+        });
 
+        document.getElementById("closePopup").addEventListener("click", function() {
+            const popup = document.getElementById("popup");
+            const youtubeVideo = document.getElementById("youtubeVideo");
 
+            popup.style.display = "none"; // Sembunyikan pop-up
+            youtubeVideo.src = ""; // Hentikan video
+        });
+    </script>
+    <script>
+        const btnTentangKami = document.querySelector('.btn');
+        const sectionTentangKami = document.querySelector('#tentang-kami');
 
+        btnTentangKami.addEventListener('click', function(event) {
+            event.preventDefault(); // Cegah tautan default
+            smoothScroll(sectionTentangKami);
+        });
 
+        function smoothScroll(target) {
+            const targetPosition = target.offsetTop;
+            const scrollDuration = 500; // Durasi scroll (dalam milidetik)
 
+            const startPosition = window.pageYOffset;
+            let currentPosition = startPosition;
 
+            const increment = (targetPosition - currentPosition) / (scrollDuration / 10);
 
+            function animation() {
+                currentPosition += increment;
+                window.scrollTo(0, currentPosition);
 
+                if (currentPosition < targetPosition) {
+                    requestAnimationFrame(animation);
+                } else {
+                    // Scroll selesai
+                }
+            }
 
-
-
-
-
-
-<!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Kebijakan | MaubikinCV.com</h5>
-        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <iframe src="https://drive.google.com/file/d/1d0YbF7ALr2xE7XzWTY-XCXM00thT8Jdp/preview" width="100%" height="600px" style="border:0;"></iframe>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-
-
- 
-<!-- Modal -->
-<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel2">Syarat & Ketentuan | MaubikinCV.com</h5>
-        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <iframe src="https://drive.google.com/file/d/1vrITgUqucUbrnEvZRxY5Qk_Dg5kbVvhY/preview" width="100%" height="600px" style="border:0;"></iframe>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-
-
- 
-
-
-
-
-  <!-- Vendor JS Files -->
-  <script src="{{ asset('themplete/front')}}/assets/vendor/aos/aos.js"></script>
-  <script src="{{ asset('themplete/front')}}/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="{{ asset('themplete/front')}}/assets/vendor/glightbox/js/glightbox.min.js"></script>
-  <script src="{{ asset('themplete/front')}}/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-  <script src="{{ asset('themplete/front')}}/assets/vendor/swiper/swiper-bundle.min.js"></script>
-  <script src="{{ asset('themplete/front')}}/assets/vendor/php-email-form/validate.js"></script>
-
-  <!-- Template Main JS File -->
-  <script src="{{ asset('themplete/front')}}/assets/js/main.js"></script>
-
-  
-<button onclick="topFunction()" id="myBtn" title="Go to top"><i class="bx bx-unite"></i> Buat CV Sekarang</button>
-
-
-
-<script>
-// Get the button
-let mybutton = document.getElementById("myBtn");
-
-// When the user scrolls down 20px from the top of the document, show the button
-window.onscroll = function() {scrollFunction()};
-
-function scrollFunction() {
-  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-    mybutton.style.display = "block";
-  } else {
-    mybutton.style.display = "none";
-  }
-  mybutton.onclick = function() {
-  window.location.href = "/customers";
-}
-}
-
-// When the user clicks on the button, scroll to the top of the document
-function topFunction() {
-  document.body.scrollTop = 0;
-  document.documentElement.scrollTop = 0;
-}
-</script>
-
-</body>
-
-</html>
-
+            animation();
+        }
+    </script>
+@endsection

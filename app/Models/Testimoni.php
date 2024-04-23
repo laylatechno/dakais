@@ -11,8 +11,9 @@ class Testimoni extends Model
     protected $table = 'testimoni';
 
     protected $fillable = [
-        'nama',
+        'nama_testimoni',
         'keterangan',
+        'urutan',
         'gambar',
     ];
 }

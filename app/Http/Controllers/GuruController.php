@@ -69,6 +69,7 @@ class GuruController extends Controller
             'username' => 'required',
             'password' => 'required',
             'status' => 'required',
+        
             'tanggal_masuk' => 'required',
         ], [
             'nip.required' => 'NIP Wajib diisi',
@@ -241,6 +242,9 @@ class GuruController extends Controller
         $guru->password = $request->input('password');
         $guru->tanggal_masuk = $request->input('tanggal_masuk');
         $guru->status = $request->input('status');
+        $guru->status_aktif = $request->input('status_aktif');
+        $guru->posisi = $request->input('posisi');
+        $guru->motto = $request->input('motto');
         $guru->save();
 
 

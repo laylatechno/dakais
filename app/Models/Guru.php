@@ -27,6 +27,9 @@ class Guru extends Model
         'username',
         'password',
         'status',
+        'posisi',
+        'status_aktif',
+        'motto',
         'tanggal_masuk',
     ];
 

@@ -38,11 +38,11 @@ class TestimoniController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nama'=>'required',
+            'nama_testimoni'=>'required',
             'keterangan'=>'required',
             'gambar' => 'mimes:jpg,jpeg,png,gif|max:2048', // Max 2 MB (2048 KB)
         ],[
-            'nama.required'=>'Nama Wajib diisi',
+            'nama_testimoni.required'=>'Nama Wajib diisi',
             'keterangan.required'=>'Keterangan Wajib diisi',
             'gambar.mimes' => 'Foto yang dimasukkan hanya diperbolehkan berekstensi JPG, JPEG, PNG dan GIF',
             'gambar.max' => 'Ukuran gambar tidak boleh lebih dari 2 MB',
@@ -50,18 +50,18 @@ class TestimoniController extends Controller
         $input = $request->all();
 
         if ($image = $request->file('gambar')) {
-            $destinationPath = 'upload/';
+            $destinationPath = 'upload/testimoni/';
             
-            // Mengambil nama file asli
+            // Mengambil nama_testimoni file asli
             $originalFileName = $image->getClientOriginalName();
         
             // Mendapatkan ekstensi file
             $extension = $image->getClientOriginalExtension();
         
-            // Menggabungkan waktu dengan nama file asli
+            // Menggabungkan waktu dengan nama_testimoni file asli
             $imageName = date('YmdHis') . '_' . str_replace(' ', '_', $originalFileName) . '.' . $extension;
         
-            // Pindahkan file ke lokasi tujuan dengan nama baru
+            // Pindahkan file ke lokasi tujuan dengan nama_testimoni baru
             $image->move($destinationPath, $imageName);
         
             $input['gambar'] = $imageName;
@@ -105,11 +105,11 @@ class TestimoniController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'nama' => 'required',
+            'nama_testimoni' => 'required',
             'keterangan' => 'required',
             'gambar' => 'mimes:jpg,jpeg,png,gif|max:2048', // Max 2 MB (2048 KB)
         ], [
-            'nama.required' => 'Nama Wajib diisi',
+            'nama_testimoni.required' => 'Nama Wajib diisi',
             'keterangan.required' => 'Keterangan Wajib diisi',
             'gambar.mimes' => 'Foto yang dimasukkan hanya diperbolehkan berekstensi JPG, JPEG, PNG, dan GIF',
             'gambar.max' => 'Ukuran gambar tidak boleh lebih dari 2 MB',
@@ -123,20 +123,20 @@ class TestimoniController extends Controller
     
         if ($image = $request->file('gambar')) {
             // Hapus gambar lama jika ada
-            if (file_exists(public_path('upload/' . $testimoni->gambar))) {
-                unlink(public_path('upload/' . $testimoni->gambar));
+            if (file_exists(public_path('upload/testimoni/' . $testimoni->gambar))) {
+                unlink(public_path('upload/testimoni/' . $testimoni->gambar));
             }
         
 
-            $destinationPath = 'upload/';
+            $destinationPath = 'upload/testimoni/';
             
-            // Mengambil nama file asli
+            // Mengambil nama_testimoni file asli
             $originalFileName = $image->getClientOriginalName();
         
             // Mendapatkan ekstensi file
             $extension = $image->getClientOriginalExtension();
         
-            // Menggabungkan waktu dengan nama file asli
+            // Menggabungkan waktu dengan nama_testimoni file asli
             $imageName = date('YmdHis') . '_' . str_replace(' ', '_', $originalFileName) . '.' . $extension;
 
         
@@ -146,8 +146,9 @@ class TestimoniController extends Controller
         
     
         // Perbarui data lainnya
-        $testimoni->nama = $request->input('nama');
+        $testimoni->nama_testimoni = $request->input('nama_testimoni');
         $testimoni->keterangan = $request->input('keterangan');
+        $testimoni->urutan = $request->input('urutan');
         $testimoni->save();
     
         return redirect('/testimoni')->with('message', 'Data berhasil diperbarui');
@@ -169,8 +170,8 @@ class TestimoniController extends Controller
             Testimoni::where('id', $id)->delete();
     
             // Hapus file foto
-            if (file_exists(public_path('upload/' . $namaFoto))) {
-                unlink(public_path('upload/' . $namaFoto));
+            if (file_exists(public_path('upload/testimoni/' . $namaFoto))) {
+                unlink(public_path('upload/testimoni/' . $namaFoto));
             }
     
             return redirect('/portofolios')->with('messagehapus', 'Berhasil menghapus data dan foto');

@@ -36,6 +36,7 @@ class BeritaController extends Controller
                                 'isi', 
                                 'gambar', 
                                 'sumber', 
+                                'status', 
                                 'urutan'
                                 ])->get();
         
@@ -115,6 +116,7 @@ class BeritaController extends Controller
         $berita->isi = $request->isi;
         $berita->sumber = $request->sumber;
         $berita->urutan = $request->urutan;
+        $berita->status = $request->status;
         
         
            // Simpan file gambar ke direktori yang diinginkan (misalnya: uploads/gambar_berita)
@@ -222,6 +224,7 @@ class BeritaController extends Controller
         $berita->isi = $request->isi;
         $berita->sumber = $request->sumber;
         $berita->urutan = $request->urutan;
+        $berita->status = $request->status;
     
         
     
