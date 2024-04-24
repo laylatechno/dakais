@@ -4,14 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Models\About;
 use App\Models\Berita;
+use App\Models\Galeri;
 use App\Models\Guru;
 use App\Models\Hitung;
 use App\Models\KategoriBerita;
 use App\Models\Kegiatan;
+use App\Models\Kontak;
 use App\Models\Mitra;
 use App\Models\Profil;
 use App\Models\Slider;
 use App\Models\Testimoni;
+use App\Models\Unduhan;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -49,9 +52,9 @@ class HomeController extends Controller
     public function kegiatan_sekolah()
     {
         $kegiatan = Kegiatan::where('status', 'Aktif')->paginate(6);
-    
+
         $mitra = Mitra::all();
-    
+
         return view('front.kegiatan', compact('kegiatan', 'mitra'));
     }
 
@@ -101,36 +104,32 @@ class HomeController extends Controller
     public function cari_berita(Request $request)
     {
         $keyword = $request->input('q');
-    
+
         $berita = Berita::where('judul_berita', 'LIKE', "%$keyword%")
-                        ->orWhere('isi', 'LIKE', "%$keyword%")
-                        ->paginate(2); // Menggunakan pagination
-    
+            ->orWhere('isi', 'LIKE', "%$keyword%")
+            ->paginate(2); // Menggunakan pagination
+
         $mitra = Mitra::all();
-    
+
         return view('front.berita', compact('berita', 'mitra')); // Mengembalikan tampilan dengan hasil pencarian
     }
 
 
-    public function blog()
+    public function galeri_sekolah()
     {
-        return view('front.blog');
+
+        $about = About::all();
+        $galeri = Galeri::all();
+        return view('front.galeri', compact('about', 'galeri'));
     }
 
-    public function kontak()
+    public function unduhan_sekolah()
     {
-        return view('front.kontak');
+
+        $about = About::all();
+        $unduhan = Unduhan::orderBy('id', 'desc')->get();
+        return view('front.unduhan', compact('about', 'unduhan'));
     }
 
-    public function kebijakan()
-    {
-        $profile = Profil::first();
-        return view('front.kebijakan', compact('profile'));
-    }
-
-    public function syarat()
-    {
-        $profile = Profil::first();
-        return view('front.syarat', compact('profile'));
-    }
+     
 }

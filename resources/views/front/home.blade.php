@@ -199,7 +199,7 @@
                         <!-- Start Single Event -->
                         <div class="single-event wow fadeInUp" data-wow-delay=".2s">
                             <div class="event-image">
-                       
+
                                 <a href="{{ route('kegiatan_sekolah.kegiatan_sekolah_detail', $p->id) }}">
                                     <img src="/upload/kegiatan/{{ $p->gambar }}" alt="#" class="event-image">
                                 </a>
@@ -214,7 +214,9 @@
 
                             </div>
                             <div class="content">
-                                <h3><a href="{{ route('kegiatan_sekolah.kegiatan_sekolah_detail', $p->id) }}">{{ $p->nama_kegiatan }}</a></h3>
+                                <h3><a
+                                        href="{{ route('kegiatan_sekolah.kegiatan_sekolah_detail', $p->id) }}">{{ $p->nama_kegiatan }}</a>
+                                </h3>
                                 @php
                                     $cleaned_text = strip_tags($p->deskripsi); // Menghilangkan semua tag HTML
                                     $truncated_text =
@@ -231,8 +233,11 @@
 
                                 <span class="time">
                                     <i class="lni lni-timer"></i>
-                                    <a href="{{ route('kegiatan_sekolah.kegiatan_sekolah_detail', $p->id) }}">{{ $p->tempat }}</a> |
-                                    <a href="{{ route('kegiatan_sekolah.kegiatan_sekolah_detail', $p->id) }}">{{ $p->tanggal_kegiatan }} | {{ $p->jam }}</a>
+                                    <a
+                                        href="{{ route('kegiatan_sekolah.kegiatan_sekolah_detail', $p->id) }}">{{ $p->tempat }}</a>
+                                    |
+                                    <a href="{{ route('kegiatan_sekolah.kegiatan_sekolah_detail', $p->id) }}">{{ $p->tanggal_kegiatan }}
+                                        | {{ $p->jam }}</a>
                                     <br>
 
                                 </span>
@@ -380,7 +385,13 @@
 
 
                         <div class="button">
-                            <a href="">
+                            @php
+                                $no_telp = str_replace(['-', ' ', '+'], '', $profil->no_telp); // Menghapus tanda tambah (+), spasi, dan tanda hubung jika ada
+                                $pesan = 'Hallo.. !! Apakah berkenan saya bertanya terkait pendaftaran peserta didik baru ?';
+                                $encoded_pesan = urlencode($pesan); // Meng-encode pesan agar aman dalam URL
+                                $whatsapp_url = "https://wa.me/{$no_telp}?text={$encoded_pesan}"; // Membuat URL lengkap
+                            @endphp
+                            <a href="{{ $whatsapp_url }}"  target="_blank">
                                 <button class="btn">Daftar!</button>
                             </a>
 
@@ -443,7 +454,9 @@
                                         </li>
                                     </ul>
                                 </div>
-                                <h4 class="title"><a href="{{ route('berita_sekolah.berita_sekolah_detail', $p->slug) }}"> {{ $p->judul_berita }}</a></h4>
+                                <h4 class="title"><a
+                                        href="{{ route('berita_sekolah.berita_sekolah_detail', $p->slug) }}">
+                                        {{ $p->judul_berita }}</a></h4>
                                 @php
                                     $cleaned_text = strip_tags($p->isi); // Menghilangkan semua tag HTML
                                     $truncated_text =
@@ -455,7 +468,8 @@
                                 <p>{{ $truncated_text }}</p>
 
                                 <div class="button">
-                                    <a href="{{ route('berita_sekolah.berita_sekolah_detail', $p->slug) }}" class="btn">Selengkapnya</a>
+                                    <a href="{{ route('berita_sekolah.berita_sekolah_detail', $p->slug) }}"
+                                        class="btn">Selengkapnya</a>
                                 </div>
                             </div>
                         </div>

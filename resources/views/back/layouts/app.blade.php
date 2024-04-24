@@ -706,6 +706,17 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
+                                    <a href="/link" class="nav-link">
+
+                                        {{-- <i class="nav-icon far fa-handshake"></i> --}}
+                                        <i class="far fa-circle nav-icon"></i>
+
+                                        <p>
+                                            Link
+                                        </p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
                                     <a href="/kontak" class="nav-link">
                                         {{-- <i class="nav-icon far fa-address-book"></i> --}}
                                         <i class="far fa-circle nav-icon"></i>

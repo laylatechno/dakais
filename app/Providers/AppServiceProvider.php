@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Providers;
+
+use App\Models\Link;
 use App\Models\Profil;
 use Illuminate\Support\Facades\View;
 
@@ -27,6 +29,10 @@ class AppServiceProvider extends ServiceProvider
     {
         $profil = Profil::where('id', 1)->first();
         View::share('profil', $profil);
+
+         // Bagikan data link
+         $link = Link::all(); // Atau sesuaikan dengan kondisi yang Anda butuhkan
+         View::share('link', $link);
     
     }
 }

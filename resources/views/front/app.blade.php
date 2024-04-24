@@ -120,17 +120,17 @@
                                
                                
                                
-                                <li class="nav-item"><a href="{{ asset('themplete/front/1') }}/contact.html">Unduhan</a></li>
-                                <li class="nav-item"><a href="{{ asset('themplete/front/1') }}/contact.html">Kontak</a></li>
+                                <li class="nav-item"><a href="/unduhan_sekolah">Unduhan</a></li>
+                                <li class="nav-item"><a href="/kontak_sekolah">Kontak</a></li>
                                 <li class="nav-item">
-                                    <a class="page-scroll dd-menu collapsed" href="{{ asset('themplete/front/1') }}/javascript:void(0)"
+                                    <a class="page-scroll dd-menu collapsed" href="javascript:void(0)"
                                         data-bs-toggle="collapse" data-bs-target="#submenu-1-5"
                                         aria-controls="navbarSupportedContent" aria-expanded="false"
                                         aria-label="Toggle navigation">Link </a>
                                     <ul class="sub-menu collapse" id="submenu-1-5">
-                                        <li class="nav-item"><a href="{{ asset('themplete/front/1') }}/blog-grid-sidebar.html">Blog Grid Sidebar</a></li>
-                                        <li class="nav-item"><a href="{{ asset('themplete/front/1') }}/blog-single.html">Blog Single</a></li>
-                                        <li class="nav-item"><a href="{{ asset('themplete/front/1') }}/blog-single-sidebar.html">Blog Single Sibebar</a></li>
+                                        @foreach ($link as $p)
+                                        <li class="nav-item"><a href="{{ $p->link }}" target="_blank">{{ $p->nama_link }}</a></li>
+                                         @endforeach
                                     </ul>
                                 </li>
                             </ul>

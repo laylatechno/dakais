@@ -13,12 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('kontaks', function (Blueprint $table) {
+        Schema::create('unduhan', function (Blueprint $table) {
             $table->id();
-            $table->string('nama_pengirim');  
-            $table->string('no_telp');  
-            $table->string('email');  
-            $table->text('isi'); 
+            $table->string('tanggal_publish'); 
+            $table->string('nama_unduhan'); 
+            $table->string('kategori'); 
+            $table->string('link'); 
+            $table->string('thumbnail'); 
+            $table->string('file'); 
             $table->timestamps();
         });
     }
@@ -30,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('kontaks');
+        Schema::dropIfExists('unduhan');
     }
 };

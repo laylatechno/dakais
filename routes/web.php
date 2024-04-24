@@ -35,7 +35,9 @@ use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\SliderController;
 use App\Http\Controllers\TahunAjaranController;
 use App\Http\Controllers\KepalaSekolahController;
+use App\Http\Controllers\KontakController;
 use App\Http\Controllers\LihatJadwalPelajaranController;
+use App\Http\Controllers\LinkController;
 use App\Http\Controllers\LogHistoriController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\MutasiBarangController;
@@ -54,7 +56,7 @@ use App\Http\Controllers\SuratMasukController;
 use App\Http\Controllers\TabunganController;
 use App\Http\Controllers\TarikTabunganController;
 use App\Http\Controllers\TopUpMemberController;
- 
+use App\Http\Controllers\UnduhanController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WaktuMengajarController;
 use App\Models\Penjualan;
@@ -95,6 +97,7 @@ Route::resource('jurusan', JurusanController::class)->middleware('auth');
 
 Route::get('/', [HomeController::class, 'index']);
 Route::get('/tentang', [HomeController::class, 'tentang']);
+Route::get('/galeri_sekolah', [HomeController::class, 'galeri_sekolah']);
 Route::get('/guru', [HomeController::class, 'guru']);
 Route::get('/kegiatan_sekolah', [HomeController::class, 'kegiatan_sekolah']);
 Route::get('/kegiatan_sekolah/{id}', [HomeController::class, 'kegiatan_sekolah_detail'])->name('kegiatan_sekolah.kegiatan_sekolah_detail');
@@ -106,10 +109,10 @@ Route::get('/berita_sekolah/cari', [HomeController::class, 'cari_berita'])->name
 
 
 
-Route::get('/kontak', [HomeController::class, 'kontak']);
-Route::get('/blog', [HomeController::class, 'blog']);
-Route::get('/kebijakan-privasi', [HomeController::class, 'kebijakan']);
-Route::get('/syarat-ketentuan', [HomeController::class, 'syarat']);
+// Route::get('/kontak_sekolah', [HomeController::class, 'kontak_sekolah']);
+Route::resource('/kontak_sekolah', KontakController::class);
+Route::get('/unduhan_sekolah', [HomeController::class, 'unduhan_sekolah']);
+ 
 
 
 
@@ -286,6 +289,14 @@ Route::get('/spp/{id}/edit', [SppController::class, 'edit'])->name('spp.edit');
 Route::put('/spp/update/{id}', [SppController::class, 'update'])->name('spp.update');
 Route::delete('/spp/{id}', [SppController::class, 'destroy'])->name('spp.destroy');
 
+
+
+// Link
+Route::resource('link', LinkController::class)->middleware('auth');
+Route::get('/link/{id}/edit', [LinkController::class, 'edit'])->name('link.edit');
+Route::put('/link/update/{id}', [LinkController::class, 'update'])->name('link.update');
+Route::delete('/link/{id}', [LinkController::class, 'destroy'])->name('link.destroy');
+
 Route::resource('log_histori', LogHistoriController::class)->middleware('auth');
  
 Route::get('/log-histori/delete-all', [LogHistoriController::class, 'deleteAll'])->name('log-histori.delete-all');
@@ -314,6 +325,11 @@ Route::get('/surat_keluar/{id}/edit', [SuratKeluarController::class, 'edit'])->n
 Route::put('/surat_keluar/update/{id}', [SuratKeluarController::class, 'update'])->name('surat_keluar.update');
 Route::delete('/surat_keluar/{id}', [SuratKeluarController::class, 'destroy'])->name('surat_keluar.destroy');
 
+// Unduhan
+Route::resource('unduhan', UnduhanController::class)->middleware('auth');
+Route::get('/unduhan/{id}/edit', [UnduhanController::class, 'edit'])->name('unduhan.edit');
+Route::put('/unduhan/update/{id}', [UnduhanController::class, 'update'])->name('unduhan.update');
+Route::delete('/unduhan/{id}', [UnduhanController::class, 'destroy'])->name('unduhan.destroy');
 
 
 // Mutasi Barang
