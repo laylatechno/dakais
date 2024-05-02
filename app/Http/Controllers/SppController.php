@@ -33,8 +33,8 @@ class SppController extends Controller
     {
         // $tahunAjaran = TahunAjaran::where('status', 'Aktif')->select('id', 'nama_tahun_ajaran')->get();
         $tahunAjaran = TahunAjaran::select('id', 'nama_tahun_ajaran')->get();
-        $spp = Spp::select('id', 'tahun_ajaran_id', 'jumlah_spp','tanggal_jatuh_tempo')->get();
-        return view('back.spp.index',compact('spp','tahunAjaran'));
+        $spp = Spp::select('id', 'tahun_ajaran_id', 'jumlah_spp', 'tanggal_jatuh_tempo', 'bulan', 'tahun','status')->get();
+        return view('back.spp.index', compact('spp', 'tahunAjaran'));
     }
 
     /**
@@ -44,7 +44,6 @@ class SppController extends Controller
      */
     public function create()
     {
-
     }
 
     /**
@@ -60,12 +59,12 @@ class SppController extends Controller
             'tahun_ajaran_id' => 'required',
             'jumlah_spp' => 'required',
             'tanggal_jatuh_tempo' => 'required',
-            'keterangan' => 'required',
+           
         ], [
             'tahun_ajaran_id.required' => 'Tahun Ajaran Wajib diisi',
             'jumlah_spp.required' => 'Jumlah SPP Wajib diisi',
             'tanggal_jatuh_tempo.required' => 'Tanggal Jatuh Tempo Wajib diisi',
-            'keterangan.required' => 'Keterangan Wajib diisi',
+            
         ]);
 
         if ($validator->fails()) {
@@ -77,6 +76,15 @@ class SppController extends Controller
         if (isset($input['jumlah_spp'])) {
             $input['jumlah_spp'] = str_replace(',', '', $input['jumlah_spp']);
         }
+        // Validasi unik kombinasi bulan dan tahun
+        $existingSpp = Spp::where('bulan', $input['bulan'])
+            ->where('tahun', $input['tahun'])
+            ->first();
+
+        if ($existingSpp) {
+            return response()->json(['errors' => ['kombinasi_bulan_tahun' => 'Kombinasi bulan dan tahun sudah ada']], 422);
+        }
+
 
         // Simpan data spp ke database menggunakan fill()
         $spp = new Spp();
@@ -125,52 +133,52 @@ class SppController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-     public function update(Request $request, $id)
-     {
-         // Ambil data spp yang akan diperbarui
-         $spp = Spp::findOrFail($id);
-         $oldData = $spp->getOriginal();
-     
-         // Validasi request
-         $validator = Validator::make($request->all(), [
-             'tahun_ajaran_id' => 'required',
-             'jumlah_spp' => 'required',
-             'tanggal_jatuh_tempo' => 'required',
-             'keterangan' => 'required',
-         ], [
-             'tahun_ajaran_id.required' => 'Tahun Ajaran Wajib diisi',
-             'jumlah_spp.required' => 'Jumlah SPP Wajib diisi',
-             'tanggal_jatuh_tempo.required' => 'Tanggal Jatuh Tempo Wajib diisi',
-             'keterangan.required' => 'Keterangan Wajib diisi',
-         ]);
-     
-         if ($validator->fails()) {
-             return response()->json(['errors' => $validator->errors()], 422);
-         }
-     
-         // Mengisi data kecuali jumlah_spp
-         $spp->fill($request->except('jumlah_spp'));
-     
-         // Menghapus koma pada jumlah_spp sebelum menyimpan
-         if ($request->has('jumlah_spp')) {
-             $spp->jumlah_spp = str_replace(',', '', $request->input('jumlah_spp'));
-         }
-     
-         // Simpan perubahan
-         $spp->save();
+    public function update(Request $request, $id)
+    {
+        // Ambil data spp yang akan diperbarui
+        $spp = Spp::findOrFail($id);
+        $oldData = $spp->getOriginal();
+
+        // Validasi request
+        $validator = Validator::make($request->all(), [
+            'tahun_ajaran_id' => 'required',
+            'jumlah_spp' => 'required',
+            'tanggal_jatuh_tempo' => 'required',
+             
+        ], [
+            'tahun_ajaran_id.required' => 'Tahun Ajaran Wajib diisi',
+            'jumlah_spp.required' => 'Jumlah SPP Wajib diisi',
+            'tanggal_jatuh_tempo.required' => 'Tanggal Jatuh Tempo Wajib diisi',
+            
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 422);
+        }
+
+        // Mengisi data kecuali jumlah_spp
+        $spp->fill($request->except('jumlah_spp'));
+
+        // Menghapus koma pada jumlah_spp sebelum menyimpan
+        if ($request->has('jumlah_spp')) {
+            $spp->jumlah_spp = str_replace(',', '', $request->input('jumlah_spp'));
+        }
+
+        // Simpan perubahan
+        $spp->save();
 
         // Mendapatkan ID pengguna yang sedang login
         $loggedInUserId = Auth::id();
-    
+
         // Simpan log histori untuk operasi Update dengan user_id yang sedang login
         $this->simpanLogHistori('Update', 'spp', $spp->id, $loggedInUserId, json_encode($oldData), json_encode($spp));
 
-     
-         return response()->json(['message' => 'Data Berhasil Diperbaharui']);
-     }
-     
-     
-     
+
+        return response()->json(['message' => 'Data Berhasil Diperbaharui']);
+    }
+
+
+
     /**
      * Remove the specified resource from storage.
      *
@@ -195,5 +203,4 @@ class SppController extends Controller
 
         return response()->json(['message' => 'Data Berhasil Dihapus']);
     }
-
 }

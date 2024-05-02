@@ -65,7 +65,7 @@
                                     <li>
                                         <a href="javascript:void(0)">
                                             <i class="lni lni-eye"></i>
-                                            55 View
+                                            {{ $berita->views }} x dilihat
                                         </a>
                                     </li>
 

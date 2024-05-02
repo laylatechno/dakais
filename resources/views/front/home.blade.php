@@ -317,7 +317,7 @@
                 @endforeach
 
                 <div class="button" style="text-align: center; margin-top:25px;">
-                    <a href="/guru">
+                    <a href="/guru_sekolah">
                         <button class="btn">Selengkapnya</button>
                     </a>
 
@@ -375,6 +375,8 @@
                     <div class="newsletter-title">
                         <i class="lni lni-quotation"></i>
                         <h2>Daftarkan Segera</h2>
+                        <img src="/upload/profil/{{ $profil->logo }}" alt="Logo" style="width: 150px; height: auto;">
+                        <br><br>
                         <p>{{ $profil->alamat }}</p>
                         <hr>
                         <h6>({{ $profil->no_telp }}) - <a href="mailto:{{ $profil->email }}"

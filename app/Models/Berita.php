@@ -19,6 +19,7 @@ class Berita extends Model
         'sumber',
         'urutan',
         'status',
+        'views',
     ];
 
     // Model Berita

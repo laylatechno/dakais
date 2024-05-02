@@ -11,26 +11,54 @@ use App\Models\KategoriBerita;
 use App\Models\Kegiatan;
 use App\Models\Kontak;
 use App\Models\Mitra;
-use App\Models\Profil;
+use App\Models\Visitor;
 use App\Models\Slider;
 use App\Models\Testimoni;
 use App\Models\Unduhan;
 use Illuminate\Http\Request;
+use Jenssegers\Agent\Agent; // Pustaka untuk mengurai user-
 
+ 
+ 
 class HomeController extends Controller
 {
     public function index()
-    {
-        $slider = Slider::all();
-        $kegiatan = Kegiatan::where('status', 'Aktif')->take(3)->get();
-        $about = About::all();
-        $testimoni = Testimoni::all();
-        $mitra = Mitra::all();
-        $hitung = Hitung::all();
-        $berita = Berita::with('kategoriBerita')->get();
-        $guru = Guru::where('status_aktif', 'Aktif')->take(4)->get();
-        return view('front.home', compact('slider', 'about', 'guru', 'testimoni', 'berita', 'mitra', 'hitung', 'kegiatan'));
-    }
+{
+    $agent = new Agent(); // Buat instance untuk mengurai user-agent
+
+    // Simpan visitor
+    $ip_address = $_SERVER['REMOTE_ADDR'];
+    $visit_time = date('Y-m-d H:i:s');
+    $session_id = session_id(); // Ambil ID sesi
+    $user_agent = $_SERVER['HTTP_USER_AGENT'];
+
+    // Ambil informasi tentang perangkat dan OS
+    $device = $agent->device(); // Nama perangkat (misalnya, iPhone, Android)
+    $platform = $agent->platform(); // Nama OS (misalnya, Windows, iOS)
+    $browser = $agent->browser(); // Nama browser (misalnya, Chrome, Safari)
+
+    Visitor::create([
+        'ip_address' => $ip_address,
+        'visit_time' => $visit_time,
+        'session_id' => $session_id,
+        'user_agent' => $user_agent,
+        'device' => $device,
+        'platform' => $platform,
+        'browser' => $browser,
+    ]);
+
+    // Data lainnya yang diperlukan untuk tampilan
+    $slider = Slider::all();
+    $kegiatan = Kegiatan::where('status', 'Aktif')->take(3)->get();
+    $about = About::all();
+    $testimoni = Testimoni::all();
+    $mitra = Mitra::all();
+    $hitung = Hitung::all();
+    $berita = Berita::with('kategoriBerita')->get();
+    $guru = Guru::where('status_aktif', 'Aktif')->take(4)->get();
+
+    return view('front.home', compact('slider', 'about', 'guru', 'testimoni', 'berita', 'mitra', 'hitung', 'kegiatan'));
+}
 
 
     public function tentang()
@@ -41,7 +69,7 @@ class HomeController extends Controller
         return view('front.tentang', compact('about', 'mitra'));
     }
 
-    public function guru()
+    public function guru_sekolah()
     {
 
         $guru = Guru::where('status_aktif', 'Aktif')->get();
@@ -80,10 +108,17 @@ class HomeController extends Controller
     public function berita_sekolah_detail($slug)
     {
         $berita = Berita::where('slug', $slug)->firstOrFail();
+
+        // Tambahkan kode untuk memperbarui views:
+        $berita->views = $berita->views + 1;
+        $berita->save();
+
         $berita_all = Berita::where('status', 'Aktif')->take(3)->get();
         $mitra = Mitra::all();
+
         return view('front.berita_detail', compact('berita', 'mitra', 'berita_all'));
     }
+
 
     public function berita_sekolah_by_category_id($id)
     {
@@ -130,6 +165,4 @@ class HomeController extends Controller
         $unduhan = Unduhan::orderBy('id', 'desc')->get();
         return view('front.unduhan', compact('about', 'unduhan'));
     }
-
-     
 }

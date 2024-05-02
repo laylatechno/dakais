@@ -90,7 +90,7 @@
                 <div class="nav-inner">
                     <nav class="navbar navbar-expand-lg">
                         <a class="navbar-brand" href="/">
-                            <img src="/upload/profil/{{ $profil->logo }}" alt="Logo" style="width: 60px; height: auto;">
+                            <img src="/upload/profil/{{ $profil->logo }}" alt="Logo" style="width: 80px; height: auto;">
                         </a>
                         
                         <button class="navbar-toggler mobile-menu-btn" type="button" data-bs-toggle="collapse"
@@ -111,7 +111,7 @@
                                         aria-label="Toggle navigation" >Profil </a>
                                     <ul class="sub-menu collapse" id="submenu-1-1">
                                         <li class="nav-item"><a href="/tentang">Tentang Sekolah</a></li>
-                                        <li class="nav-item"><a href="/guru">Guru dan Staf</a></li>
+                                        <li class="nav-item"><a href="/guru_sekolah">Guru dan Staf</a></li>
                                     </ul>
                                 </li>
                                 <li class="nav-item"><a href="/kegiatan_sekolah">Kegiatan</a></li>

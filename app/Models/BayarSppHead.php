@@ -17,12 +17,20 @@ class BayarSppHead extends Model
         return $this->belongsTo(Siswa::class, 'siswa_id', 'id');
     }
 
-    public function bayar_spp_detail()
+    public function sppRelasi()
     {
-        return $this->hasMany(BayarSppDetail::class);
+        return $this->belongsTo(Spp::class, 'spp', 'id');
     }
 
-
+    public function penempatanKelasDetail()
+    {
+        return $this->hasOne(PenempatanKelasDetail::class, 'siswa_id', 'siswa_id');
+    }
+ 
+    public function penempatanKelas()
+    {
+        return $this->hasOneThrough(Kelas::class, PenempatanKelasDetail::class, 'siswa_id', 'id', 'siswa_id', 'kelas_id');
+    }
  
   
     

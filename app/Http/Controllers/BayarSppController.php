@@ -4,20 +4,20 @@ namespace App\Http\Controllers;
 
 use App\Models\Guru;
 use App\Models\Kelas;
+
  
-use App\Models\BayarSppDetail;
 use App\Models\BayarSppHead;
 use App\Models\Bulan;
 use App\Models\LogHistori;
 use App\Models\Siswa;
 use App\Models\Spp;
-use App\Models\TahunAjaran;
+ 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
- 
- 
+
+
 
 class BayarSppController extends Controller
 {
@@ -41,36 +41,40 @@ class BayarSppController extends Controller
 
     public function index()
     {
-        $tahunAjaran = TahunAjaran::select('id', 'nama_tahun_ajaran')->get();
+        $spp = Spp::where('status', 'Aktif')->get();
         $bulan = Bulan::all();
         $siswa = Siswa::all();
         $bayar_spp = BayarSppHead::all();
 
-        return view('back.bayar_spp.index', compact('bayar_spp','bulan','siswa','tahunAjaran'));
+        return view('back.bayar_spp.index', compact('bayar_spp', 'bulan', 'siswa', 'spp'));
     }
 
-    public function tagihanSpp()
+    // public function tagihanSpp()
+    // {
+    //     $tahunAjaran = TahunAjaran::select('id', 'nama_tahun_ajaran')->get();
+    //     $bulan = Bulan::all();
+    //     $siswa = Siswa::all();
+    //     $bayar_spp = BayarSppHead::all();
+
+    //     return view('back.tagihan_spp.index', compact('bayar_spp', 'bulan', 'siswa', 'tahunAjaran'));
+    // }
+
+    public function getSppDetails($id)
     {
-        $tahunAjaran = TahunAjaran::select('id', 'nama_tahun_ajaran')->get();
-        $bulan = Bulan::all();
-        $siswa = Siswa::all();
-        $bayar_spp = BayarSppHead::all();
-
-        return view('back.tagihan_spp.index', compact('bayar_spp','bulan','siswa','tahunAjaran'));
-    }
-    
-    public function getJumlahSPP()
-    {
-        $tahunAjaranAktif = TahunAjaran::where('status', 'Aktif')->first();
-
-        if ($tahunAjaranAktif) {
-            $jumlahSPP = Spp::where('tahun_ajaran_id', $tahunAjaranAktif->id)->value('jumlah_spp');
-
-            return response()->json(['jumlah_spp' => $jumlahSPP]);
+        $spp = Spp::find($id); // Temukan data Spp berdasarkan ID
+        if ($spp) {
+            return response()->json([
+                'success' => true,
+                'jumlah_spp' => $spp->jumlah_spp, // Mengembalikan nilai jumlah_spp
+            ]);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'Data tidak ditemukan.',
+            ]);
         }
-
-        return response()->json(['error' => 'Tidak ada tahun ajaran yang aktif'], 404);
     }
+
 
 
     public function simpanBayarSpp(Request $request)
@@ -81,25 +85,18 @@ class BayarSppController extends Controller
             'tanggal_bayar' => 'required',
             'jumlah_bayar' => 'required',
             'metode_pembayaran' => 'required',
-            'bulan_id' => 'required|array',
-            'bulan_id.*' => 'required',
+            
         ]);
 
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()], 400);
         }
 
-         // Periksa kombinasi bulan_id dan siswa_id sebelum menyimpan
+        // Periksa kombinasi bulan_id dan siswa_id sebelum menyimpan
         $input = $request->all();
-        $existingRecords = BayarSppDetail::whereIn('bulan_id', $input['bulan_id'])
-            ->where('siswa_id', $input['siswa_id'])
-            ->exists();
+       
 
-        if ($existingRecords) {
-            return response()->json(['message' => 'Spp Bulan Sudah Dibayar'], 400);
-        }
-
-       // Menghapus koma pada jumlah_spp dan jumlah_bayar sebelum menyimpan
+        // Menghapus koma pada jumlah_spp dan jumlah_bayar sebelum menyimpan
         $input = $request->all();
         if (isset($input['jumlah_spp'])) {
             $input['jumlah_spp'] = str_replace(',', '', $input['jumlah_spp']);
@@ -117,19 +114,13 @@ class BayarSppController extends Controller
             'metode_pembayaran' => $input['metode_pembayaran'],
             'keterangan' => $input['keterangan'],
             'jumlah_spp' => $input['jumlah_spp'], // Nilai yang telah diubah tanpa koma
+            'spp' => $input['spp'], // Nilai yang telah diubah tanpa koma
+            'bulan' => $input['bulan'], // Nilai yang telah diubah tanpa koma
+            'tahun' => $input['tahun'], // Nilai yang telah diubah tanpa koma
             'status_head' => 'Lunas',
         ]);
 
-        // Simpan data ke tabel bayar_spp_detail
-        foreach ($input['bulan_id'] as $bulanId) {
-            BayarSppDetail::create([
-                'bayar_spp_head_id' => $bayarSppHead->id,
-                'status_bayar' => 'Lunas',
-                'siswa_id' => $input['siswa_id'],
-                'bulan_id' => $bulanId,
-            ]);
-        }
-
+       
         $loggedInUserId = Auth::id();
 
         // Simpan log histori untuk operasi Create dengan user_id yang sedang login
@@ -139,78 +130,75 @@ class BayarSppController extends Controller
         return response()->json(['message' => 'Data disimpan']);
     }
 
-        
-
-// public function getBayarSppById($id)
-// {
-//     $bayarSiswa = BayarSppHead::with('siswa')->findOrFail($id);
-//     $bulan = BayarSppDetail::where('bayar_bayarSppHead_head_id', $id)->pluck('bulan_id')->toArray();
-    
-
-//     return response()->json([
-//         'siswa_id' => $bayarSiswa->siswa_id,
-//         'bulan_id' => $bulan,
-//     ]);
-// }
-
-public function getBayarSppById($id)
-{
-    $bayarSiswa = BayarSppHead::with('siswa')->findOrFail($id);
-    $bulan = BayarSppDetail::where('bayar_spp_head_id', $id)->pluck('bulan_id')->toArray();
-    
-    $data = $bayarSiswa->toArray();
-    $data['bulan_id'] = $bulan;
-
-    return response()->json($data);
-}
-
-  
- 
-
-public function hapusBayarSpp($id)
-{
-    // Temukan data BayarSppHead berdasarkan ID
-    $bayarSppHead = BayarSppHead::findOrFail($id);
-
-    // Mulai transaksi database
-    DB::beginTransaction();
-
-    try {
-        // Hapus terlebih dahulu data di BayarSppDetail sesuai bayar_spp_head_id
-        BayarSppDetail::where('bayar_spp_head_id', $bayarSppHead->id)->delete();
-
-        // Setelah itu, hapus data pada BayarSppHead
-        $bayarSppHead->delete();
-
-        // Commit transaksi jika tidak ada kesalahan
-        DB::commit();
-
-        $loggedInUserId = Auth::id();
-
-        // Simpan log histori untuk operasi Delete dengan user_id yang sedang login dan informasi data yang dihapus
-        $this->simpanLogHistori('Delete', 'bayar_spp', $id, $loggedInUserId, json_encode($bayarSppHead), null);
 
 
-        return response()->json(['message' => 'Data berhasil dihapus'], 200);
-    } catch (\Exception $e) {
-        // Rollback transaksi jika terjadi kesalahan
-        DB::rollback();
+    // public function getBayarSppById($id)
+    // {
+    //     $bayarSiswa = BayarSppHead::with('siswa')->findOrFail($id);
+    //     $bulan = BayarSppDetail::where('bayar_bayarSppHead_head_id', $id)->pluck('bulan_id')->toArray();
 
-        return response()->json(['message' => 'Terjadi kesalahan saat menghapus data'], 500);
+
+    //     return response()->json([
+    //         'siswa_id' => $bayarSiswa->siswa_id,
+    //         'bulan_id' => $bulan,
+    //     ]);
+    // }
+
+    // public function getBayarSppById($id)
+    // {
+    //     $bayarSiswa = BayarSppHead::with('siswa')->findOrFail($id);
+
+    //     $data = $bayarSiswa->toArray();
+
+    //     return response()->json($data);
+    // }
+
+
+
+
+    public function hapusBayarSpp($id)
+    {
+        // Temukan data BayarSppHead berdasarkan ID
+        $bayarSppHead = BayarSppHead::findOrFail($id);
+
+        // Mulai transaksi database
+        DB::beginTransaction();
+
+        try {
+            // Hapus terlebih dahulu data di BayarSppDetail sesuai bayar_spp_head_id
+            // BayarSppDetail::where('bayar_spp_head_id', $bayarSppHead->id)->delete();
+
+            // Setelah itu, hapus data pada BayarSppHead
+            $bayarSppHead->delete();
+
+            // Commit transaksi jika tidak ada kesalahan
+            DB::commit();
+
+            $loggedInUserId = Auth::id();
+
+            // Simpan log histori untuk operasi Delete dengan user_id yang sedang login dan informasi data yang dihapus
+            $this->simpanLogHistori('Delete', 'bayar_spp', $id, $loggedInUserId, json_encode($bayarSppHead), null);
+
+
+            return response()->json(['message' => 'Data berhasil dihapus'], 200);
+        } catch (\Exception $e) {
+            // Rollback transaksi jika terjadi kesalahan
+            DB::rollback();
+
+            return response()->json(['message' => 'Terjadi kesalahan saat menghapus data'], 500);
+        }
     }
-}
 
-  
-   
-/**
- * 
+
+
+    /**
+     * 
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function create()
     {
-        
     }
 
     /**
@@ -221,10 +209,9 @@ public function hapusBayarSpp($id)
      */
     public function store(Request $request)
     {
-         
     }
-    
- 
+
+
     /**
      * Display the specified resource.
      *
@@ -244,9 +231,8 @@ public function hapusBayarSpp($id)
      */
     public function edit($id)
     {
-       
     }
-    
+
     public function update(Request $request, $id)
     {
         // Validasi data
@@ -256,19 +242,22 @@ public function hapusBayarSpp($id)
             'metode_pembayaran' => 'required|in:Cash,Transfer',
             'keterangan' => 'nullable|string',
         ]);
-    
+
         // Dapatkan data dari request
         $siswaId = $request->input('siswa_id');
         $jumlahBayar = str_replace(',', '', $request->input('jumlah_bayar'));
         $metodePembayaran = $request->input('metode_pembayaran');
         $keterangan = $request->input('keterangan');
-    
+        $spp = $request->input('spp');
+        $bulan = $request->input('bulan');
+        $tahun = $request->input('tahun');
+
         // Menghapus koma pada jumlah_spp dan jumlah_bayar sebelum menyimpan
         $input = $request->all();
         if (isset($input['jumlah_spp'])) {
             $input['jumlah_spp'] = str_replace(',', '', $input['jumlah_spp']);
         }
-    
+
         // Update data bayar_spp_head
         $bayarSppHead = BayarSppHead::findOrFail($id);
         $oldData = $bayarSppHead->getOriginal();
@@ -276,46 +265,33 @@ public function hapusBayarSpp($id)
         $bayarSppHead->jumlah_bayar = $jumlahBayar;
         $bayarSppHead->metode_pembayaran = $metodePembayaran;
         $bayarSppHead->keterangan = $keterangan;
+        $bayarSppHead->spp = $spp;
+        $bayarSppHead->bulan = $bulan;
+        $bayarSppHead->tahun = $tahun;
         $bayarSppHead->save();
-    
-        // Dapatkan data bulan_id dari request
-        $bulanIds = $request->input('bulan_id');
-    
-        // Hapus semua data bayar_spp_detail yang memiliki bayar_spp_head_id = $id
-        BayarSppDetail::where('bayar_spp_head_id', $id)->delete();
-    
-        // Simpan data bayar_spp_detail
-        foreach ($bulanIds as $bulanId) {
-            $bayarSppDetail = new BayarSppDetail();
-            $bayarSppDetail->bayar_spp_head_id = $id;
-            $bayarSppDetail->bulan_id = $bulanId;
-            $bayarSppDetail->siswa_id = $siswaId;
-    
-            $bayarSppDetail->save();
-        }
-    
+
+      
+
         // Buat pesan sukses
         $message = "Data berhasil diupdate";
-    
+
         $loggedInUserId = Auth::id();
-    
+
         // Simpan log histori untuk operasi Update dengan user_id yang sedang login
         $this->simpanLogHistori('Update', 'bayar_spp', $bayarSppHead->id, $loggedInUserId, json_encode($oldData), json_encode($bayarSppHead));
-    
+
         // Return response
         return response()->json([
             'success' => true,
             'message' => $message,
         ]);
     }
-    
-    
-    
 
-  
+
+
+
+
     public function destroy($id)
     {
-           
     }
-    
 }

@@ -15,6 +15,9 @@ class PenempatanKelasDetail extends Model
         'siswa_id',
     ];
    
-
+    public function kelas()
+    {
+        return $this->belongsTo(Kelas::class, 'kelas_id', 'id');
+    }
     
 }

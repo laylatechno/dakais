@@ -45,7 +45,7 @@ class Siswa extends Model
     // pada pemanggilan siswa multiple penempatan kelas
         public function penempatanKelas()
     {
-        return $this->hasMany(PenempatanKelas::class, 'siswa_id');
+        return $this->hasMany(PenempatanKelasDetail::class, 'siswa_id');
     }
     
 }

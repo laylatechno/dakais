@@ -37,6 +37,7 @@ use App\Http\Controllers\TahunAjaranController;
 use App\Http\Controllers\KepalaSekolahController;
 use App\Http\Controllers\KontakController;
 use App\Http\Controllers\LihatJadwalPelajaranController;
+use App\Http\Controllers\LihatKontakController;
 use App\Http\Controllers\LinkController;
 use App\Http\Controllers\LogHistoriController;
 use App\Http\Controllers\MemberController;
@@ -48,6 +49,7 @@ use App\Http\Controllers\PenempatanKelasController;
 use App\Http\Controllers\PengeluaranController;
 use App\Http\Controllers\PenjualanController;
 use App\Http\Controllers\ProdukController;
+use App\Http\Controllers\RekapSppController;
 use App\Http\Controllers\SatuanProdukController;
 use App\Http\Controllers\SppController;
 use App\Http\Controllers\SupplierController;
@@ -58,7 +60,9 @@ use App\Http\Controllers\TarikTabunganController;
 use App\Http\Controllers\TopUpMemberController;
 use App\Http\Controllers\UnduhanController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\VisitorController;
 use App\Http\Controllers\WaktuMengajarController;
+use App\Models\BayarSppHead;
 use App\Models\Penjualan;
 
 /*
@@ -98,7 +102,7 @@ Route::resource('jurusan', JurusanController::class)->middleware('auth');
 Route::get('/', [HomeController::class, 'index']);
 Route::get('/tentang', [HomeController::class, 'tentang']);
 Route::get('/galeri_sekolah', [HomeController::class, 'galeri_sekolah']);
-Route::get('/guru', [HomeController::class, 'guru']);
+Route::get('/guru_sekolah', [HomeController::class, 'guru_sekolah']);
 Route::get('/kegiatan_sekolah', [HomeController::class, 'kegiatan_sekolah']);
 Route::get('/kegiatan_sekolah/{id}', [HomeController::class, 'kegiatan_sekolah_detail'])->name('kegiatan_sekolah.kegiatan_sekolah_detail');
 
@@ -232,12 +236,19 @@ Route::resource('bayar_spp', BayarSppController::class)->middleware('auth');
 Route::post('/simpan/bayar/spp', [BayarSppController::class, 'simpanBayarSpp'])->name('simpan.bayar.spp');
 Route::get('/ambil-bayar-spp/{id}', [BayarSppController::class, 'getBayarSppById'])->name('edit.bayar.spp');
 Route::put('/update-bayar-spp/{id}', [BayarSppController::class, 'updateBayarSpp'])->name('bayar_spp.update');
-Route::get('/tagihan_spp', [BayarSppController::class, 'tagihanSpp'])->name('tagihan.spp');
+// Route::get('/tagihan_spp', [BayarSppController::class, 'tagihanSpp'])->name('tagihan.spp');
+
+
+// Rekap Spp
+Route::resource('rekap_spp', RekapSppController::class)->middleware('auth');
+Route::get('/rekap-spp/{siswa_id?}', [RekapSppController::class, 'index'])->name('rekap_spp.index');
+
 
  
 
 Route::put('/bayar/spp/{id}', [BayarSppController::class, 'update'])->name('bayar.update');
-Route::get('/get-jumlah-spp', [BayarSppController::class, 'getJumlahSpp']);
+Route::get('/spp/{id}/details',  [BayarSppController::class, 'getSppDetails'])->name('bayar.getSppDetails');
+
 Route::delete('/hapus-bayar-spp/{id}', [BayarSppController::class, 'hapusBayarSpp'])->name('bayar_spp.hapusBayarSpp');
 
 
@@ -297,9 +308,23 @@ Route::get('/link/{id}/edit', [LinkController::class, 'edit'])->name('link.edit'
 Route::put('/link/update/{id}', [LinkController::class, 'update'])->name('link.update');
 Route::delete('/link/{id}', [LinkController::class, 'destroy'])->name('link.destroy');
 
+
+
+// Log History
 Route::resource('log_histori', LogHistoriController::class)->middleware('auth');
- 
 Route::get('/log-histori/delete-all', [LogHistoriController::class, 'deleteAll'])->name('log-histori.delete-all');
+
+
+
+// Lihat Kontak
+Route::resource('lihat_kontak', LihatKontakController::class)->middleware('auth');
+Route::get('/lihat-kontak/delete-all', [LihatKontakController::class, 'deleteAll'])->name('lihat-kontak.delete-all');
+
+
+
+// Visitor
+Route::resource('visitor', VisitorController::class)->middleware('auth');
+Route::get('/visitor/delete-all', [VisitorController::class, 'deleteAll'])->name('visitor.delete-all');
 
 // Kategori Barang
 Route::resource('kategori_barang', KategoriBarangController::class)->middleware('auth');
