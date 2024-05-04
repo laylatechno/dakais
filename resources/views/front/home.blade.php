@@ -1,5 +1,5 @@
 @extends('front.app')
-@section('title', 'Halaman Awal')
+@section('title', 'SIAKAD')
 @section('subtitle', 'Menu Awal')
 
 
