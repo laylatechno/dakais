@@ -70,6 +70,131 @@
     </div>
     <!-- /.row -->
 
+    <!-- Small boxes (Stat box) -->
+    <div class="row">
+        <div class="col-lg-2 col-6">
+            <div class="small-box bg-secondary">
+                <div class="inner">
+                    <p style="text-align: center;">Kepala Sekolah</p>
+                </div>
+                <a href="/kepala_sekolah" class="small-box-footer">Selengkapnya <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+
+        </div>
+        <div class="col-lg-2 col-6">
+            <div class="small-box bg-secondary">
+                <div class="inner">
+                    <p style="text-align: center;">Mata Pelajaran</p>
+                </div>
+                <a href="/mapel" class="small-box-footer">Selengkapnya <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+
+        </div>
+        <div class="col-lg-2 col-6">
+            <div class="small-box bg-info">
+                <div class="inner">
+                    <p style="text-align: center;">Kelas</p>
+                </div>
+                <a href="/kelas" class="small-box-footer">Selengkapnya <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+
+        </div>
+        <div class="col-lg-2 col-6">
+            <div class="small-box bg-info">
+                <div class="inner">
+                    <p style="text-align: center;">Sarpras</p>
+                </div>
+                <a href="/barang" class="small-box-footer">Selengkapnya <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+
+        </div>
+        <div class="col-lg-2 col-6">
+            <div class="small-box bg-primary">
+                <div class="inner">
+                    <p style="text-align: center;">Bayar SPP</p>
+                </div>
+                <a href="/bayar_spp" class="small-box-footer">Selengkapnya <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+
+        </div>
+        <div class="col-lg-2 col-6">
+            <div class="small-box bg-primary">
+                <div class="inner">
+                    <p style="text-align: center;">Rekap SPP</p>
+                </div>
+                <a href="/rekap_spp" class="small-box-footer">Selengkapnya <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+
+        </div>
+  
+        
+
+    </div>
+    <!-- /.row -->
+
+    <!-- Small boxes (Stat box) -->
+    <div class="row">
+      
+        <div class="col-lg-2 col-6">
+            <div class="small-box bg-danger">
+                <div class="inner">
+                    <p style="text-align: center;">Surat Masuk</p>
+                </div>
+                <a href="/surat_masuk" class="small-box-footer">Selengkapnya <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+
+        </div>
+        <div class="col-lg-2 col-6">
+            <div class="small-box bg-danger">
+                <div class="inner">
+                    <p style="text-align: center;">Surat Keluar</p>
+                </div>
+                <a href="/surat_keluar" class="small-box-footer">Selengkapnya <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+
+        </div>
+        <div class="col-lg-2 col-6">
+            <div class="small-box bg-success">
+                <div class="inner">
+                    <p style="text-align: center;">Simpan Tabungan</p>
+                </div>
+                <a href="/tabungan" class="small-box-footer">Selengkapnya <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+
+        </div>
+        <div class="col-lg-2 col-6">
+            <div class="small-box bg-success">
+                <div class="inner">
+                    <p style="text-align: center;">Tarik Tabungan</p>
+                </div>
+                <a href="/tarik_tabungan" class="small-box-footer">Selengkapnya <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+
+        </div>
+        <div class="col-lg-2 col-6">
+            <div class="small-box bg-warning">
+                <div class="inner">
+                    <p style="text-align: center;">Pengeluaran</p>
+                </div>
+                <a href="/pengeluaran" class="small-box-footer">Selengkapnya <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+
+        </div>
+        <div class="col-lg-2 col-6">
+            <div class="small-box bg-warning">
+                <div class="inner">
+                    <p style="text-align: center;">Pemasukan</p>
+                </div>
+                <a href="/pemasukan" class="small-box-footer">Selengkapnya <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+
+        </div>
+  
+        
+
+    </div>
+    <!-- /.row -->
+
 
     <!-- Section for the Gender-based Chart -->
     <div class="row">

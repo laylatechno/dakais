@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\LogHistori;
+use App\Models\NilaiSiswaHead;
 use App\Models\TahunAjaran;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -33,7 +34,6 @@ class TahunAjaranController extends Controller
     {
         // $tahunajaran = TahunAjaran::all();
         $tahunajaran = TahunAjaran::select('id', 'nama_tahun_ajaran', 'status')->get();
-
         return view('back.tahunajaran.index', compact('tahunajaran'));
     }
 
@@ -162,23 +162,35 @@ class TahunAjaranController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
-    {
-        $tahun_ajaran = TahunAjaran::find($id);
+{
+    // Temukan data tahun_ajaran berdasarkan ID
+    $tahun_ajaran = TahunAjaran::find($id);
 
-        // Jika data ditemukan, simpan informasi sebelum dihapus ke dalam log
-        if ($tahun_ajaran) {
-            // Mendapatkan ID pengguna yang sedang login
-            $loggedInUserId = Auth::id();
-
-            // Simpan informasi data yang akan dihapus di kolom Data_Lama
-            $dataLama = json_encode($tahun_ajaran);
-
-            // Simpan log histori untuk operasi Delete dengan tahun_ajaran_id yang sedang login dan informasi data yang dihapus
-            $this->simpanLogHistori('Delete', 'Form Tahun Ajaran', $id, $loggedInUserId, $dataLama, null);
-        }
-
-        // Hapus data
-        TahunAjaran::destroy($id);
-        return redirect('/tahunajaran')->with('messagehapus', 'Berhasil menghapus data');
+    // Jika data tidak ditemukan, alihkan dengan pesan kesalahan
+    if (!$tahun_ajaran) {
+        return redirect('/tahunajaran')->with('messagehapus', 'Data Tahun Ajaran tidak ditemukan');
     }
+
+    // Periksa apakah tahun_ajaran masih terkait dengan tabel nilai_siswa_head
+    $related_nilai_siswa_head = NilaiSiswaHead::where('tahun_ajaran_id', $tahun_ajaran->id)->exists();
+
+    // Jika ada keterkaitan, alihkan dengan pesan kesalahan
+    if ($related_nilai_siswa_head) {
+        return redirect('/tahunajaran')->with('messagehapus', 'Data Tahun Ajaran masih terkait dengan nilai siswa dan tidak bisa dihapus');
+    }
+
+    // Mendapatkan ID pengguna yang sedang login
+    $loggedInUserId = Auth::id();
+
+    // Simpan informasi data sebelum penghapusan untuk log histori
+    $dataLama = json_encode($tahun_ajaran);
+    $this->simpanLogHistori('Delete', 'Form Tahun Ajaran', $id, $loggedInUserId, $dataLama, null);
+
+    // Hapus data setelah validasi selesai
+    $tahun_ajaran->delete();
+
+    // Redirect ke halaman tahun_ajaran dengan pesan sukses
+    return redirect('/tahunajaran')->with('messagehapus', 'Berhasil menghapus data');
+}
+
 }

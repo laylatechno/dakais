@@ -34,6 +34,7 @@
               <th>Tempat Lahir</th>
               <th>Status</th>
               <th>Gambar</th>
+              <th>Status Aktif</th>
               <th>Aksi</th>
             </tr>
             </thead>
@@ -49,6 +50,7 @@
                     <td>{{ $p->nama_guru}}</td>
                     <td>{{ $p->tempat_lahir}}</td>
                     <td>{{ $p->status}}</td>
+                    
                     <td>
                       @if($p->gambar)
                           <a href="/upload/guru/{{ $p->gambar}}" target="_blank">
@@ -58,6 +60,7 @@
                           <span class="badge badge-warning">Tidak ada gambar</span>
                       @endif
                     </td>
+                    <td>{{ $p->status_aktif}}</td>
                     
                      
                 
@@ -77,18 +80,7 @@
             
   
             </tbody>
-            <tfoot>
-            <tr>
-              <th>No</th>
-              <th>NIP</th>
-              <th>Kode Guru</th>
-              <th>Nama</th>
-              <th>Tempat Lahir</th>
-              <th>Status</th>
-              <th>Gambar</th>
-              <th>Aksi</th>
-            </tr>
-            </tfoot>
+            
           </table>
         </div>
         <!-- /.card-body -->

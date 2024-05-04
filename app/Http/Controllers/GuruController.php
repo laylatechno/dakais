@@ -32,7 +32,8 @@ class GuruController extends Controller
      */
     public function index()
     {
-        $guru = Guru::orderBy('id')->get();
+        
+        $guru = Guru::select('id', 'nip', 'kode_guru','nama_guru','tempat_lahir','gambar','status','status_aktif')->get();
         return view('back.guru.index', compact('guru'));
     }
 

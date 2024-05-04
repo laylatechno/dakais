@@ -18,7 +18,7 @@
                     <div class="form-group">
                         <label>Nama Tahun Ajaran <small class="text-muted">(Cth : 2022/2023)</small></label>
                         <input type="text" class="form-control phone-inputmask" name="nama_tahun_ajaran"
-                            placeholder="Masukan Nama Tahun Ajaran" value="{{ old('nama_tahun_ajaran')}}">
+                            placeholder="Masukan Nama Tahun Ajaran" value="{{ old('nama_tahun_ajaran')}}" required>
                     </div>
 
                     @error('status')
@@ -29,7 +29,7 @@
                     <div class="form-group">
                         <label>Status <small class="text-muted">(Cth : Aktif)</small></label>
                         
-                        <select class="form-control" name="status">
+                        <select class="form-control" name="status" required>
                             <option value="">Pilih Status</option>
                           
                                 <option value="Aktif">Aktif</option>
