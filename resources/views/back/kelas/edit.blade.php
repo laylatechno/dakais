@@ -45,7 +45,7 @@
                     <small style="color: red">{{ $message }} </small>
                     @enderror
                     <div class="form-group">
-                        <label>Urutan <small class="text-muted">(Cth : fas fa-edit.)</small></label>
+                        <label>Urutan <small class="text-muted">(Cth : 1)</small></label>
                         <input type="text" class="form-control phone-inputmask" name="urutan"
                             placeholder="Masukan urutan" value="{{ $data->urutan }}">
                     </div>

@@ -157,7 +157,7 @@
             <!-- Brand Logo -->
             <a href="/dashboard" class="brand-link">
 
-                <img src="/upload/profil/{{ $profil->logo }}" alt="AdminLTE Logo"
+                <img src="/upload/profil/{{ $profil->logo }}" alt=""
                     class="brand-image img-circle elevation-3" style="opacity: .8">
                 <span class="brand-text font-weight-light">SISTEM AKADEMIK</span>
             </a>
@@ -280,12 +280,7 @@
                                         <p>Kepala Sekolah</p>
                                     </a>
                                 </li>
-                                <li class="nav-item">
-                                    <a href="/pengawas" class="nav-link <?php echo $currentPath == '/pengawas' ? 'active' : ''; ?>">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Pengawas</p>
-                                    </a>
-                                </li>
+                               
 
 
 

@@ -222,13 +222,13 @@
                                 placeholder="Masukan Posisi Guru" value="{{ old('posisi') }}">
                         </div>
 
-                        @error('mottto')
+                        @error('motto')
                             <small style="color: red">{{ $message }} </small>
                         @enderror
                         <div class="form-group">
                             <label>Motto <small class="text-muted">(Cth : Do The Best)</small></label>
-                            <input type="text" class="form-control phone-inputmask" name="mottto"
-                                placeholder="Masukan Motto Guru" value="{{ old('mottto') }}">
+                            <input type="text" class="form-control phone-inputmask" name="motto"
+                                placeholder="Masukan Motto Guru" value="{{ old('motto') }}">
                         </div>
 
 
