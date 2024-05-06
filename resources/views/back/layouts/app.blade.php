@@ -286,67 +286,6 @@
 
                             </ul>
                         </li>
-                        <li class="nav-header">Akademik</li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-list"></i>
-                                <p>
-                                    Jadwal Pelajaran
-                                    <i class="right fas fa-angle-left"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-
-                                <li class="nav-item">
-                                    <a href="/waktumengajar" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Waktu Mengajar</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="/jadwal_pelajaran" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Isi Jadwal Pelajaran</p>
-                                    </a>
-                                </li>
-                               
-
-                            </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a href="/penempatan_kelas" class="nav-link <?php echo $currentPath == '/penempatan_kelas' ? 'active' : ''; ?>">
-                                <i class="nav-icon fas fa-film"></i>
-                                <p>
-                                    Penempatan Kelas
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-header">Penilaian</li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-calculator"></i>
-                                <p>
-                                    Penilaian Siswa
-                                    <i class="right fas fa-angle-left"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-
-                                <li class="nav-item">
-                                    <a href="/jenis_ujian" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Jenis Ujian</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="/nilai_siswa" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Nilai Siswa</p>
-                                    </a>
-                                </li>
-
-                            </ul>
-                        </li>
                         <li class="nav-header">Transaksi</li>
                         <li class="nav-item">
                             <a href="#" class="nav-link">
@@ -489,6 +428,77 @@
                                 </li>
                             </ul>
                         </li>
+                        <li class="nav-header">Akademik</li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-list"></i>
+                                <p>
+                                    Jadwal Pelajaran
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+
+                                <li class="nav-item">
+                                    <a href="/waktumengajar" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Waktu Mengajar</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="/jadwal_pelajaran" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Isi Jadwal Pelajaran</p>
+                                    </a>
+                                </li>
+                               
+
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/penempatan_kelas" class="nav-link <?php echo $currentPath == '/penempatan_kelas' ? 'active' : ''; ?>">
+                                <i class="nav-icon fas fa-film"></i>
+                                <p>
+                                    Penempatan Kelas
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/absensi" class="nav-link <?php echo $currentPath == '/absensi' ? 'active' : ''; ?>">
+                                <i class="nav-icon fas fa-book"></i>
+                                
+                                <p>
+                                    Absensi
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-header">Penilaian</li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-calculator"></i>
+                                <p>
+                                    Penilaian Siswa
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+
+                                <li class="nav-item">
+                                    <a href="/jenis_ujian" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Jenis Ujian</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="/nilai_siswa" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Nilai Siswa</p>
+                                    </a>
+                                </li>
+
+                            </ul>
+                        </li>
+                      
 
 
 
@@ -543,7 +553,7 @@
                         </li>
                         <li class="nav-item">
                             <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-book"></i>
+                                <i class="nav-icon fas fa-globe"></i>
                                 <p>
                                     Halaman Depan
                                     <i class="fas fa-angle-left right"></i>

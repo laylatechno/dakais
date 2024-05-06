@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AboutController;
+use App\Http\Controllers\AbsensiController;
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
@@ -62,6 +63,7 @@ use App\Http\Controllers\UnduhanController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VisitorController;
 use App\Http\Controllers\WaktuMengajarController;
+use App\Models\Absensi;
 use App\Models\BayarSppHead;
 use App\Models\Penjualan;
 
@@ -197,6 +199,14 @@ Route::delete('/produk/{id}', [ProdukController::class, 'destroy'])->name('produ
 Route::resource('jadwal_pelajaran', JadwalPelajaranController::class)->middleware('auth');
 Route::get('/tampilkan-jadwal', [LihatJadwalPelajaranController::class, 'index']);
 Route::get('/tampilkan-jadwal/{kelasId}', [LihatJadwalPelajaranController::class, 'tampilkanJadwalKelas'])->name('tampilkan-jadwal');
+
+// Absensi
+Route::resource('absensi', AbsensiController::class)->middleware('auth');
+Route::get('/kelas/{kelasId}/siswa', [AbsensiController::class, 'getSiswaByKelas'])->name('absensi.getSiswaByKelas');
+
+
+ 
+
 
 
 // PROFIL
