@@ -33,6 +33,26 @@ INSERT INTO `about` (`id`, `nama_about`, `keterangan`, `link`, `ikon`, `urutan`,
 	(2, 'Lokasi Strategis', 'Lorem ipsum dolor sit amet consectetur adipiscing elit potenti, nibh sed netus nulla a mauris dapibus. Lacinia donec aenean ultricies dis habitant euismod dignissim id, fames mi non ut parturient natoque. Tempus nulla sagittis sem id penatibus elementum turpis vivamus convallis a, sapien ultricies pretium felis cras lectus porta tristique eros.', 'https://forms.gle/rdYBfem7QmLGLzFC8', 'fa fa-user', '2', '2023-11-02 19:22:12', '2024-04-22 15:56:32'),
 	(3, 'Kualitas Pendidikan', 'Lorem ipsum dolor sit amet consectetur adipiscing elit potenti, nibh sed netus nulla a mauris dapibus. Lacinia donec aenean ultricies dis habitant euismod dignissim id, fames mi non ut parturient natoque. Tempus nulla sagittis sem id penatibus elementum turpis vivamus convallis a, sapien ultricies pretium felis cras lectus porta tristique eros.', 'https://forms.gle/rdYBfem7QmLGLzFC8', 'fa fa-user', '3', '2023-11-03 02:31:27', '2024-04-22 15:56:38');
 
+-- Dumping structure for table db_akademik.absensi
+CREATE TABLE IF NOT EXISTS `absensi` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `tanggal_absensi` datetime NOT NULL,
+  `guru_id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `siswa_id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `status` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `keterangan` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Dumping data for table db_akademik.absensi: ~4 rows (approximately)
+INSERT INTO `absensi` (`id`, `tanggal_absensi`, `guru_id`, `siswa_id`, `status`, `keterangan`, `created_at`, `updated_at`) VALUES
+	(5, '2024-05-06 00:00:00', '7', '11', 'Hadir', 'Hadir', '2024-05-06 00:23:37', '2024-05-06 01:22:29'),
+	(6, '2024-05-06 00:00:00', '7', '14', 'Hadir', 'Hadir', '2024-05-06 00:23:37', '2024-05-06 07:05:38'),
+	(7, '2024-05-06 00:00:00', '7', '15', 'Alpa', 'Alpa', '2024-05-06 00:23:37', '2024-05-06 07:05:30'),
+	(8, '2024-05-06 00:00:00', '7', '16', 'Izin', 'Izin', '2024-05-06 00:23:37', '2024-05-06 07:05:46');
+
 -- Dumping structure for table db_akademik.alasan
 CREATE TABLE IF NOT EXISTS `alasan` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
@@ -45,7 +65,7 @@ CREATE TABLE IF NOT EXISTS `alasan` (
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table db_akademik.alasan: ~0 rows (approximately)
+-- Dumping data for table db_akademik.alasan: ~1 rows (approximately)
 INSERT INTO `alasan` (`id`, `nama_alasan`, `keterangan`, `ikon`, `urutan`, `created_at`, `updated_at`) VALUES
 	(5, 'Mudah Digunakan', 'Mudah Digunakan', 'fa fa-user', '1', '2023-11-03 09:02:52', '2023-11-03 09:02:52');
 
@@ -97,7 +117,7 @@ CREATE TABLE IF NOT EXISTS `bayar_spp_head` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table db_akademik.bayar_spp_head: ~2 rows (approximately)
+-- Dumping data for table db_akademik.bayar_spp_head: ~1 rows (approximately)
 INSERT INTO `bayar_spp_head` (`id`, `tanggal_bayar`, `kode_pembayaran`, `siswa_id`, `jumlah_spp`, `jumlah_bayar`, `metode_pembayaran`, `bukti_transfer`, `keterangan`, `spp`, `bulan`, `tahun`, `status_head`, `created_at`, `updated_at`) VALUES
 	(30, '2024-05-02', 'SPP02052024009', '11', '450000', '450000', 'Cash', NULL, NULL, '18', 'Juli', '2024', 'Lunas', '2024-05-01 21:59:37', '2024-05-01 21:59:37');
 
@@ -132,9 +152,9 @@ CREATE TABLE IF NOT EXISTS `bulan` (
   `id` int NOT NULL AUTO_INCREMENT,
   `nama_bulan` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 ;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table db_akademik.bulan: ~4 rows (approximately)
+-- Dumping data for table db_akademik.bulan: ~12 rows (approximately)
 INSERT INTO `bulan` (`id`, `nama_bulan`) VALUES
 	(1, 'JANUARI'),
 	(2, 'FEBRUARI'),
@@ -234,7 +254,7 @@ CREATE TABLE IF NOT EXISTS `guru` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table db_akademik.guru: ~7 rows (approximately)
+-- Dumping data for table db_akademik.guru: ~11 rows (approximately)
 INSERT INTO `guru` (`id`, `nip`, `nama_guru`, `kode_guru`, `tempat_lahir`, `tanggal_lahir`, `jenis_kelamin`, `no_telp`, `instagram`, `email`, `gelar_depan`, `gelar_belakang`, `alamat`, `honor`, `tunjangan_1`, `tunjangan_2`, `tunjangan_3`, `tunjangan_4`, `gambar`, `username`, `password`, `tanggal_masuk`, `status`, `status_aktif`, `posisi`, `motto`, `created_at`, `updated_at`) VALUES
 	(1, '000xxx', 'Guru Kosong', '000xxx', 'Tanjung Pinang', '1999-01-01', 'Laki-laki', '085320555394', NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, NULL, NULL, '0@gmail.com', '12345678', '2023-12-29', 'Non Guru', 'Non Aktif', '', '', '2023-12-28 18:30:37', '2024-01-13 05:00:32'),
 	(7, '32701', 'Muhammad Rafi Heryadi, S.Kom', 'GR01', 'Tanjung Pinang', '1994-12-28', 'Laki-laki', '085320555394', 'https://www.instagram.com/?hl=id', 'muhammadrafiheryadi94@gmail.com', NULL, NULL, NULL, '1000000', NULL, NULL, NULL, NULL, '20231229004027_5.png.png', 'muhammadrafiheryadi94@gmail.com', '12345678', '2023-12-29', 'Guru', 'Aktif', 'Guru TIK', 'Do The Best For Be The Best', '2023-12-28 16:50:09', '2024-04-23 02:25:48'),
@@ -277,7 +297,7 @@ CREATE TABLE IF NOT EXISTS `jadwal_pelajaran` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=97 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table db_akademik.jadwal_pelajaran: ~4 rows (approximately)
+-- Dumping data for table db_akademik.jadwal_pelajaran: ~5 rows (approximately)
 INSERT INTO `jadwal_pelajaran` (`id`, `hari`, `kelas_id`, `created_at`, `updated_at`) VALUES
 	(92, 'Senin', '5', '2024-04-06 09:15:38', '2024-04-06 09:15:38'),
 	(93, 'Selasa', '5', '2024-04-06 09:15:57', '2024-04-06 09:15:57'),
@@ -478,7 +498,7 @@ CREATE TABLE IF NOT EXISTS `kelas` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table db_akademik.kelas: ~5 rows (approximately)
+-- Dumping data for table db_akademik.kelas: ~7 rows (approximately)
 INSERT INTO `kelas` (`id`, `nama_kelas`, `wali_kelas`, `urutan`, `created_at`, `updated_at`) VALUES
 	(5, 'KELAS 7A', '9', '2', '2023-12-28 18:06:37', '2023-12-28 18:28:17'),
 	(6, 'KELAS 7B', '10', '3', '2023-12-28 18:06:51', '2023-12-28 18:28:24'),
@@ -566,9 +586,9 @@ CREATE TABLE IF NOT EXISTS `log_histori` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=660 DEFAULT CHARSET=utf8mb4 ;
+) ENGINE=InnoDB AUTO_INCREMENT=670 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table db_akademik.log_histori: ~0 rows (approximately)
+-- Dumping data for table db_akademik.log_histori: ~31 rows (approximately)
 INSERT INTO `log_histori` (`ID`, `Tabel_Asal`, `ID_Entitas`, `Aksi`, `Waktu`, `Pengguna`, `Data_Lama`, `Data_Baru`, `updated_at`, `created_at`) VALUES
 	(639, 'Form Tahun Ajaran', 26, 'Update', '2024-05-03 18:03:09', '3', '{"id":26,"nama_tahun_ajaran":"2024\\/2025 Semester 2","status":"Non Aktif","created_at":"2024-04-29T13:08:54.000000Z","updated_at":"2024-04-29T16:27:12.000000Z"}', '{"nama_tahun_ajaran":"2024\\/2025 Semester 2","status":"Non Aktif"}', '2024-05-03 18:03:09', '2024-05-03 18:03:09'),
 	(640, 'Form Tahun Ajaran', 9, 'Update', '2024-05-03 18:12:13', '3', '{"id":9,"nama_tahun_ajaran":"2024\\/2025 Semester 1","status":"Aktif","created_at":"2023-11-04T06:26:09.000000Z","updated_at":"2024-04-29T16:27:55.000000Z"}', '{"nama_tahun_ajaran":"2024\\/2025 Semester 1","status":"Non Aktif"}', '2024-05-03 18:12:13', '2024-05-03 18:12:13'),
@@ -590,7 +610,17 @@ INSERT INTO `log_histori` (`ID`, `Tabel_Asal`, `ID_Entitas`, `Aksi`, `Waktu`, `P
 	(656, 'Form Update Siswa', 16, 'Update', '2024-05-04 08:58:20', '3', '{"id":16,"nik":"20704xx","nis":"20704xx","nama_siswa":"Sansan Sananta","email":"sansan@gmail.com","jenis_kelamin":"Laki-laki","tempat_lahir":"Tasikmalaya","tanggal_lahir":"1992-12-29","provinsi":"Jawa Barat","kota":"Kota Tasikmalaya","alamat":"Jl. Cilacap","nama_ayah":"Rudi","pekerjaan_ayah":"Wiraswasta","penghasilan_ayah":">5 Jt","no_telp_ayah":"085345354354","nama_ibu":"Rini","pekerjaan_ibu":"IRT","penghasilan_ibu":">5 Jt","no_telp_ibu":"085345354354","nama_wali":"Herman","pekerjaan_wali":"Dokter","penghasilan_wali":">5 Jt","no_telp_wali":"085345354354","tahun_masuk":"2022","sekolah_asal":"SD ABBASH","kelas":"6C","foto":"20231229010508_3.png.png","kk":"20231229010508_12.pdf.pdf","ijazah":"20231229010508_12.pdf.pdf","akte":"20231229010508_12.pdf.pdf","ktp":"20231229010508_12.pdf.pdf","jumlah_tabungan":null,"status":null,"created_at":"2023-12-29T01:05:08.000000Z","updated_at":"2024-01-13T12:01:26.000000Z"}', '{"_token":"MJp0BP7JADLmTs3dxG8N6J7Tu6wEza70jS7Y2WPN","_method":"put","nik":"20704","nis":"20704","nama_siswa":"Sansan Sananta","email":"sansan@gmail.com","jenis_kelamin":"Laki-laki","tempat_lahir":"Tasikmalaya","tanggal_lahir":"1992-12-29","provinsi":"Jawa Barat","kota":"Kota Tasikmalaya","alamat":"Jl. Cilacap","nama_ayah":"Rudi","pekerjaan_ayah":"Wiraswasta","penghasilan_ayah":">5 Jt","no_telp_ayah":"085345354354","nama_ibu":"Rini","pekerjaan_ibu":"IRT","penghasilan_ibu":">5 Jt","no_telp_ibu":"085345354354","nama_wali":"Herman","pekerjaan_wali":"Dokter","penghasilan_wali":">5 Jt","no_telp_wali":"085345354354","tahun_masuk":"2022","sekolah_asal":"SD ABBASH","kelas":"6C"}', '2024-05-04 08:58:20', '2024-05-04 08:58:20'),
 	(657, 'Form Tambah Kelas', 12, 'Create', '2024-05-04 09:00:18', '3', NULL, '{"_token":"MJp0BP7JADLmTs3dxG8N6J7Tu6wEza70jS7Y2WPN","nama_kelas":"KELAS 9A","wali_kelas":"18","urutan":"5"}', '2024-05-04 09:00:18', '2024-05-04 09:00:18'),
 	(658, 'Form Update Kelas', 12, 'Update', '2024-05-04 09:00:27', '3', '{"id":12,"nama_kelas":"KELAS 9A","wali_kelas":"18","urutan":"5","created_at":"2024-05-04T16:00:18.000000Z","updated_at":"2024-05-04T16:00:18.000000Z"}', '{"nama_kelas":"KELAS 9A","wali_kelas":"18","urutan":"6"}', '2024-05-04 09:00:27', '2024-05-04 09:00:27'),
-	(659, 'Form Tambah Kelas', 13, 'Create', '2024-05-04 09:00:41', '3', NULL, '{"_token":"MJp0BP7JADLmTs3dxG8N6J7Tu6wEza70jS7Y2WPN","nama_kelas":"KELAS 9B","wali_kelas":"21","urutan":"7"}', '2024-05-04 09:00:41', '2024-05-04 09:00:41');
+	(659, 'Form Tambah Kelas', 13, 'Create', '2024-05-04 09:00:41', '3', NULL, '{"_token":"MJp0BP7JADLmTs3dxG8N6J7Tu6wEza70jS7Y2WPN","nama_kelas":"KELAS 9B","wali_kelas":"21","urutan":"7"}', '2024-05-04 09:00:41', '2024-05-04 09:00:41'),
+	(660, 'Form Hapus Jadwal Pelajaran', 12, 'Delete', '2024-05-06 00:27:55', '3', '{"id":12,"tanggal_absensi":"2024-05-06 00:00:00","guru_id":"7","siswa_id":"16","status":"Hadir","keterangan":null,"created_at":"2024-05-06T07:27:38.000000Z","updated_at":"2024-05-06T07:27:38.000000Z"}', NULL, '2024-05-06 00:27:55', '2024-05-06 00:27:55'),
+	(661, 'Form Hapus Jadwal Pelajaran', 11, 'Delete', '2024-05-06 00:27:59', '3', '{"id":11,"tanggal_absensi":"2024-05-06 00:00:00","guru_id":"7","siswa_id":"15","status":"Hadir","keterangan":null,"created_at":"2024-05-06T07:27:38.000000Z","updated_at":"2024-05-06T07:27:38.000000Z"}', NULL, '2024-05-06 00:27:59', '2024-05-06 00:27:59'),
+	(662, 'Form Hapus Jadwal Pelajaran', 10, 'Delete', '2024-05-06 00:28:04', '3', '{"id":10,"tanggal_absensi":"2024-05-06 00:00:00","guru_id":"7","siswa_id":"14","status":"Hadir","keterangan":null,"created_at":"2024-05-06T07:27:38.000000Z","updated_at":"2024-05-06T07:27:38.000000Z"}', NULL, '2024-05-06 00:28:04', '2024-05-06 00:28:04'),
+	(663, 'Form Hapus Jadwal Pelajaran', 9, 'Delete', '2024-05-06 00:28:07', '3', '{"id":9,"tanggal_absensi":"2024-05-06 00:00:00","guru_id":"7","siswa_id":"11","status":"Izin","keterangan":null,"created_at":"2024-05-06T07:27:38.000000Z","updated_at":"2024-05-06T07:27:38.000000Z"}', NULL, '2024-05-06 00:28:07', '2024-05-06 00:28:07'),
+	(664, 'Form Update Absensi', 5, 'Update', '2024-05-06 01:22:30', '3', '{"id":5,"tanggal_absensi":"2024-05-06 00:00:00","guru_id":"7","siswa_id":"11","status":"Hadir","keterangan":"Hadir","created_at":"2024-05-06T07:23:37.000000Z","updated_at":"2024-05-06T08:22:29.000000Z"}', '{"guru_id":"7","siswa_id":"11","status":"Hadir","keterangan":"Hadir"}', '2024-05-06 01:22:30', '2024-05-06 01:22:30'),
+	(665, 'Form Update Absensi', 6, 'Update', '2024-05-06 01:22:40', '3', '{"id":6,"tanggal_absensi":"2024-05-06 00:00:00","guru_id":"7","siswa_id":"14","status":"Hadir","keterangan":"hadir","created_at":"2024-05-06T07:23:37.000000Z","updated_at":"2024-05-06T08:22:39.000000Z"}', '{"guru_id":"7","siswa_id":"14","status":"Hadir","keterangan":"hadir"}', '2024-05-06 01:22:40', '2024-05-06 01:22:40'),
+	(666, 'Form Update Absensi', 7, 'Update', '2024-05-06 07:05:30', '3', '{"id":7,"tanggal_absensi":"2024-05-06 00:00:00","guru_id":"7","siswa_id":"15","status":"Alpa","keterangan":"Alpa","created_at":"2024-05-06T07:23:37.000000Z","updated_at":"2024-05-06T14:05:30.000000Z"}', '{"guru_id":"7","siswa_id":"15","status":"Alpa","keterangan":"Alpa"}', '2024-05-06 07:05:30', '2024-05-06 07:05:30'),
+	(667, 'Form Update Absensi', 7, 'Update', '2024-05-06 07:05:30', '3', '{"id":7,"tanggal_absensi":"2024-05-06 00:00:00","guru_id":"7","siswa_id":"15","status":"Alpa","keterangan":"Alpa","created_at":"2024-05-06T07:23:37.000000Z","updated_at":"2024-05-06T14:05:30.000000Z"}', '{"guru_id":"7","siswa_id":"15","status":"Alpa","keterangan":"Alpa"}', '2024-05-06 07:05:30', '2024-05-06 07:05:30'),
+	(668, 'Form Update Absensi', 6, 'Update', '2024-05-06 07:05:38', '3', '{"id":6,"tanggal_absensi":"2024-05-06 00:00:00","guru_id":"7","siswa_id":"14","status":"Hadir","keterangan":"Hadir","created_at":"2024-05-06T07:23:37.000000Z","updated_at":"2024-05-06T14:05:38.000000Z"}', '{"guru_id":"7","siswa_id":"14","status":"Hadir","keterangan":"Hadir"}', '2024-05-06 07:05:38', '2024-05-06 07:05:38'),
+	(669, 'Form Update Absensi', 8, 'Update', '2024-05-06 07:05:46', '3', '{"id":8,"tanggal_absensi":"2024-05-06 00:00:00","guru_id":"7","siswa_id":"16","status":"Izin","keterangan":"Izin","created_at":"2024-05-06T07:23:37.000000Z","updated_at":"2024-05-06T14:05:46.000000Z"}', '{"guru_id":"7","siswa_id":"16","status":"Izin","keterangan":"Izin"}', '2024-05-06 07:05:46', '2024-05-06 07:05:46');
 
 -- Dumping structure for table db_akademik.mapel
 CREATE TABLE IF NOT EXISTS `mapel` (
@@ -661,9 +691,9 @@ CREATE TABLE IF NOT EXISTS `migrations` (
   `migration` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=79 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=80 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table db_akademik.migrations: ~50 rows (approximately)
+-- Dumping data for table db_akademik.migrations: ~57 rows (approximately)
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 	(19, '2023_11_01_173357_create_siswas_table', 1),
 	(20, '2023_11_02_154106_create_sliders_table', 2),
@@ -720,7 +750,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 	(75, '2024_04_23_070445_create_kegiatans_table', 56),
 	(76, '2024_04_23_235239_create_kontaks_table', 57),
 	(77, '2024_04_24_011335_create_unduhans_table', 58),
-	(78, '2024_04_24_021019_create_links_table', 59);
+	(78, '2024_04_24_021019_create_links_table', 59),
+	(79, '2024_05_05_150738_create_absensis_table', 60);
 
 -- Dumping structure for table db_akademik.mitra
 CREATE TABLE IF NOT EXISTS `mitra` (
@@ -739,7 +770,7 @@ CREATE TABLE IF NOT EXISTS `mitra` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table db_akademik.mitra: ~6 rows (approximately)
+-- Dumping data for table db_akademik.mitra: ~7 rows (approximately)
 INSERT INTO `mitra` (`id`, `nama_mitra`, `no_telp`, `email`, `instagram`, `youtube`, `website`, `keterangan`, `gambar`, `urutan`, `created_at`, `updated_at`) VALUES
 	(1, 'PT. Dekan', '085320555394', 'admin@admin.com', '@muhraff', 'muhraff', 'https://a.com', 'Test keterangan', '20240423020837_Picture1.png.png', '1', '2023-11-03 07:13:46', '2024-04-22 19:08:37'),
 	(2, 'PT. Dekan', '085320555394', 'koperasisatu@gmail.com', 'https://www.instagram.com/muhammad_rafi94/?hl=id', 'https://www.youtube.com/watch?v=r44RKWyfcFw&amp;fbclid=IwAR21beSJORalzmzokxDRcGfkZA1AtRTE__l5N4r09HcGS5Y6vOluyouM9EM', 'https://www.youtube.com/watch?v=r44RKWyfcFw&amp;fbclid=IwAR21beSJORalzmzokxDRcGfkZA1AtRTE__l5N4r09HcGS5Y6vOluyouM9EM', 'https://www.youtube.com/watch?v=r44RKWyfcFw&amp;fbclid=IwAR21beSJORalzmzokxDRcGfkZA1AtRTE__l5N4r09HcGS5Y6vOluyouM9EM', '20240423020917_SMP_ISI_2.png.png', '2', '2024-04-22 19:09:17', '2024-04-22 19:09:17'),
@@ -814,7 +845,7 @@ CREATE TABLE IF NOT EXISTS `nilai_siswa_head` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table db_akademik.nilai_siswa_head: ~0 rows (approximately)
+-- Dumping data for table db_akademik.nilai_siswa_head: ~1 rows (approximately)
 INSERT INTO `nilai_siswa_head` (`id`, `tahun_ajaran_id`, `kelas_id`, `siswa_id`, `mapel_id`, `total_nilai`, `keterangan`, `created_at`, `updated_at`) VALUES
 	(13, '9', '5', '11', '8', '81', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.', '2024-04-12 16:52:45', '2024-04-12 16:52:45');
 
@@ -842,7 +873,7 @@ CREATE TABLE IF NOT EXISTS `pemasukan` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table db_akademik.pemasukan: ~0 rows (approximately)
+-- Dumping data for table db_akademik.pemasukan: ~1 rows (approximately)
 INSERT INTO `pemasukan` (`id`, `tanggal_pemasukan`, `nama_pemasukan`, `jumlah_pemasukan`, `keterangan`, `pic`, `bukti`, `created_at`, `updated_at`) VALUES
 	(4, '2024-04-07', 'Dana BOS', '1000000', '9876', 'Andrey', NULL, '2024-04-08 08:02:28', '2024-04-08 08:02:28');
 
@@ -863,7 +894,7 @@ CREATE TABLE IF NOT EXISTS `pembelian` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=61 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table db_akademik.pembelian: ~0 rows (approximately)
+-- Dumping data for table db_akademik.pembelian: ~1 rows (approximately)
 INSERT INTO `pembelian` (`id`, `tanggal_pembelian`, `kode_pembelian`, `supplier_id`, `nama_supplier`, `total_bayar`, `jenis_pembayaran`, `bukti`, `pic`, `keterangan`, `created_at`, `updated_at`) VALUES
 	(60, '2024-03-23', 'LTPOS-20240323-000001', '3', 'Jaya Lestari', '30000', 'CASH', NULL, 'Muhammad Rafi Heryadi', NULL, '2024-03-23 09:03:44', '2024-03-23 09:03:44');
 
@@ -932,7 +963,7 @@ CREATE TABLE IF NOT EXISTS `pengeluaran` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table db_akademik.pengeluaran: ~0 rows (approximately)
+-- Dumping data for table db_akademik.pengeluaran: ~2 rows (approximately)
 INSERT INTO `pengeluaran` (`id`, `tanggal_pengeluaran`, `nama_pengeluaran`, `jumlah_pengeluaran`, `keterangan`, `pic`, `bukti`, `created_at`, `updated_at`) VALUES
 	(17, '2024-04-08', 'Gaji Karyawan', '800000', '12345', 'Rudi Aja', NULL, '2024-04-08 07:59:56', '2024-04-08 07:59:56'),
 	(18, '2024-04-08', 'Listrik', '200000', '999', 'Rudi', NULL, '2024-04-08 08:01:43', '2024-04-08 08:01:43');
@@ -1018,7 +1049,7 @@ CREATE TABLE IF NOT EXISTS `produk` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table db_akademik.produk: ~1 rows (approximately)
+-- Dumping data for table db_akademik.produk: ~2 rows (approximately)
 INSERT INTO `produk` (`id`, `kategori_produk_id`, `satuan_produk_id_1`, `satuan_produk_id_2`, `isi`, `kode_produk`, `nama_produk`, `merk`, `type`, `stok`, `status`, `lokasi`, `harga_beli`, `harga_jual_1`, `harga_jual_2`, `harga_jual_3`, `gambar`, `deskripsi`, `created_at`, `updated_at`) VALUES
 	(4, 3, 4, 1, 24, '1234', 'Es Teh Botol', 'Es Teh Botol', 'Es Teh Botol', '20', 'Aktif', 'Etalase', '10000', '11000', '12000', '13000', '20240321052058_Desain_tanpa_judul.png.png', 'Tes', '2024-03-20 22:20:58', '2024-04-07 09:36:17'),
 	(5, 2, 3, 1, 12, '1234', 'Keripik Taro', 'Keripik Taro', 'Keripik Taro', '10', 'Aktif', 'Etalase', '4000', '5000', '6000', '7000', '20240322012950_Thumbnail_YouTube__(1).png.png', 'Keripik Taro', '2024-03-21 18:29:50', '2024-04-07 09:36:14');
@@ -1130,7 +1161,7 @@ CREATE TABLE IF NOT EXISTS `siswa` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table db_akademik.siswa: ~4 rows (approximately)
+-- Dumping data for table db_akademik.siswa: ~5 rows (approximately)
 INSERT INTO `siswa` (`id`, `nik`, `nis`, `nama_siswa`, `email`, `jenis_kelamin`, `tempat_lahir`, `tanggal_lahir`, `provinsi`, `kota`, `alamat`, `nama_ayah`, `pekerjaan_ayah`, `penghasilan_ayah`, `no_telp_ayah`, `nama_ibu`, `pekerjaan_ibu`, `penghasilan_ibu`, `no_telp_ibu`, `nama_wali`, `pekerjaan_wali`, `penghasilan_wali`, `no_telp_wali`, `tahun_masuk`, `sekolah_asal`, `kelas`, `foto`, `kk`, `ijazah`, `akte`, `ktp`, `jumlah_tabungan`, `status`, `created_at`, `updated_at`) VALUES
 	(11, '20701', '20701', 'Ramdan Rahmatillah', 'ramdan@gmail.com', 'Perempuan', 'Tanjung Pinang', '1993-11-05', 'Jawa Barat', 'Kota Tasikmalaya', 'Jl. Tajur Indah', 'Rudi', 'Wiraswasta', '2-5 Jt', '085345354354', 'Rini', 'IRT', '2-5 Jt', '085345354354', 'Herman', 'Dokter', '2-5 Jt', '085345354354', '2022', 'SD ABBASH', '6B', '20231105103600_250222104235_gambar_icon_oran.jpg.jpg', '20231105113802_MUHAMMAD_RAFI_HERYADI.pdf.pdf', '20231105103600_ALUR_WEBSITE_MAUBIKINCV.pdf.pdf', '20231105103600_ALUR_WEBSITE_MAUBIKINCV.pdf.pdf', '20231105103600_ALUR_WEBSITE_MAUBIKINCV.pdf.pdf', '300000', NULL, '2023-11-05 03:36:00', '2024-01-19 06:36:25'),
 	(14, '20702', '20702', 'Susanti Setiawati', 'susanti@gmail.com', 'Perempuan', 'Jakarta', '1993-12-29', 'Jawa Barat', 'Kota Tasikmalaya', 'Jl. Pamijahan', 'Rudi', 'Wiraswasta', '2-5 Jt', '085345354354', 'Rini', 'IRT', '2-5 Jt', '085345354354', 'Herman', 'Dokter', '>5 Jt', '085345354354', '2022', 'SD ABBASH', '6A', '20231229005826_5.png.png', '20231229005826_12.pdf.pdf', '20231229005826_12.pdf.pdf', '20231229005826_12.pdf.pdf', '20231229005826_12.pdf.pdf', '100000', NULL, '2023-12-28 17:58:26', '2024-01-19 06:39:23'),
@@ -1151,7 +1182,7 @@ CREATE TABLE IF NOT EXISTS `slider` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table db_akademik.slider: ~0 rows (approximately)
+-- Dumping data for table db_akademik.slider: ~2 rows (approximately)
 INSERT INTO `slider` (`id`, `nama_slider`, `keterangan`, `link`, `urutan`, `gambar`, `created_at`, `updated_at`) VALUES
 	(2, 'Sekolah Terbaik Untuk Anak Anda', 'Jangan Salah Untuk Menyekolahkan Anak Anda Kami Mengajak Anda Untuk Bergabung Dengan Sekolah Terbaik Untuk Anak Anda', 'https://ltpresent.com', '1', '20240422223505_mengenal-kurikulum-sekolah-alam-banyak-bermain-tapi-bukan-mainmain-hnk.jpg.jpg', '2023-11-02 18:41:33', '2024-04-22 15:35:05'),
 	(3, 'Dengan Program Terbaik', 'Memberikan Anda Dengan Program Terbaik', 'https://forms.gle/rdYBfem7QmLGLzFC8', '2', '20240422223516_depoknetizen-blogspot-com.jpg.jpg', '2023-11-03 02:30:48', '2024-04-22 15:35:16');
@@ -1171,7 +1202,7 @@ CREATE TABLE IF NOT EXISTS `spp` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table db_akademik.spp: ~11 rows (approximately)
+-- Dumping data for table db_akademik.spp: ~12 rows (approximately)
 INSERT INTO `spp` (`id`, `tahun_ajaran_id`, `jumlah_spp`, `tanggal_jatuh_tempo`, `bulan`, `tahun`, `keterangan`, `status`, `created_at`, `updated_at`) VALUES
 	(18, '9', '450000', '29', 'Juli', '2024', NULL, 'Aktif', '2024-04-29 09:18:40', '2024-04-29 18:17:36'),
 	(19, '9', '450000', '29', 'Agustus', '2024', NULL, 'Aktif', '2024-04-29 09:18:55', '2024-04-29 18:18:07'),
@@ -1221,7 +1252,7 @@ CREATE TABLE IF NOT EXISTS `surat_keluar` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table db_akademik.surat_keluar: ~0 rows (approximately)
+-- Dumping data for table db_akademik.surat_keluar: ~1 rows (approximately)
 INSERT INTO `surat_keluar` (`id`, `tanggal_keluar`, `nomor_surat`, `penerima`, `jenis_surat`, `perihal`, `lampiran`, `tindak_lanjut`, `keterangan`, `created_at`, `updated_at`) VALUES
 	(3, '2024-04-13', '6465646', 'Alex', 'Undangan', 'Undangan', '20240413001408_Qoutation-033-Point_of_Sale-Perhiasan.docx.docx', '1111', '4fyyryr5y', '2024-04-12 17:14:08', '2024-04-12 17:14:08');
 
@@ -1271,7 +1302,7 @@ CREATE TABLE IF NOT EXISTS `tahun_ajaran` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table db_akademik.tahun_ajaran: ~3 rows (approximately)
+-- Dumping data for table db_akademik.tahun_ajaran: ~2 rows (approximately)
 INSERT INTO `tahun_ajaran` (`id`, `nama_tahun_ajaran`, `status`, `created_at`, `updated_at`) VALUES
 	(9, '2024/2025 Semester 1', 'Aktif', '2023-11-03 23:26:09', '2024-05-03 18:20:56'),
 	(26, '2024/2025 Semester 2', 'Non Aktif', '2024-04-29 06:08:54', '2024-05-03 18:20:52');
@@ -1289,19 +1320,19 @@ CREATE TABLE IF NOT EXISTS `tarik_tabungan` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table db_akademik.tarik_tabungan: ~0 rows (approximately)
+-- Dumping data for table db_akademik.tarik_tabungan: ~1 rows (approximately)
 INSERT INTO `tarik_tabungan` (`id`, `tanggal_tarik`, `siswa_id`, `jumlah_tarik`, `keterangan`, `pic`, `created_at`, `updated_at`) VALUES
 	(7, '2024-01-19', '14', '200000', 'zzzzz', 'zzzz', '2024-01-19 06:39:23', '2024-01-19 06:39:38');
 
 -- Dumping structure for table db_akademik.tes
 CREATE TABLE IF NOT EXISTS `tes` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `nama` varchar(50) CHARACTER SET utf8mb4  DEFAULT NULL,
-  `no` varchar(50) CHARACTER SET utf8mb4  DEFAULT NULL,
+  `nama` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `no` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 ;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table db_akademik.tes: ~0 rows (approximately)
 
@@ -1317,7 +1348,7 @@ CREATE TABLE IF NOT EXISTS `testimoni` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table db_akademik.testimoni: ~3 rows (approximately)
+-- Dumping data for table db_akademik.testimoni: ~4 rows (approximately)
 INSERT INTO `testimoni` (`id`, `nama_testimoni`, `keterangan`, `gambar`, `urutan`, `created_at`, `updated_at`) VALUES
 	(16, 'Regan Alamsyah', 'Mantap !!! semua thempletenya keren banget', '20240423013521_image-character-1.png.png', '1', '2023-10-09 06:54:01', '2024-04-22 18:35:21'),
 	(17, 'Rendi Gumilar', 'MasyaAlloh mantap, pengerjaan cepat harga terjangkau', '20240423013539_image-character-3.png.png', '2', '2023-10-09 06:54:38', '2024-04-22 18:35:39'),
@@ -1356,7 +1387,7 @@ CREATE TABLE IF NOT EXISTS `unduhan` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table db_akademik.unduhan: ~0 rows (approximately)
+-- Dumping data for table db_akademik.unduhan: ~1 rows (approximately)
 INSERT INTO `unduhan` (`id`, `tanggal_publish`, `nama_unduhan`, `kategori`, `link`, `thumbnail`, `file`, `created_at`, `updated_at`) VALUES
 	(3, '2024-04-24', 'Dokumen Sekolah', 'Angka', 'https://drive.google.com/file/d/13lofIH_M8FtOHFbDP2HXVw9UV4HwNhtp/preview', '20240424014914_IMG_2894-scaled.jpg.jpg', '20240424014914_BRIEF_WEB_SISTEM_PT.PSI.pdf.pdf', '2024-04-23 18:49:14', '2024-04-23 18:49:14');
 
@@ -1375,7 +1406,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   UNIQUE KEY `users_email_unique` (`email`)
 ) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table db_akademik.users: ~0 rows (approximately)
+-- Dumping data for table db_akademik.users: ~2 rows (approximately)
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `role`, `remember_token`, `created_at`, `updated_at`) VALUES
 	(3, 'Muhammad Rafi Heryadi', 'muhammadrafiheryadi94@gmail.com', NULL, '$2y$10$p96HVtHFrERLNA1s9kQYoeZTW5VfCXTjN5QRL29Wk/dXo1Nb79NLy', 'Superadmin', NULL, '2023-11-10 21:37:12', '2023-11-10 21:37:12'),
 	(4, 'Maryam Layla Khoerunnisa', 'alfathunissamaryamlayla@gmail.com', NULL, '$2y$10$7eGwaCmM0XI2Ym.TcHoxqe6k4uTZImExky64YPHNWdmeukmYfoOuu', 'Guru', NULL, '2023-11-10 22:44:46', '2024-01-07 08:11:11');
@@ -1394,9 +1425,9 @@ CREATE TABLE IF NOT EXISTS `visitor` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`visitor_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=54 DEFAULT CHARSET=utf8mb4 ;
+) ENGINE=InnoDB AUTO_INCREMENT=59 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table db_akademik.visitor: ~41 rows (approximately)
+-- Dumping data for table db_akademik.visitor: ~54 rows (approximately)
 INSERT INTO `visitor` (`visitor_id`, `visit_time`, `ip_address`, `session_id`, `cookie_id`, `user_agent`, `device`, `platform`, `browser`, `created_at`, `updated_at`) VALUES
 	(5, '2024-04-25 11:34:37', '127.0.0.1', '', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36', 'WebKit', 'Windows', 'Chrome', '2024-04-28 11:34:37', '2024-04-28 11:34:37'),
 	(6, '2024-04-25 11:37:28', '127.0.0.1', '', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36 Edg/124.0.0.0', 'WebKit', 'Windows', 'Edge', '2024-04-28 11:37:29', '2024-04-28 11:37:29'),
@@ -1446,7 +1477,12 @@ INSERT INTO `visitor` (`visitor_id`, `visit_time`, `ip_address`, `session_id`, `
 	(50, '2024-05-03 20:47:32', '127.0.0.1', '', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36', 'WebKit', 'Windows', 'Chrome', '2024-05-03 20:47:32', '2024-05-03 20:47:32'),
 	(51, '2024-05-04 08:31:41', '127.0.0.1', '', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36', 'WebKit', 'Windows', 'Chrome', '2024-05-04 08:31:41', '2024-05-04 08:31:41'),
 	(52, '2024-05-04 09:09:41', '127.0.0.1', '', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36', 'WebKit', 'Windows', 'Chrome', '2024-05-04 09:09:41', '2024-05-04 09:09:41'),
-	(53, '2024-05-04 09:12:41', '127.0.0.1', '', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36', 'WebKit', 'Windows', 'Chrome', '2024-05-04 09:12:41', '2024-05-04 09:12:41');
+	(53, '2024-05-04 09:12:41', '127.0.0.1', '', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36', 'WebKit', 'Windows', 'Chrome', '2024-05-04 09:12:41', '2024-05-04 09:12:41'),
+	(54, '2024-05-05 05:35:56', '127.0.0.1', '', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36', 'WebKit', 'Windows', 'Chrome', '2024-05-05 05:35:56', '2024-05-05 05:35:56'),
+	(55, '2024-05-05 18:21:25', '127.0.0.1', '', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36', 'WebKit', 'Windows', 'Chrome', '2024-05-05 18:21:25', '2024-05-05 18:21:25'),
+	(56, '2024-05-06 00:06:56', '127.0.0.1', '', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36', 'WebKit', 'Windows', 'Chrome', '2024-05-06 00:06:56', '2024-05-06 00:06:56'),
+	(57, '2024-05-06 00:20:14', '127.0.0.1', '', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36', 'WebKit', 'Windows', 'Chrome', '2024-05-06 00:20:14', '2024-05-06 00:20:14'),
+	(58, '2024-05-06 06:28:16', '127.0.0.1', '', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36', 'WebKit', 'Windows', 'Chrome', '2024-05-06 06:28:16', '2024-05-06 06:28:16');
 
 -- Dumping structure for table db_akademik.waktu_mengajar
 CREATE TABLE IF NOT EXISTS `waktu_mengajar` (

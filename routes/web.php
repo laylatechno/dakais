@@ -450,5 +450,6 @@ Route::get('laporan/kelas', [LaporanController::class, 'kelas'])->middleware('au
 Route::get('laporan/nilai_siswa', [LaporanController::class, 'nilai_siswa'])->middleware('auth')->name('laporan.nilai_siswa');
 Route::get('laporan/keuangan', [LaporanController::class, 'keuangan'])->middleware('auth')->name('laporan.keuangan');
 Route::get('laporan/surat', [LaporanController::class, 'surat'])->middleware('auth')->name('laporan.surat');
+Route::get('laporan/absensi', [LaporanController::class, 'absensi'])->middleware('auth')->name('laporan.absensi');
 Route::get('laporan/barang', [LaporanController::class, 'barang'])->middleware('auth')->name('laporan.barang');
 Route::get('laporan/mutasi_barang', [LaporanController::class, 'mutasi_barang'])->middleware('auth')->name('laporan.mutasi_barang');

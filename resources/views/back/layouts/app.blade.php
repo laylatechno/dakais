@@ -878,6 +878,12 @@
                                         <p>Jadwal Pelajaran</p>
                                     </a>
                                 </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('laporan.absensi') }}" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Absensi</p>
+                                    </a>
+                                </li>
 
                             </ul>
                         </li>
