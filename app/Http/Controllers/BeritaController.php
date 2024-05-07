@@ -183,7 +183,7 @@ class BeritaController extends Controller
             'judul_berita.required' => 'Judul berita wajib diisi.',
         ]);
     
-        // Cek apakah ada file gambar yang diunggah
+        // Cek apakah ada file gambar yang diunggah cek
         if ($request->hasFile('gambar')) {
             $request->validate([
                 'gambar' => 'image|mimes:jpeg,png,jpg,gif|max:2048', // Validasi file gambar
