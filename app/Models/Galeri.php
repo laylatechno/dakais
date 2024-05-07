@@ -9,14 +9,15 @@ class Galeri extends Model
 {
     use HasFactory;
     protected $table = 'galeri';
-    protected $fillable = [
-        'nama_galeri',
-        'kategori_galeri_id',
-        'keterangan',
-        'link',
-        'gambar',
-        'urutan',
-    ];
+    protected $guarded = [];
+    // protected $fillable = [
+    //     'nama_galeri',
+    //     'kategori_galeri_id',
+    //     'keterangan',
+    //     'link',
+    //     'gambar',
+    //     'urutan',
+    // ];
 
     // Model Galeri
     public function kategoriGaleri()

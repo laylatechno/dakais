@@ -9,11 +9,12 @@ class NilaiSiswaDetail extends Model
 {
     use HasFactory;
     protected $table = 'nilai_siswa_detail';
-    protected $fillable = [
-        'nilai_siswa_head_id',
-        'jenis_ujian_id',
-        'nilai',
-    ];
+    protected $guarded = [];
+    // protected $fillable = [
+    //     'nilai_siswa_head_id',
+    //     'jenis_ujian_id',
+    //     'nilai',
+    // ];
 
  
 }

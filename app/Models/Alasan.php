@@ -9,10 +9,11 @@ class Alasan extends Model
 {
     use HasFactory;
     protected $table = 'alasan';
-    protected $fillable = [
-        'nama_alasan',
-        'keterangan',
-        'ikon',
-        'urutan',
-    ];
+    protected $guarded = [];
+    // protected $fillable = [
+    //     'nama_alasan',
+    //     'keterangan',
+    //     'ikon',
+    //     'urutan',
+    // ];
 }

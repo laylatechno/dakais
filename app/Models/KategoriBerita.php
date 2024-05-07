@@ -9,12 +9,13 @@ class KategoriBerita extends Model
 {
     use HasFactory;
     protected $table = 'kategori_berita';
-    protected $fillable = [
-        'nama_kategori_berita',
-        'slug',
-        'urutan',
+    protected $guarded = [];
+    // protected $fillable = [
+    //     'nama_kategori_berita',
+    //     'slug',
+    //     'urutan',
         
-    ];
+    // ];
 
     public function berita()
     {

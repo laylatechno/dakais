@@ -9,11 +9,11 @@ class Testimoni extends Model
 {
     use HasFactory;
     protected $table = 'testimoni';
-
-    protected $fillable = [
-        'nama_testimoni',
-        'keterangan',
-        'urutan',
-        'gambar',
-    ];
+    protected $guarded = [];
+    // protected $fillable = [
+    //     'nama_testimoni',
+    //     'keterangan',
+    //     'urutan',
+    //     'gambar',
+    // ];
 }

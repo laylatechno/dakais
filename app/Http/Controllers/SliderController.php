@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Slider;
 use Illuminate\Http\Request;
+use Intervention\Image\Facades\Image;
 
 class SliderController extends Controller
 {
@@ -51,20 +52,19 @@ class SliderController extends Controller
         if ($image = $request->file('gambar')) {
             $destinationPath = 'upload/slider/';
             
-            // Mengambil nama_slider file asli
+            // Mengambil nama file asli
             $originalFileName = $image->getClientOriginalName();
         
-            // Mendapatkan ekstensi file
-            $extension = $image->getClientOriginalExtension();
+            // Mengonversi gambar ke format WebP
+            $imageName = date('YmdHis') . '_' . str_replace(' ', '_', pathinfo($originalFileName, PATHINFO_FILENAME)) . '.webp';
         
-            // Menggabungkan waktu dengan nama_slider file asli
-            $imageName = date('YmdHis') . '_' . str_replace(' ', '_', $originalFileName) . '.' . $extension;
-        
-            // Pindahkan file ke lokasi tujuan dengan nama_slider baru
-            $image->move($destinationPath, $imageName);
+            // Konversi ke WebP dan simpan
+            $img = Image::make($image->getRealPath())->encode('webp', 90); // 90 untuk kualitas
+            $img->save(public_path($destinationPath . $imageName));
         
             $input['gambar'] = $imageName;
         }
+        
         Slider::create($input);
         return redirect('/slider')->with('message', 'Data berhasil ditambahkan');
 
@@ -126,20 +126,21 @@ class SliderController extends Controller
                 unlink(public_path('upload/slider/' . $slider->gambar));
             }
         
-
             $destinationPath = 'upload/slider/';
-            
-            // Mengambil nama_slider file asli
+        
+            // Mengambil nama file asli
             $originalFileName = $image->getClientOriginalName();
         
-            // Mendapatkan ekstensi file
-            $extension = $image->getClientOriginalExtension();
+            // Mengonversi gambar ke format WebP
+            $imageName = date('YmdHis') . '_' . str_replace(' ', '_', pathinfo($originalFileName, PATHINFO_FILENAME)) . '.webp';
         
-            // Menggabungkan waktu dengan nama_slider file asli
-            $imageName = date('YmdHis') . '_' . str_replace(' ', '_', $originalFileName) . '.' . $extension;
-            $image->move($destinationPath, $imageName);
+            // Konversi ke WebP dan simpan
+            $img = Image::make($image->getRealPath())->encode('webp', 90); // 90 untuk kualitas
+            $img->save(public_path($destinationPath . $imageName));
+        
             $slider->gambar = $imageName;
         }
+        
         
     
         // Perbarui data lainnya

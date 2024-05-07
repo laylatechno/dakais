@@ -9,11 +9,12 @@ class Faq extends Model
 {
     use HasFactory;
     protected $table = 'faq';
-    protected $fillable = [
-        'pertanyaan',
-        'jawaban',
-        'urutan'
-    ];
+    protected $guarded = [];
+    // protected $fillable = [
+    //     'pertanyaan',
+    //     'jawaban',
+    //     'urutan'
+    // ];
 
     public function orderByUrutan($order = 'asc')
     {

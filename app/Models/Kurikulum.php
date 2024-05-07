@@ -9,9 +9,10 @@ class Kurikulum extends Model
 {
     use HasFactory;
     protected $table = 'kurikulum';
-    protected $fillable = [
-        'nama_kurikulum',
-        'status',
+    protected $guarded = [];
+    // protected $fillable = [
+    //     'nama_kurikulum',
+    //     'status',
         
-    ];
+    // ];
 }

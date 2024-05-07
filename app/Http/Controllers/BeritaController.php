@@ -7,7 +7,7 @@ use App\Models\KategoriBerita;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Contracts\DataTable;
 use Yajra\DataTables\Facades\DataTables;
- 
+use Intervention\Image\Facades\Image;
 
 class BeritaController extends Controller
 {
@@ -90,22 +90,21 @@ class BeritaController extends Controller
      */
     public function store(Request $request)
     {
-               // Validasi request
-            $request->validate([
-                'tanggal_posting' => 'required',
-                'judul_berita' => 'required|unique:berita,judul_berita',
-                'penulis' => 'required',
-                'kategori_berita_id' => 'required',
-                'ringkasan' => 'required',
-                'isi' => 'required',
-                'gambar' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Validasi file bukti
-            ], [
-                'judul_berita.required' => 'judul berita wajib terisi.',
-                'judul_berita.unique' => 'judul berita sudah ada.',
-            ]);
-        
+        // Validasi request
+        $request->validate([
+            'tanggal_posting' => 'required',
+            'judul_berita' => 'required|unique:berita,judul_berita',
+            'penulis' => 'required',
+            'kategori_berita_id' => 'required',
+            'ringkasan' => 'required',
+            'isi' => 'required',
+            'gambar' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Validasi file gambar
+        ], [
+            'judul_berita.required' => 'Judul berita wajib diisi.',
+            'judul_berita.unique' => 'Judul berita sudah ada.',
+        ]);
     
-        // Simpan data pengeluaran ke database
+        // Simpan data berita ke database
         $berita = new Berita();
         $berita->tanggal_posting = $request->tanggal_posting;
         $berita->judul_berita = $request->judul_berita;
@@ -117,17 +116,17 @@ class BeritaController extends Controller
         $berita->sumber = $request->sumber;
         $berita->urutan = $request->urutan;
         $berita->status = $request->status;
-        
-        
-           // Simpan file gambar ke direktori yang diinginkan (misalnya: uploads/gambar_berita)
-           $gambar = $request->file('gambar');
-           $namaFile = time().'.'.$gambar->getClientOriginalExtension();
-           $gambar->move(public_path('upload/berita'), $namaFile);
-     
-           // Simpan nama file gambar ke dalam database
-           $berita->gambar = $namaFile;
     
-        
+        // Simpan file gambar ke direktori yang diinginkan (misalnya: uploads/gambar_berita)
+        if ($gambar = $request->file('gambar')) {
+            // Mengonversi gambar ke format WebP
+            $namaFile = time() . '.webp';
+            $img = Image::make($gambar->getRealPath())->encode('webp', 90); // 90 untuk kualitas
+            $img->save(public_path('upload/berita/' . $namaFile));
+    
+            // Simpan nama file gambar ke dalam database
+            $berita->gambar = $namaFile;
+        }
     
         $berita->save();
     
@@ -169,9 +168,8 @@ class BeritaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // Ambil data pengeluaran yang akan diperbarui
-       
-        $berita = Berita::where('id', $id)->firstOrFail();
+        // Ambil data berita yang akan diperbarui
+        $berita = Berita::findOrFail($id);
         
         // Validasi request
         $request->validate([
@@ -181,40 +179,36 @@ class BeritaController extends Controller
             'kategori_berita_id' => 'required',
             'ringkasan' => 'required',
             'isi' => 'required',
-            // 'gambar' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Validasi file gambar
         ], [
-            'judul_berita.required' => 'judul berita wajib terisi.',
+            'judul_berita.required' => 'Judul berita wajib diisi.',
         ]);
     
-         // Update data berita
-        
-         $berita->fill($request->except(['gambar','id'])); // Isi data kecuali gambar
-         $berita->gambar = $berita->gambar; // Tetap gunakan gambar lama jika tidak ada gambar baru
-     
-         // Cek apakah ada file gambar yang diunggah
-         if ($request->hasFile('gambar')) {
+        // Cek apakah ada file gambar yang diunggah
+        if ($request->hasFile('gambar')) {
             $request->validate([
-                // 'nama_konsumen' => 'required',
                 'gambar' => 'image|mimes:jpeg,png,jpg,gif|max:2048', // Validasi file gambar
             ]);
-             if ($berita->gambar) {
-                 // Hapus gambar dari penyimpanan (misalnya folder uploads)
-                 $gambarPath = public_path('upload/berita/' . $berita->gambar);
-                 if (file_exists($gambarPath)) {
-                     unlink($gambarPath);
-                 }
-             }
-     
-             // Simpan gambar baru
-             $gambarFile = $request->file('gambar');
-             $namaFile = time() . '.' . $gambarFile->getClientOriginalExtension();
-             $gambarFile->move(public_path('upload/berita'), $namaFile);
-     
-             // Update atribut gambar pada berita
-             $berita->gambar = $namaFile;
-         }
     
-     
+            // Hapus gambar lama jika ada
+            if ($berita->gambar) {
+                $gambarPath = public_path('upload/berita/' . $berita->gambar);
+                if (file_exists($gambarPath)) {
+                    unlink($gambarPath);
+                }
+            }
+    
+            // Simpan gambar baru dalam format WebP
+            $gambarFile = $request->file('gambar');
+            $namaFile = time() . '.webp';
+            $img = Image::make($gambarFile->getRealPath())->encode('webp', 90); // 90 untuk kualitas
+            $img->save(public_path('upload/berita/' . $namaFile));
+    
+            // Update atribut gambar pada berita
+            $berita->gambar = $namaFile;
+        }
+    
+        // Update data berita
+        $berita->fill($request->except(['gambar', 'id'])); // Isi data kecuali gambar
         $berita->tanggal_posting = $request->tanggal_posting;
         $berita->judul_berita = $request->judul_berita;
         $berita->slug = $request->slug;
@@ -225,8 +219,6 @@ class BeritaController extends Controller
         $berita->sumber = $request->sumber;
         $berita->urutan = $request->urutan;
         $berita->status = $request->status;
-    
-        
     
         // Simpan perubahan
         $berita->save();

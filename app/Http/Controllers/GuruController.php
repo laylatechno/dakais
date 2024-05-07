@@ -9,6 +9,8 @@ use App\Models\Mapel;
 use App\Models\Profil;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Intervention\Image\Facades\Image;
+
 
 class GuruController extends Controller
 {
@@ -32,8 +34,8 @@ class GuruController extends Controller
      */
     public function index()
     {
-        
-        $guru = Guru::select('id', 'nip', 'kode_guru','nama_guru','tempat_lahir','gambar','status','status_aktif')->get();
+
+        $guru = Guru::select('id', 'nip', 'kode_guru', 'nama_guru', 'tempat_lahir', 'gambar', 'status', 'status_aktif')->get();
         return view('back.guru.index', compact('guru'));
     }
 
@@ -66,11 +68,10 @@ class GuruController extends Controller
             'jenis_kelamin' => 'required',
             'no_telp' => 'required',
             'honor' => 'required',
-            'gambar' => 'mimes:jpg,jpeg,png,gif|max:2048', // Max 2 MB (2048 KB)
+            'gambar' => 'mimes:jpg,jpeg,png,gif|max:2048', // Maks 2 MB (2048 KB)
             'username' => 'required',
             'password' => 'required',
             'status' => 'required',
-        
             'tanggal_masuk' => 'required',
         ], [
             'nip.required' => 'NIP Wajib diisi',
@@ -82,14 +83,13 @@ class GuruController extends Controller
             'tanggal_lahir.required' => 'Tanggal Lahir Wajib diisi',
             'jenis_kelamin.required' => 'Jenis Kelamin Wajib diisi',
             'no_telp.required' => 'No Telp Wajib diisi',
-         
             'honor.required' => 'Honor Wajib diisi',
             'username.required' => 'Username Wajib diisi',
             'password.required' => 'password Wajib diisi',
             'tanggal_masuk.required' => 'tanggal_masuk Wajib diisi',
             'status.required' => 'Status Wajib diisi',
-          
         ]);
+
         $input = $request->except('honor');
 
         if ($request->has('honor')) {
@@ -100,20 +100,19 @@ class GuruController extends Controller
             $destinationPath = 'upload/guru/';
 
             // Mengambil nama_guru file asli
-            $originalFileName = $image->getClientOriginalName();
+            $originalFileName = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
 
-            // Mendapatkan ekstensi file
-            $extension = $image->getClientOriginalExtension();
+            // Mendapatkan nama unik dengan waktu
+            $imageName = date('YmdHis') . '_' . str_replace(' ', '_', $originalFileName) . '.webp';
 
-            // Menggabungkan waktu dengan nama_guru file asli
-            $imageName = date('YmdHis') . '_' . str_replace(' ', '_', $originalFileName) . '.' . $extension;
-
-            // Pindahkan file ke lokasi tujuan dengan nama_guru baru
-            $image->move($destinationPath, $imageName);
+            // Konversi gambar ke WebP dan simpan ke folder tujuan
+            $img = Image::make($image->getRealPath())->encode('webp', 90); // 90 untuk kualitas gambar
+            $img->save($destinationPath . $imageName);
 
             $input['gambar'] = $imageName;
         }
-        /// Membuat guru baru dan mendapatkan data pengguna yang baru dibuat
+
+        // Membuat guru baru dan mendapatkan data pengguna yang baru dibuat
         $guru = Guru::create($input);
 
         // Mendapatkan ID pengguna yang sedang login
@@ -121,6 +120,7 @@ class GuruController extends Controller
 
         // Simpan log histori untuk operasi Create dengan guru_id yang sedang login
         $this->simpanLogHistori('Create', 'Form Tambah Guru', $guru->id, $loggedInUserId, null, json_encode($input));
+
         return redirect('/guru')->with('message', 'Data berhasil ditambahkan');
     }
 
@@ -157,18 +157,17 @@ class GuruController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'nip' => 'required',
+            'nip' => 'required|unique:guru,nip,' . $id,
             'nama_guru' => 'required',
-            'kode_guru' => 'required',
+            'kode_guru' => 'required|unique:guru,kode_guru,' . $id,
             'tempat_lahir' => 'required',
             'tanggal_lahir' => 'required',
             'jenis_kelamin' => 'required',
             'no_telp' => 'required',
-          
             'honor' => 'required',
-            'gambar' => 'mimes:jpg,jpeg,png,gif|max:2048', // Max 2 MB (2048 KB)
+            'gambar' => 'mimes:jpg,jpeg,png,gif|max:2048', // Max 2 MB
             'username' => 'required',
-            'password' => 'required',
+            'password' => 'sometimes|required|min:8',
             'status' => 'required',
             'tanggal_masuk' => 'required',
         ], [
@@ -178,50 +177,41 @@ class GuruController extends Controller
             'tempat_lahir.required' => 'Tempat Lahir Wajib diisi',
             'tanggal_lahir.required' => 'Tanggal Lahir Wajib diisi',
             'jenis_kelamin.required' => 'Jenis Kelamin Wajib diisi',
-            'no_telp.required' => 'No Telp Wajib diisi',
-           
+            'no_telp.required' => 'Nomor Telepon Wajib diisi',
             'honor.required' => 'Honor Wajib diisi',
-            'username.required' => 'Username Wajib diisi',
-            'password.required' => 'password Wajib diisi',
-            'tanggal_masuk.required' => 'tanggal_masuk Wajib diisi',
-            'status.required' => 'status Wajib diisi',
-            'gambar.mimes' => 'Foto yang dimasukkan hanya diperbolehkan berekstensi JPG, JPEG, PNG dan GIF',
+            'gambar.mimes' => 'Hanya file JPG, JPEG, PNG, atau GIF yang diperbolehkan',
             'gambar.max' => 'Ukuran gambar tidak boleh lebih dari 2 MB',
         ]);
 
-        $guru = Guru::find($id);
-        // Mendapatkan data sebelum diupdate
-        $oldData = $guru->getOriginal();
+        $guru = Guru::findOrFail($id); // Pastikan guru ditemukan, atau kirim respons 404
+        $oldData = $guru->toArray(); // Data lama sebelum pembaruan
 
-        if (!$guru) {
-            return redirect('/guru')->with('error', 'Guru tidak ditemukan');
-        }
-
-        $existingImage = $guru->gambar; // Simpan nama gambar yang sudah ada sebelumnya
-
+        // Periksa apakah ada file gambar yang diunggah
         if ($image = $request->file('gambar')) {
+            // Tentukan jalur penyimpanan
             $destinationPath = 'upload/guru/';
 
-            // Mengambil nama file asli
-            $originalFileName = $image->getClientOriginalName();
+            // Nama baru untuk file WebP
+            $imageName = date('YmdHis') . '_' . str_replace(' ', '_', pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME)) . '.webp';
 
-            // Mendapatkan ekstensi file
-            $extension = $image->getClientOriginalExtension();
+            // Konversi ke WebP dan simpan
+            $img = Image::make($image->getRealPath())->encode('webp', 90); // 90 untuk kualitas
+            $img->save($destinationPath . $imageName);
 
-            // Menggabungkan waktu dengan nama file asli
-            $imageName = date('YmdHis') . '_' . str_replace(' ', '_', $originalFileName) . '.' . $extension;
-            $image->move($destinationPath, $imageName);
-
-            $guru->gambar = $imageName; // Simpan nama gambar yang baru diupdate
-
-            // Hapus gambar lama hanya jika ada dan bukan direktori
-            $existingImagePath = public_path('upload/guru/' . $existingImage);
-            if (file_exists($existingImagePath) && is_file($existingImagePath)) {
-                unlink($existingImagePath);
+            // Hapus gambar lama jika ada
+            if ($guru->gambar) {
+                $existingImagePath = public_path('upload/guru/' . $guru->gambar);
+                if (file_exists($existingImagePath) && is_file($existingImagePath)) {
+                    unlink($existingImagePath);
+                }
             }
+
+            // Simpan nama gambar baru ke database
+            $guru->gambar = $imageName;
         }
 
-        // Perbarui data lainnya
+
+        // Update data lainnya
         $guru->nip = $request->input('nip');
         $guru->nama_guru = $request->input('nama_guru');
         $guru->kode_guru = $request->input('kode_guru');
@@ -235,24 +225,31 @@ class GuruController extends Controller
         $guru->gelar_belakang = $request->input('gelar_belakang');
         $guru->alamat = $request->input('alamat');
 
-        $honor = $request->input('honor');
-        $honor = str_replace(',', '', $honor);
+        $honor = str_replace(',', '', $request->input('honor'));
         $guru->honor = $honor;
 
-        $guru->username = $request->input('username');
-        $guru->password = $request->input('password');
+        // Update kata sandi hanya jika diisi dan hash
+        if ($request->filled('password')) {
+            $guru->password = bcrypt($request->input('password'));
+        }
+
         $guru->tanggal_masuk = $request->input('tanggal_masuk');
         $guru->status = $request->input('status');
-        $guru->status_aktif = $request->input('status_aktif');
         $guru->posisi = $request->input('posisi');
         $guru->motto = $request->input('motto');
-        $guru->save();
 
+        $guru->save(); // Simpan perubahan
 
-
-        // Simpan log histori untuk operasi Update dengan user_id yang sedang login
+        // Log histori untuk operasi pembaruan
         $loggedInUserId = Auth::id();
-        $this->simpanLogHistori('Update', 'Form Update Guru', $id, $loggedInUserId, json_encode($oldData), json_encode($guru));
+        $this->simpanLogHistori(
+            'Update',
+            'Form Update Guru',
+            $id,
+            $loggedInUserId,
+            json_encode($oldData),
+            json_encode($guru->toArray())
+        );
 
         return redirect('/guru')->with('message', 'Data berhasil diperbarui');
     }

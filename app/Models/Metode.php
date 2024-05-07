@@ -9,10 +9,10 @@ class Metode extends Model
 {
     use HasFactory;
     protected $table = 'metode';
-
-    protected $fillable = [
-        'nama',
-        'keterangan',
-        'gambar',
-    ];
+    protected $guarded = [];
+    // protected $fillable = [
+    //     'nama',
+    //     'keterangan',
+    //     'gambar',
+    // ];
 }

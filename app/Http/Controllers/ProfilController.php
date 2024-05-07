@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Guru;
 use App\Models\Profil;
 use Illuminate\Http\Request;
+use Intervention\Image\Facades\Image;
 
 class ProfilController extends Controller
 {
@@ -192,45 +193,76 @@ class ProfilController extends Controller
     
 
     public function update_display(Request $request, $id)
-            {
-                $request->validate([
-                    // validasi untuk setiap gambar
-                    'logo' => 'image|mimes:jpg,jpeg,png,gif|max:2048',
-                    'favicon' => 'image|mimes:jpg,jpeg,png,gif|max:2048',
-                    'gambar' => 'image|mimes:jpg,jpeg,png,gif|max:2048',
-                ]);
-
-                $data = Profil::findOrFail($id); // Dapatkan data Profil yang akan diupdate
-
-                // Update Logo Sekolah
-                if ($request->hasFile('logo')) {
-                    $logo = $request->file('logo');
-                    $logoName = 'logo_' . time() . '.' . $logo->getClientOriginalExtension();
-                    $logo->move(public_path('upload/profil'), $logoName);
-                    $data->logo = $logoName;
-                }
-
-                // Update Favicon
-                if ($request->hasFile('favicon')) {
-                    $favicon = $request->file('favicon');
-                    $faviconName = 'favicon_' . time() . '.' . $favicon->getClientOriginalExtension();
-                    $favicon->move(public_path('upload/profil'), $faviconName);
-                    $data->favicon = $faviconName;
-                }
-
-                // Update Banner Website
-                if ($request->hasFile('gambar')) {
-                    $gambar = $request->file('gambar');
-                    $gambarName = 'banner_' . time() . '.' . $gambar->getClientOriginalExtension();
-                    $gambar->move(public_path('upload/profil'), $gambarName);
-                    $data->gambar = $gambarName;
-                }
-
-                // Simpan perubahan
-                $data->save();
-
-                return redirect()->back()->with('message', 'Gambar berhasil diperbarui');
+    {
+        $request->validate([
+            // Validasi untuk setiap gambar
+            'logo' => 'image|mimes:jpg,jpeg,png,gif|max:2048',
+            'favicon' => 'image|mimes:jpg,jpeg,png,gif|max:2048',
+            'gambar' => 'image|mimes:jpg,jpeg,png,gif|max:2048',
+        ]);
+    
+        $data = Profil::findOrFail($id); // Dapatkan data Profil yang akan diupdate
+    
+        // Update Logo Sekolah
+        if ($request->hasFile('logo')) {
+            $logo = $request->file('logo');
+            $destinationPath = public_path('upload/profil/');
+            
+            // Hapus logo lama jika ada
+            if (file_exists($destinationPath . $data->logo)) {
+                unlink($destinationPath . $data->logo);
             }
+    
+            // Mengonversi gambar ke format WebP
+            $logoName = 'logo_' . time() . '.webp';
+            $img = Image::make($logo->getRealPath())->encode('webp', 90); // 90 untuk kualitas
+            $img->save($destinationPath . $logoName);
+    
+            $data->logo = $logoName;
+        }
+    
+        // Update Favicon
+        if ($request->hasFile('favicon')) {
+            $favicon = $request->file('favicon');
+            $destinationPath = public_path('upload/profil/');
+            
+            // Hapus favicon lama jika ada
+            if (file_exists($destinationPath . $data->favicon)) {
+                unlink($destinationPath . $data->favicon);
+            }
+    
+            // Mengonversi gambar ke format WebP
+            $faviconName = 'favicon_' . time() . '.webp';
+            $img = Image::make($favicon->getRealPath())->encode('webp', 90); // 90 untuk kualitas
+            $img->save($destinationPath . $faviconName);
+    
+            $data->favicon = $faviconName;
+        }
+    
+        // Update Banner Website
+        if ($request->hasFile('gambar')) {
+            $gambar = $request->file('gambar');
+            $destinationPath = public_path('upload/profil/');
+            
+            // Hapus gambar lama jika ada
+            if (file_exists($destinationPath . $data->gambar)) {
+                unlink($destinationPath . $data->gambar);
+            }
+    
+            // Mengonversi gambar ke format WebP
+            $gambarName = 'banner_' . time() . '.webp';
+            $img = Image::make($gambar->getRealPath())->encode('webp', 90); // 90 untuk kualitas
+            $img->save($destinationPath . $gambarName);
+    
+            $data->gambar = $gambarName;
+        }
+    
+        // Simpan perubahan
+        $data->save();
+    
+        return redirect()->back()->with('message', 'Gambar berhasil diperbarui');
+    }
+    
 
 
  

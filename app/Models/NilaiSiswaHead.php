@@ -9,14 +9,15 @@ class NilaiSiswaHead extends Model
 {
     use HasFactory;
     protected $table = 'nilai_siswa_head';
-    protected $fillable = [
-        'tahun_ajaran_id',
-        'kelas_id',
-        'siswa_id',
-        'total_nilai',
-        'keterangan',
+    protected $guarded = [];
+    // protected $fillable = [
+    //     'tahun_ajaran_id',
+    //     'kelas_id',
+    //     'siswa_id',
+    //     'total_nilai',
+    //     'keterangan',
         
-    ];
+    // ];
     public function kelas()
     {
         return $this->belongsTo(Kelas::class, 'kelas_id');

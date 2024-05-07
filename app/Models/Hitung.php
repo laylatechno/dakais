@@ -9,10 +9,11 @@ class Hitung extends Model
 {
     use HasFactory;
     protected $table = 'hitung';
-    protected $fillable = [
-        'nama_hitung',
-        'jumlah',
-        'hitung',
-        'urutan'
-    ];
+    protected $guarded = [];
+    // protected $fillable = [
+    //     'nama_hitung',
+    //     'jumlah',
+    //     'hitung',
+    //     'urutan'
+    // ];
 }

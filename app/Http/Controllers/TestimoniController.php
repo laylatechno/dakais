@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Testimoni;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Facades\Image;
+
+
 
 class TestimoniController extends Controller
 {
@@ -52,20 +55,19 @@ class TestimoniController extends Controller
         if ($image = $request->file('gambar')) {
             $destinationPath = 'upload/testimoni/';
             
-            // Mengambil nama_testimoni file asli
+            // Mengambil nama file asli
             $originalFileName = $image->getClientOriginalName();
         
-            // Mendapatkan ekstensi file
-            $extension = $image->getClientOriginalExtension();
+            // Mengonversi gambar ke format WebP
+            $imageName = date('YmdHis') . '_' . str_replace(' ', '_', pathinfo($originalFileName, PATHINFO_FILENAME)) . '.webp';
         
-            // Menggabungkan waktu dengan nama_testimoni file asli
-            $imageName = date('YmdHis') . '_' . str_replace(' ', '_', $originalFileName) . '.' . $extension;
-        
-            // Pindahkan file ke lokasi tujuan dengan nama_testimoni baru
-            $image->move($destinationPath, $imageName);
+            // Konversi ke WebP dan simpan
+            $img = Image::make($image->getRealPath())->encode('webp', 90); // 90 untuk kualitas
+            $img->save(public_path($destinationPath . $imageName));
         
             $input['gambar'] = $imageName;
         }
+        
         
         Testimoni::create($input);
         return redirect('/testimoni')->with('message', 'Data berhasil ditambahkan');
@@ -123,26 +125,25 @@ class TestimoniController extends Controller
     
         if ($image = $request->file('gambar')) {
             // Hapus gambar lama jika ada
-            if (file_exists(public_path('upload/testimoni/' . $testimoni->gambar))) {
+            if ($testimoni->gambar && file_exists(public_path('upload/testimoni/' . $testimoni->gambar))) {
                 unlink(public_path('upload/testimoni/' . $testimoni->gambar));
             }
         
-
             $destinationPath = 'upload/testimoni/';
-            
-            // Mengambil nama_testimoni file asli
+        
+            // Mengambil nama file asli
             $originalFileName = $image->getClientOriginalName();
         
-            // Mendapatkan ekstensi file
-            $extension = $image->getClientOriginalExtension();
+            // Mengonversi gambar ke format WebP
+            $imageName = date('YmdHis') . '_' . str_replace(' ', '_', pathinfo($originalFileName, PATHINFO_FILENAME)) . '.webp';
         
-            // Menggabungkan waktu dengan nama_testimoni file asli
-            $imageName = date('YmdHis') . '_' . str_replace(' ', '_', $originalFileName) . '.' . $extension;
-
+            // Konversi ke WebP dan simpan
+            $img = Image::make($image->getRealPath())->encode('webp', 90); // 90 untuk kualitas
+            $img->save(public_path($destinationPath . $imageName));
         
-            $image->move($destinationPath, $imageName);
             $testimoni->gambar = $imageName;
         }
+        
         
     
         // Perbarui data lainnya

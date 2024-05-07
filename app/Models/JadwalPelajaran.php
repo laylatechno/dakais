@@ -9,11 +9,12 @@ class JadwalPelajaran extends Model
 {
     use HasFactory;
     protected $table = 'jadwal_pelajaran';
-    protected $fillable = [
-        'hari',
-        'kelas_id',
+    protected $guarded = [];
+    // protected $fillable = [
+    //     'hari',
+    //     'kelas_id',
         
-    ];
+    // ];
 
     public function mataPelajaran()
     {

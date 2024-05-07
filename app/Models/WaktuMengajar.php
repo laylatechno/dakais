@@ -9,9 +9,10 @@ class WaktuMengajar extends Model
 {
     use HasFactory;
     protected $table = 'waktu_mengajar';
-    protected $fillable = [
-        'jam',
-        'waktu',
+    protected $guarded = [];
+    // protected $fillable = [
+    //     'jam',
+    //     'waktu',
         
-    ];
+    // ];
 }

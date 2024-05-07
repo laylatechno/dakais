@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use App\Models\LogHistori;
 use Illuminate\Support\Facades\Auth;
 
+use Intervention\Image\Facades\Image;
 
 class KegiatanController extends Controller
 {
@@ -89,21 +90,20 @@ class KegiatanController extends Controller
 
         if ($image = $request->file('gambar')) {
             $destinationPath = 'upload/kegiatan/';
-
-            // Mengambil nama_galeri file asli
+        
+            // Mengambil nama file asli
             $originalFileName = $image->getClientOriginalName();
-
-            // Mendapatkan ekstensi file
-            $extension = $image->getClientOriginalExtension();
-
-            // Menggabungkan waktu dengan nama_galeri file asli
-            $imageName = date('YmdHis') . '_' . str_replace(' ', '_', $originalFileName) . '.' . $extension;
-
-            // Pindahkan file ke lokasi tujuan dengan nama_galeri baru
-            $image->move($destinationPath, $imageName);
-
+        
+            // Mengonversi gambar ke format WebP
+            $imageName = date('YmdHis') . '_' . str_replace(' ', '_', pathinfo($originalFileName, PATHINFO_FILENAME)) . '.webp';
+        
+            // Konversi ke WebP dan simpan
+            $img = Image::make($image->getRealPath())->encode('webp', 90); // 90 untuk kualitas
+            $img->save(public_path($destinationPath . $imageName));
+        
             $input['gambar'] = $imageName;
         }
+        
         $kegiatan = Kegiatan::create($input);
         $loggedInUserId = Auth::id();
 
@@ -150,7 +150,6 @@ class KegiatanController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-
     public function update(Request $request, $id)
     {
         // Validasi request
@@ -161,7 +160,6 @@ class KegiatanController extends Controller
             'tanggal_kegiatan' => 'required|date',
             'map' => 'required',
             'gambar' => 'required|mimes:jpg,jpeg,png,gif|max:4048',
-
         ], [
             'nama_kegiatan.required' => 'Nama Kegiatan wajib diisi',
             'jam.required' => 'Jam wajib diisi',
@@ -173,41 +171,42 @@ class KegiatanController extends Controller
             'gambar.mimes' => 'Gambar yang dikeluarkan hanya diperbolehkan berekstensi PDF, WORD, JPG, JPEG, PNG dan GIF',
             'gambar.max' => 'Ukuran gambar tidak boleh lebih dari 4 MB',
         ]);
-
+    
+        // Cari kegiatan yang akan diupdate
         $kegiatan = Kegiatan::findOrFail($id);
         $oldData = $kegiatan->getOriginal();
-
-
+    
         $input = $request->all();
+    
         // Upload gambar baru jika ada
         if ($request->hasFile('gambar')) {
             $oldgambarFileName = $kegiatan->gambar;
             $destinationPath = 'upload/kegiatan/';
-
+    
             // Hapus gambar lama jika ada sebelum mengganti dengan yang baru
             if ($oldgambarFileName && file_exists(public_path($destinationPath . $oldgambarFileName))) {
                 unlink(public_path($destinationPath . $oldgambarFileName));
             }
-
+    
+            // Mengonversi gambar ke format WebP
             $image = $request->file('gambar');
-            $imageName = date('YmdHis') . '_' . $image->getClientOriginalName();
-            $image->move($destinationPath, $imageName);
-
+            $imageName = date('YmdHis') . '_' . $image->getClientOriginalName() . '.webp';
+            $img = Image::make($image->getRealPath())->encode('webp', 90); // 90 untuk kualitas
+            $img->save(public_path($destinationPath . $imageName));
+    
             $input['gambar'] = $imageName;
         }
-
-        // Update data barang
+    
+        // Update data kegiatan
         $kegiatan->update($input);
         $loggedInUserId = Auth::id();
-
+    
         // Simpan log histori untuk operasi Update dengan user_id yang sedang login
         $this->simpanLogHistori('Update', 'kegiatan', $kegiatan->id, $loggedInUserId, json_encode($oldData), json_encode($kegiatan));
-
-
-
+    
         return response()->json(['message' => 'Data Berhasil Diupdate']);
     }
-
+    
 
 
     /**

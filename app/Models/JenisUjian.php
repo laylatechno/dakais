@@ -9,10 +9,11 @@ class JenisUjian extends Model
 {
     use HasFactory;
     protected $table = 'jenis_ujian';
-    protected $fillable = [
-        'nama_ujian',
-        'tanggal_ujian',
-        'keterangan',
+    protected $guarded = [];
+    // protected $fillable = [
+    //     'nama_ujian',
+    //     'tanggal_ujian',
+    //     'keterangan',
         
-    ];
+    // ];
 }

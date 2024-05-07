@@ -9,11 +9,12 @@ class KepalaSekolah extends Model
 {
     use HasFactory;
     protected $table = 'kepala_sekolah';
-    protected $fillable = [
-        'nip',
-        'nama_kepala_sekolah',
-        'tanggal_mulai',
-        'tanggal_akhir',
-        'status',
-    ];
+    protected $guarded = [];
+    // protected $fillable = [
+    //     'nip',
+    //     'nama_kepala_sekolah',
+    //     'tanggal_mulai',
+    //     'tanggal_akhir',
+    //     'status',
+    // ];
 }

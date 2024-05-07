@@ -9,14 +9,15 @@ class Pengeluaran extends Model
 {
     use HasFactory;
     protected $table = 'pengeluaran';
-    protected $fillable = [
-        'tanggal_pengeluaran',
-        'nama_pengeluaran',
-        'jumlah_pengeluaran',
-        'keterangan',
-        'pic',
-        'bukti',
+    protected $guarded = [];
+    // protected $fillable = [
+    //     'tanggal_pengeluaran',
+    //     'nama_pengeluaran',
+    //     'jumlah_pengeluaran',
+    //     'keterangan',
+    //     'pic',
+    //     'bukti',
         
-    ];
+    // ];
     // protected $guarded = [];
 }

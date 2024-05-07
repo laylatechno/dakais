@@ -9,11 +9,12 @@ class PenempatanKelasDetail extends Model
 {
     use HasFactory;
     protected $table = 'penempatan_kelas_detail';
-    protected $fillable = [
-        'penempatan_kelas_head_id',
-        'kelas_id',
-        'siswa_id',
-    ];
+    protected $guarded = [];
+    // protected $fillable = [
+    //     'penempatan_kelas_head_id',
+    //     'kelas_id',
+    //     'siswa_id',
+    // ];
    
     public function kelas()
     {

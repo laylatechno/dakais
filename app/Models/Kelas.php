@@ -9,11 +9,12 @@ class Kelas extends Model
 {
     use HasFactory;
     protected $table = 'kelas';
-    protected $fillable = [
-        'nama_kelas',
-        'wali_kelas',
-        'urutan',
-    ];
+    protected $guarded = [];
+    // protected $fillable = [
+    //     'nama_kelas',
+    //     'wali_kelas',
+    //     'urutan',
+    // ];
 
     // join tabel memanggil guru pada tabel guru
     public function waliKelas()
