@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\LogHistori;
 
+use Intervention\Image\Facades\Image;
 
 
 class MutasiBarangController extends Controller
@@ -146,8 +147,16 @@ class MutasiBarangController extends Controller
                     $originalFileName = $image->getClientOriginalName();
                     $extension = $image->getClientOriginalExtension();
                     $imageName = date('YmdHis') . '_' . str_replace(' ', '_', $originalFileName) . '.' . $extension;
+                
+                    // Simpan gambar dalam format aslinya
                     $image->move($destinationPath, $imageName);
-                    $input['bukti'] = $imageName;
+                
+                    // Konversi gambar ke format WebP
+                    $img = Image::make($destinationPath . $imageName)->encode('webp', 90); // 90 untuk kualitas
+                    $img->save($destinationPath . pathinfo($imageName, PATHINFO_FILENAME) . '.webp');
+                
+                    // Simpan nama gambar baru (WebP) ke dalam array input
+                    $input['bukti'] = pathinfo($imageName, PATHINFO_FILENAME) . '.webp';
                 }
 
                // Gunakan nilai ruangan_id_asal_hidden untuk ruangan_id_asal
@@ -294,22 +303,31 @@ class MutasiBarangController extends Controller
         $input['harga_perolehan'] = str_replace(',', '', $request->input('harga_perolehan'));
     }
 
-     // Upload gambar baru jika ada
-     if ($request->hasFile('gambar')) {
+
+    // Upload gambar baru jika ada
+    if ($request->hasFile('gambar')) {
         $oldgambarFileName = $mutasi_barang->gambar;
         $destinationPath = 'upload/mutasi_barang/';
-
+    
         // Hapus gambar lama jika ada sebelum mengganti dengan yang baru
         if ($oldgambarFileName && file_exists(public_path($destinationPath . $oldgambarFileName))) {
             unlink(public_path($destinationPath . $oldgambarFileName));
         }
-
+    
         $image = $request->file('gambar');
         $imageName = date('YmdHis') . '_' . $image->getClientOriginalName();
+    
+        // Simpan gambar dalam format aslinya
         $image->move($destinationPath, $imageName);
-
-        $input['gambar'] = $imageName;
+    
+        // Konversi gambar ke format WebP
+        $img = Image::make($destinationPath . $imageName)->encode('webp', 90); // 90 untuk kualitas
+        $img->save($destinationPath . pathinfo($imageName, PATHINFO_FILENAME) . '.webp');
+    
+        // Simpan nama gambar baru (WebP) ke dalam array input
+        $input['gambar'] = pathinfo($imageName, PATHINFO_FILENAME) . '.webp';
     }
+    
 
     // Update data mutasi_barang
     $mutasi_barang->update($input);

@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\LogHistori;
-
+use Intervention\Image\Facades\Image;
 
 class BarangController extends Controller
 {
@@ -37,7 +37,7 @@ class BarangController extends Controller
         $ruangan = Ruangan::select('id', 'nama_ruangan')->get();
         $kategori_barang = KategoriBarang::select('id', 'nama_kategori_barang')->get();
         $barang = Barang::orderBy('id', 'desc')->get();
-        return view('back.barang.index',compact('barang','kategori_barang','ruangan'));
+        return view('back.barang.index', compact('barang', 'kategori_barang', 'ruangan'));
     }
 
     /**
@@ -47,7 +47,6 @@ class BarangController extends Controller
      */
     public function create()
     {
-
     }
 
     /**
@@ -56,14 +55,14 @@ class BarangController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-     
 
-     public function store(Request $request)
-     {
-         // Validasi request
+
+    public function store(Request $request)
+    {
+        // Validasi request
         $validator = Validator::make($request->all(), [
             'kategori_barang_id' => 'required',
-            'kode_barang' => 'required|unique:barang,kode_barang', 
+            'kode_barang' => 'required|unique:barang,kode_barang',
             'nama_barang' => 'required',
             'merk' => 'required',
             'type' => 'required',
@@ -73,7 +72,7 @@ class BarangController extends Controller
             'kondisi_rusak' => 'required|numeric|min:0',
             'ruangan_id' => 'required',
             'status' => 'required',
-             
+
             'asal' => 'required',
             'pic' => 'required',
             'gambar' => 'required|mimes:jpg,jpeg,png,gif|max:2048',
@@ -98,54 +97,62 @@ class BarangController extends Controller
             'ruangan_id.required' => 'Ruangan wajib diisi',
             'status.required' => 'Status wajib diisi',
             'harga_perolehan.required' => 'Jumlah Harga Perolehan wajib diisi',
-         
+
             'asal.required' => 'Asal wajib diisi',
             'pic.required' => 'PIC wajib diisi',
             'gambar.required' => 'Bukti Barang wajib diisi',
             'gambar.mimes' => 'Foto yang dimasukkan hanya diperbolehkan berekstensi JPG, JPEG, PNG dan GIF',
             'gambar.max' => 'Ukuran gambar tidak boleh lebih dari 2 MB',
         ]);
- 
-     if ($validator->fails()) {
-         return response()->json(['errors' => $validator->errors()], 422);
-     }
-         $input = $request->except('harga_perolehan');
- 
-         if ($request->has('harga_perolehan')) {
-             $input['harga_perolehan'] = str_replace(',', '', $request->input('harga_perolehan'));
-         }
- 
-         if ($image = $request->file('gambar')) {
-             $destinationPath = 'upload/barang/';
-             
-             // Mengambil nama_guru file asli
-             $originalFileName = $image->getClientOriginalName();
-         
-             // Mendapatkan ekstensi file
-             $extension = $image->getClientOriginalExtension();
-         
-             // Menggabungkan waktu dengan nama_guru file asli
-             $imageName = date('YmdHis') . '_' . str_replace(' ', '_', $originalFileName) . '.' . $extension;
-         
-             // Pindahkan file ke lokasi tujuan dengan nama_guru baru
-             $image->move($destinationPath, $imageName);
-         
-             $input['gambar'] = $imageName;
-         }
+
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 422);
+        }
+        $input = $request->except('harga_perolehan');
+
+        if ($request->has('harga_perolehan')) {
+            $input['harga_perolehan'] = str_replace(',', '', $request->input('harga_perolehan'));
+        }
+
+        if ($image = $request->file('gambar')) {
+            $destinationPath = 'upload/barang/';
+
+            // Mendapatkan informasi tentang file gambar asli
+            $originalFileName = $image->getClientOriginalName();
+            $extension = $image->getClientOriginalExtension();
+
+            // Mengonversi gambar ke format WebP
+            $imageName = date('YmdHis') . '_' . str_replace(' ', '_', pathinfo($originalFileName, PATHINFO_FILENAME)) . '.webp';
+
+            $img = Image::make($image->getRealPath())->encode('webp', 90); // 90 untuk kualitas
+            $img->save($destinationPath . $imageName);
+
+            // Menghapus gambar lama jika ada
+            if ($input['gambar']) {
+                $existingImagePath = public_path('upload/barang/' . $input['gambar']);
+                if (file_exists($existingImagePath) && is_file($existingImagePath)) {
+                    unlink($existingImagePath);
+                }
+            }
+
+            // Menyimpan nama gambar baru ke dalam array input
+            $input['gambar'] = $imageName;
+        }
+
         $barang = Barang::create($input);
 
-         $loggedInUserId = Auth::id();
+        $loggedInUserId = Auth::id();
 
-         // Simpan log histori untuk operasi Create dengan user_id yang sedang login
-         $this->simpanLogHistori('Create', 'barang', $barang->id, $loggedInUserId, null, json_encode($barang));
-         return response()->json(['message' => 'Data Berhasil Disimpan']);
-     }
- 
-   
- 
+        // Simpan log histori untuk operasi Create dengan user_id yang sedang login
+        $this->simpanLogHistori('Create', 'barang', $barang->id, $loggedInUserId, null, json_encode($barang));
+        return response()->json(['message' => 'Data Berhasil Disimpan']);
+    }
 
-    
- 
+
+
+
+
+
 
     /**
      * Display the specified resource.
@@ -166,7 +173,7 @@ class BarangController extends Controller
      */
     public function edit($id)
     {
-       $barang = Barang::findOrFail($id);
+        $barang = Barang::findOrFail($id);
 
         return response()->json($barang);
     }
@@ -180,94 +187,98 @@ class BarangController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-     public function update(Request $request, $id)
-{
-     // Validasi request
-     $validator = Validator::make($request->all(), [
-        'kategori_barang_id' => 'required',
-        'kode_barang' => 'required|unique:barang,kode_barang', 
-        'nama_barang' => 'required',
-        'merk' => 'required',
-        'type' => 'required',
-        'tanggal_masuk' => 'required|date',
-        'kondisi_baik' => 'required|numeric|min:0',
-        'kondisi_sedang' => 'required|numeric|min:0',
-        'kondisi_rusak' => 'required|numeric|min:0',
-        'ruangan_id' => 'required',
-        'status' => 'required',
-         
-        'asal' => 'required',
-        'pic' => 'required',
-        'gambar' => 'required|mimes:jpg,jpeg,png,gif|max:2048',
-    ], [
-        'kategori_barang_id.required' => 'Kategori Barang wajib diisi',
-        'kode_barang.required' => 'Kode Barang wajib diisi',
-        'kode_barang.unique' => 'Kode Barang sudah ada dalam database',
-        'nama_barang.required' => 'Nama Barang wajib diisi',
-        'merk.required' => 'Merk Barang wajib diisi',
-        'type.required' => 'Type Barang wajib diisi',
-        'tanggal_masuk.required' => 'Tanggal Masuk Barang wajib diisi',
-        'tanggal_masuk.date' => 'Format tanggal tidak valid',
-        'kondisi_baik.required' => 'Jumlah Kondisi Baik wajib diisi',
-        'kondisi_baik.numeric' => 'Jumlah Kondisi Baik harus berupa angka',
-        'kondisi_baik.min' => 'Jumlah Kondisi Baik tidak boleh kurang dari 0',
-        'kondisi_sedang.required' => 'Jumlah Kondisi Sedang wajib diisi',
-        'kondisi_sedang.numeric' => 'Jumlah Kondisi Sedang harus berupa angka',
-        'kondisi_sedang.min' => 'Jumlah Kondisi Sedang tidak boleh kurang dari 0',
-        'kondisi_rusak.required' => 'Jumlah Kondisi Rusak wajib diisi',
-        'kondisi_rusak.numeric' => 'Jumlah Kondisi Rusak harus berupa angka',
-        'kondisi_rusak.min' => 'Jumlah Kondisi Rusak tidak boleh kurang dari 0',
-        'ruangan_id.required' => 'Ruangan wajib diisi',
-        'status.required' => 'Status wajib diisi',
-        'harga_perolehan.required' => 'Jumlah Harga Perolehan wajib diisi',
-     
-        'asal.required' => 'Asal wajib diisi',
-        'pic.required' => 'PIC wajib diisi',
-        'gambar.required' => 'Bukti Barang wajib diisi',
-        'gambar.mimes' => 'Foto yang dimasukkan hanya diperbolehkan berekstensi JPG, JPEG, PNG dan GIF',
-        'gambar.max' => 'Ukuran gambar tidak boleh lebih dari 2 MB',
-    ]);
+    public function update(Request $request, $id)
+    {
+        // Validasi request
+        $validator = Validator::make($request->all(), [
+            'kategori_barang_id' => 'required',
+            'kode_barang' => 'required|unique:barang,kode_barang',
+            'nama_barang' => 'required',
+            'merk' => 'required',
+            'type' => 'required',
+            'tanggal_masuk' => 'required|date',
+            'kondisi_baik' => 'required|numeric|min:0',
+            'kondisi_sedang' => 'required|numeric|min:0',
+            'kondisi_rusak' => 'required|numeric|min:0',
+            'ruangan_id' => 'required',
+            'status' => 'required',
 
-    $barang = Barang::findOrFail($id);
-    $oldData = $barang->getOriginal();
-    $input = $request->except('harga_perolehan');
- 
-    if ($request->has('harga_perolehan')) {
-        $input['harga_perolehan'] = str_replace(',', '', $request->input('harga_perolehan'));
-    }
+            'asal' => 'required',
+            'pic' => 'required',
+            'gambar' => 'required|mimes:jpg,jpeg,png,gif|max:2048',
+        ], [
+            'kategori_barang_id.required' => 'Kategori Barang wajib diisi',
+            'kode_barang.required' => 'Kode Barang wajib diisi',
+            'kode_barang.unique' => 'Kode Barang sudah ada dalam database',
+            'nama_barang.required' => 'Nama Barang wajib diisi',
+            'merk.required' => 'Merk Barang wajib diisi',
+            'type.required' => 'Type Barang wajib diisi',
+            'tanggal_masuk.required' => 'Tanggal Masuk Barang wajib diisi',
+            'tanggal_masuk.date' => 'Format tanggal tidak valid',
+            'kondisi_baik.required' => 'Jumlah Kondisi Baik wajib diisi',
+            'kondisi_baik.numeric' => 'Jumlah Kondisi Baik harus berupa angka',
+            'kondisi_baik.min' => 'Jumlah Kondisi Baik tidak boleh kurang dari 0',
+            'kondisi_sedang.required' => 'Jumlah Kondisi Sedang wajib diisi',
+            'kondisi_sedang.numeric' => 'Jumlah Kondisi Sedang harus berupa angka',
+            'kondisi_sedang.min' => 'Jumlah Kondisi Sedang tidak boleh kurang dari 0',
+            'kondisi_rusak.required' => 'Jumlah Kondisi Rusak wajib diisi',
+            'kondisi_rusak.numeric' => 'Jumlah Kondisi Rusak harus berupa angka',
+            'kondisi_rusak.min' => 'Jumlah Kondisi Rusak tidak boleh kurang dari 0',
+            'ruangan_id.required' => 'Ruangan wajib diisi',
+            'status.required' => 'Status wajib diisi',
+            'harga_perolehan.required' => 'Jumlah Harga Perolehan wajib diisi',
 
-     // Upload gambar baru jika ada
-     if ($request->hasFile('gambar')) {
-        $oldgambarFileName = $barang->gambar;
-        $destinationPath = 'upload/barang/';
+            'asal.required' => 'Asal wajib diisi',
+            'pic.required' => 'PIC wajib diisi',
+            'gambar.required' => 'Bukti Barang wajib diisi',
+            'gambar.mimes' => 'Foto yang dimasukkan hanya diperbolehkan berekstensi JPG, JPEG, PNG dan GIF',
+            'gambar.max' => 'Ukuran gambar tidak boleh lebih dari 2 MB',
+        ]);
 
-        // Hapus gambar lama jika ada sebelum mengganti dengan yang baru
-        if ($oldgambarFileName && file_exists(public_path($destinationPath . $oldgambarFileName))) {
-            unlink(public_path($destinationPath . $oldgambarFileName));
+        $barang = Barang::findOrFail($id);
+        $oldData = $barang->getOriginal();
+        $input = $request->except('harga_perolehan');
+
+        if ($request->has('harga_perolehan')) {
+            $input['harga_perolehan'] = str_replace(',', '', $request->input('harga_perolehan'));
         }
 
-        $image = $request->file('gambar');
-        $imageName = date('YmdHis') . '_' . $image->getClientOriginalName();
-        $image->move($destinationPath, $imageName);
+        // Upload gambar baru jika ada
+        if ($request->hasFile('gambar')) {
+            $oldgambarFileName = $barang->gambar;
+            $destinationPath = 'upload/barang/';
+        
+            // Hapus gambar lama jika ada sebelum mengganti dengan yang baru
+            if ($oldgambarFileName && file_exists(public_path($destinationPath . $oldgambarFileName))) {
+                unlink(public_path($destinationPath . $oldgambarFileName));
+            }
+        
+            $image = $request->file('gambar');
+            $imageName = date('YmdHis') . '_' . $image->getClientOriginalName();
+        
+            // Konversi gambar ke format WebP
+            $img = Image::make($image->getRealPath())->encode('webp', 90); // 90 untuk kualitas
+            $img->save($destinationPath . $imageName . '.webp');
+        
+            $input['gambar'] = $imageName . '.webp';
+        }
+        
 
-        $input['gambar'] = $imageName;
+        // Update data barang
+        $barang->update($input);
+
+        $loggedInUserId = Auth::id();
+
+        // Simpan log histori untuk operasi Update dengan user_id yang sedang login
+        $this->simpanLogHistori('Update', 'barang', $barang->id, $loggedInUserId, json_encode($oldData), json_encode($barang));
+
+
+
+        return response()->json(['message' => 'Data Berhasil Diupdate']);
     }
 
-    // Update data barang
-    $barang->update($input);
-
-    $loggedInUserId = Auth::id();
-    
-    // Simpan log histori untuk operasi Update dengan user_id yang sedang login
-    $this->simpanLogHistori('Update', 'barang', $barang->id, $loggedInUserId, json_encode($oldData), json_encode($barang));
 
 
-
-    return response()->json(['message' => 'Data Berhasil Diupdate']);
-}
-
-     
-     
     /**
      * Remove the specified resource from storage.
      *
@@ -277,35 +288,33 @@ class BarangController extends Controller
     public function destroy($id)
     {
         $barang = Barang::find($id);
-    
+
         if (!$barang) {
             return response()->json(['message' => 'Data barang not found'], 404);
         }
-    
+
         // Periksa apakah barang masih terkait dengan mutasi_barang
         $related_mutasi = MutasiBarang::where('barang_id', $barang->id)->first();
-    
+
         if ($related_mutasi) {
             return response()->json(['message' => 'Data masih terkait dengan mutasi_barang dan tidak bisa dihapus'], 400);
         }
-    
+
         // Hapus file terkait jika ada sebelum menghapus entitas dari database
         $oldgambarFileName = $barang->gambar; // Nama file saja
         $oldgambarPath = public_path('upload/barang/' . $oldgambarFileName);
-    
+
         if ($oldgambarFileName && file_exists($oldgambarPath)) {
             unlink($oldgambarPath);
         }
-    
+
         $barang->delete();
 
         $loggedInUserId = Auth::id();
 
         // Simpan log histori untuk operasi Delete dengan user_id yang sedang login dan informasi data yang dihapus
         $this->simpanLogHistori('Delete', 'barang', $id, $loggedInUserId, json_encode($barang), null);
-    
+
         return response()->json(['message' => 'Data Berhasil Dihapus']);
     }
-    
-
 }

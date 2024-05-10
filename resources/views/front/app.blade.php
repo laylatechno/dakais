@@ -22,7 +22,7 @@
     <link rel="stylesheet" href="{{ asset('themplete/front/1') }}/assets/css/LineIcons.2.0.css" />
     <link rel="stylesheet" href="{{ asset('themplete/front/1') }}/assets/css/animate.css" />
     <link rel="stylesheet" href="{{ asset('themplete/front/1') }}/assets/css/tiny-slider.css" />
-    <link rel="stylesheet" href="{{ asset('themplete/front/1') }}/assets/css/glightbox.min.css" />
+    {{-- <link rel="stylesheet" href="{{ asset('themplete/front/1') }}/assets/css/glightbox.min.css" /> --}}
     <link rel="stylesheet" href="{{ asset('themplete/front/1') }}/assets/css/main.css" />
     {{-- Add --}}
 
@@ -262,7 +262,7 @@
     <script src="{{ asset('themplete/front/1') }}/assets/js/count-up.min.js"></script>
     <script src="{{ asset('themplete/front/1') }}/assets/js/wow.min.js"></script>
     <script src="{{ asset('themplete/front/1') }}/assets/js/tiny-slider.js"></script>
-    <script src="{{ asset('themplete/front/1') }}/assets/js/glightbox.min.js"></script>
+    {{-- <script src="{{ asset('themplete/front/1') }}/assets/js/glightbox.min.js"></script> --}}
     <script src="{{ asset('themplete/front/1') }}/assets/js/main.js"></script>
     <script type="text/javascript">
         //========= Hero Slider 
@@ -335,13 +335,13 @@
             }
         });
         //========= glightbox
-        GLightbox({
-            'href': 'https://www.youtube.com/watch?v=r44RKWyfcFw&fbclid=IwAR21beSJORalzmzokxDRcGfkZA1AtRTE__l5N4r09HcGS5Y6vOluyouM9EM',
-            'type': 'video',
-            'source': 'youtube', //vimeo, youtube or local
-            'width': 900,
-            'autoplayVideos': true,
-        });
+        // GLightbox({
+        //     'href': 'https://www.youtube.com/watch?v=r44RKWyfcFw&fbclid=IwAR21beSJORalzmzokxDRcGfkZA1AtRTE__l5N4r09HcGS5Y6vOluyouM9EM',
+        //     'type': 'video',
+        //     'source': 'youtube', //vimeo, youtube or local
+        //     'width': 900,
+        //     'autoplayVideos': true,
+        // });
     </script>
 </body>
 

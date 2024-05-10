@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+use Intervention\Image\Facades\Image;
+
 class PemasukanController extends Controller
 {
     /**
@@ -82,23 +84,24 @@ class PemasukanController extends Controller
              $input['jumlah_pemasukan'] = str_replace(',', '', $request->input('jumlah_pemasukan'));
          }
  
+
          if ($image = $request->file('bukti')) {
              $destinationPath = 'upload/pemasukan/';
              
-             // Mengambil nama_guru file asli
+             // Mendapatkan informasi tentang file gambar asli
              $originalFileName = $image->getClientOriginalName();
-         
-             // Mendapatkan ekstensi file
              $extension = $image->getClientOriginalExtension();
-         
-             // Menggabungkan waktu dengan nama_guru file asli
-             $imageName = date('YmdHis') . '_' . str_replace(' ', '_', $originalFileName) . '.' . $extension;
-         
-             // Pindahkan file ke lokasi tujuan dengan nama_guru baru
-             $image->move($destinationPath, $imageName);
-         
+             
+             // Mengonversi gambar ke format WebP
+             $imageName = date('YmdHis') . '_' . str_replace(' ', '_', $originalFileName) . '.webp';
+             
+             // Simpan gambar ke dalam format WebP
+             $img = Image::make($image->getRealPath())->encode('webp', 90); // 90 untuk kualitas
+             $img->save($destinationPath . $imageName);
+             
              $input['bukti'] = $imageName;
          }
+         
          $pemasukan = Pemasukan::create($input);
 
                // Mendapatkan ID pengguna yang sedang login
@@ -163,25 +166,31 @@ class PemasukanController extends Controller
     $oldData = $pemasukan->getOriginal();
 
     // Menghapus bukti lama jika ada bukti baru yang diunggah
+
     if ($request->hasFile('bukti')) {
         $oldBuktiFileName = $pemasukan->bukti; // Ini adalah nama file saja, bukan path lengkap
-
+    
         // Mendapatkan path lengkap dari root folder ke file yang ingin dihapus
         $oldBuktiPath = public_path('upload/pemasukan/' . $oldBuktiFileName);
-
+    
         // Jika ada bukti lama, hapus dari penyimpanan
         if ($oldBuktiFileName && file_exists($oldBuktiPath)) {
             unlink($oldBuktiPath);
         }
-
-
+    
         // Upload bukti baru
         $file = $request->file('bukti');
         $fileName = time() . '_' . $file->getClientOriginalName();
-        $filePath = '' . $fileName;
-        $file->move(public_path('upload/pemasukan'), $fileName);
-        $validatedData['bukti'] = $filePath;
+        $destinationPath = public_path('upload/pemasukan/');
+        $file->move($destinationPath, $fileName);
+    
+        // Konversi gambar ke format WebP
+        $img = Image::make($destinationPath . $fileName)->encode('webp', 90); // 90 untuk kualitas
+        $img->save($destinationPath . pathinfo($fileName, PATHINFO_FILENAME) . '.webp');
+    
+        $validatedData['bukti'] = pathinfo($fileName, PATHINFO_FILENAME) . '.webp';
     }
+    
 
       // Ubah jumlah_pemasukan tanpa karakter ,
       if ($request->has('jumlah_pemasukan')) {

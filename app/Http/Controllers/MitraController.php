@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Mitra;
 use Illuminate\Http\Request;
 
+use Intervention\Image\Facades\Image;
 class MitraController extends Controller
 {
     /**
@@ -56,19 +57,22 @@ class MitraController extends Controller
         if ($image = $request->file('gambar')) {
             $destinationPath = 'upload/mitra/';
             
-            // Mengambil nama_mitra file asli
+            // Mengambil nama file asli dan ekstensinya
             $originalFileName = $image->getClientOriginalName();
-        
-            // Mendapatkan ekstensi file
             $extension = $image->getClientOriginalExtension();
-        
-            // Menggabungkan waktu dengan nama_mitra file asli
+            
+            // Menggabungkan waktu dengan nama file asli
             $imageName = date('YmdHis') . '_' . str_replace(' ', '_', $originalFileName) . '.' . $extension;
         
-            // Pindahkan file ke lokasi tujuan dengan nama_mitra baru
+            // Simpan gambar dalam format aslinya
             $image->move($destinationPath, $imageName);
+            
+            // Konversi gambar ke format WebP
+            $img = Image::make($destinationPath . $imageName)->encode('webp', 90); // 90 untuk kualitas
+            $img->save($destinationPath . pathinfo($imageName, PATHINFO_FILENAME) . '.webp');
         
-            $input['gambar'] = $imageName;
+            // Simpan nama gambar baru (WebP) ke dalam properti mitra
+            $input['gambar'] = pathinfo($imageName, PATHINFO_FILENAME) . '.webp';
         }
         Mitra::create($input);
         return redirect('/mitra')->with('message', 'Data berhasil ditambahkan');
@@ -128,25 +132,31 @@ class MitraController extends Controller
             return redirect('/mitra')->with('error', 'Mitra tidak ditemukan');
         }
     
+
         if ($image = $request->file('gambar')) {
             // Hapus gambar lama jika ada
             if (file_exists(public_path('upload/mitra/' . $mitra->gambar))) {
                 unlink(public_path('upload/mitra/' . $mitra->gambar));
             }
         
-
             $destinationPath = 'upload/mitra/';
-            
-            // Mengambil nama_mitra file asli
+        
+            // Mengambil nama file asli dan ekstensinya
             $originalFileName = $image->getClientOriginalName();
-        
-            // Mendapatkan ekstensi file
             $extension = $image->getClientOriginalExtension();
-        
-            // Menggabungkan waktu dengan nama_mitra file asli
+            
+            // Menggabungkan waktu dengan nama file asli
             $imageName = date('YmdHis') . '_' . str_replace(' ', '_', $originalFileName) . '.' . $extension;
+        
+            // Simpan gambar dalam format aslinya
             $image->move($destinationPath, $imageName);
-            $mitra->gambar = $imageName;
+            
+            // Konversi gambar ke format WebP
+            $img = Image::make($destinationPath . $imageName)->encode('webp', 90); // 90 untuk kualitas
+            $img->save($destinationPath . pathinfo($imageName, PATHINFO_FILENAME) . '.webp');
+        
+            // Simpan nama gambar baru (WebP) ke dalam properti mitra
+            $mitra->gambar = pathinfo($imageName, PATHINFO_FILENAME) . '.webp';
         }
         
     

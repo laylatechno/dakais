@@ -6,6 +6,7 @@ use App\Models\Galeri;
 use App\Models\KategoriGaleri;
 use Illuminate\Http\Request;
 
+use Intervention\Image\Facades\Image;
 class GaleriController extends Controller
 {
     /**
@@ -54,23 +55,28 @@ class GaleriController extends Controller
         ]);
         $input = $request->all();
 
+
         if ($image = $request->file('gambar')) {
             $destinationPath = 'upload/galeri/';
             
-            // Mengambil nama_galeri file asli
+            // Mengambil nama file asli dan ekstensinya
             $originalFileName = $image->getClientOriginalName();
-        
-            // Mendapatkan ekstensi file
             $extension = $image->getClientOriginalExtension();
-        
-            // Menggabungkan waktu dengan nama_galeri file asli
+            
+            // Menggabungkan waktu dengan nama file asli
             $imageName = date('YmdHis') . '_' . str_replace(' ', '_', $originalFileName) . '.' . $extension;
         
-            // Pindahkan file ke lokasi tujuan dengan nama_galeri baru
+            // Simpan gambar dalam format aslinya
             $image->move($destinationPath, $imageName);
+            
+            // Konversi gambar ke format WebP
+            $img = Image::make($destinationPath . $imageName)->encode('webp', 90); // 90 untuk kualitas
+            $img->save($destinationPath . pathinfo($imageName, PATHINFO_FILENAME) . '.webp');
         
-            $input['gambar'] = $imageName;
+            // Simpan nama gambar baru (WebP) ke dalam array input
+            $input['gambar'] = pathinfo($imageName, PATHINFO_FILENAME) . '.webp';
         }
+        
         Galeri::create($input);
         return redirect('/galeri')->with('message', 'Data berhasil ditambahkan');
 
@@ -131,26 +137,37 @@ class GaleriController extends Controller
             return redirect('/galeri')->with('error', 'Galeri tidak ditemukan');
         }
     
+
         if ($image = $request->file('gambar')) {
             // Hapus gambar lama jika ada
             if (file_exists(public_path('upload/galeri/' . $galeri->gambar))) {
                 unlink(public_path('upload/galeri/' . $galeri->gambar));
             }
-        
-
-            $destinationPath = 'upload/galeri/';
             
-            // Mengambil nama_galeri file asli
+            $destinationPath = 'upload/galeri/';
+        
+            // Mengambil nama file asli dan ekstensinya
             $originalFileName = $image->getClientOriginalName();
-        
-            // Mendapatkan ekstensi file
             $extension = $image->getClientOriginalExtension();
-        
-            // Menggabungkan waktu dengan nama_galeri file asli
+            
+            // Menggabungkan waktu dengan nama file asli
             $imageName = date('YmdHis') . '_' . str_replace(' ', '_', $originalFileName) . '.' . $extension;
+        
+            // Simpan gambar dalam format aslinya
             $image->move($destinationPath, $imageName);
-            $galeri->gambar = $imageName;
+            
+            // Konversi gambar ke format WebP
+            $img = Image::make($destinationPath . $imageName)->encode('webp', 90); // 90 untuk kualitas
+            $img->save($destinationPath . pathinfo($imageName, PATHINFO_FILENAME) . '.webp');
+        
+            // Hapus file gambar asli yang sudah tidak diperlukan lagi
+            unlink($destinationPath . $imageName);
+            
+            // Simpan nama gambar baru (WebP) ke dalam properti galeri
+            $galeri->gambar = pathinfo($imageName, PATHINFO_FILENAME) . '.webp';
         }
+        
+        
         
     
         // Perbarui data lainnya
