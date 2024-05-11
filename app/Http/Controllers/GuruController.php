@@ -10,7 +10,7 @@ use App\Models\Profil;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Intervention\Image\Facades\Image;
-
+use Illuminate\Support\Facades\Cache;
 
 class GuruController extends Controller
 {
@@ -32,12 +32,17 @@ class GuruController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+
     public function index()
     {
-
-        $guru = Guru::select('id', 'nip', 'kode_guru', 'nama_guru', 'tempat_lahir', 'gambar', 'status', 'status_aktif')->get();
+        $guru = Cache::remember('guru_data', 30, function () {
+            return Guru::select('id', 'nip', 'kode_guru', 'nama_guru', 'tempat_lahir', 'gambar', 'status', 'status_aktif')->get();
+        });
+    
         return view('back.guru.index', compact('guru'));
     }
+    
 
     /**
      * Show the form for creating a new resource.

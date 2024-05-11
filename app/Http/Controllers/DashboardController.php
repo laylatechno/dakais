@@ -13,6 +13,7 @@ use App\Models\Spp;
 use Illuminate\Http\Request;
 use App\Models\Visitor;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Cache;
 
 class DashboardController extends Controller
 {
@@ -38,85 +39,94 @@ class DashboardController extends Controller
    }
 
    public function index()
-   {
-      $berita = Berita::all();
-      $kategoriBerita = KategoriBerita::all();
+{
+    $berita = Cache::remember('berita_cache', 6, function () {
+        return Berita::with('kategoriBerita')->get();
+    });
 
+    $kategoriBerita = KategoriBerita::all();
 
-      $count_guru = Guru::where('status_aktif', 'Aktif')->count();
-      $count_siswa = Siswa::count();
-      $count_mapel = Mapel::count();
-      $count_ruangan = Ruangan::count();
+    $count_guru = Cache::remember('count_guru_cache', 6, function () {
+        return Guru::where('status_aktif', 'Aktif')->count();
+    });
 
-      // Data untuk grafik batang siswa berdasarkan jenis kelamin
-      $count_siswa_laki = Siswa::where('jenis_kelamin', 'Laki-laki')->count();
-      $count_siswa_perempuan = Siswa::where('jenis_kelamin', 'Perempuan')->count();
+    $count_siswa = Cache::remember('count_siswa_cache', 6, function () {
+        return Siswa::count();
+    });
 
-      // Data untuk grafik donat guru berdasarkan jenis kelamin
-      $count_guru_laki = Guru::where('status_aktif', 'Aktif')->where('jenis_kelamin', 'Laki-laki')->count();
-      $count_guru_perempuan = Guru::where('status_aktif', 'Aktif')->where('jenis_kelamin', 'Perempuan')->count();
+    $count_mapel = Cache::remember('count_mapel_cache', 6, function () {
+        return Mapel::count();
+    });
 
-      $gender_data_siswa = [
-         'Laki-laki' => $count_siswa_laki,
-         'Perempuan' => $count_siswa_perempuan,
-      ];
+    $count_ruangan = Cache::remember('count_ruangan_cache', 6, function () {
+        return Ruangan::count();
+    });
 
-      $gender_data_guru = [
-         'Laki-laki' => $count_guru_laki,
-         'Perempuan' => $count_guru_perempuan,
-      ];
+    $count_siswa_laki = Cache::remember('count_siswa_laki_cache', 6, function () {
+        return Siswa::where('jenis_kelamin', 'Laki-laki')->count();
+    });
 
-      // Data kunjungan per hari selama seminggu terakhir
-      $visits = Visitor::where('visit_time', '>=', Carbon::now()->subWeek())
-         ->selectRaw('DATE(visit_time) as date, COUNT(*) as count')
-         ->groupBy('date')
-         ->orderBy('date')
-         ->get();
+    $count_siswa_perempuan = Cache::remember('count_siswa_perempuan_cache', 6, function () {
+        return Siswa::where('jenis_kelamin', 'Perempuan')->count();
+    });
 
+    $count_guru_laki = Cache::remember('count_guru_laki_cache', 6, function () {
+        return Guru::where('status_aktif', 'Aktif')->where('jenis_kelamin', 'Laki-laki')->count();
+    });
 
-      $currentMonth = $this->getIndonesianMonthName(Carbon::now()->format('F'));
-      $currentYear = Carbon::now()->format('Y');
+    $count_guru_perempuan = Cache::remember('count_guru_perempuan_cache', 6, function () {
+        return Guru::where('status_aktif', 'Aktif')->where('jenis_kelamin', 'Perempuan')->count();
+    });
 
-      $bayar_spp = BayarSppHead::all();
+    $gender_data_siswa = Cache::remember('gender_data_siswa_cache', 6, function () use ($count_siswa_laki, $count_siswa_perempuan) {
+        return [
+            'Laki-laki' => $count_siswa_laki,
+            'Perempuan' => $count_siswa_perempuan,
+        ];
+    });
 
-      // Dapatkan bulan dan tahun saat ini
-      $currentMonth = $this->getIndonesianMonthName(Carbon::now()->format('F'));
-      $currentYear = Carbon::now()->format('Y');
+    $gender_data_guru = Cache::remember('gender_data_guru_cache', 6, function () use ($count_guru_laki, $count_guru_perempuan) {
+        return [
+            'Laki-laki' => $count_guru_laki,
+            'Perempuan' => $count_guru_perempuan,
+        ];
+    });
 
-      // Dapatkan ID siswa yang membayar SPP pada bulan dan tahun yang sedang berjalan
-      $paidSppSiswaIds = BayarSppHead::where('bulan', $currentMonth)
-         ->where('tahun', $currentYear)
-         ->pluck('siswa_id'); // Mendapatkan daftar ID siswa yang sudah membayar
+    $visits = Cache::remember('visits_cache', 6, function () {
+        return Visitor::where('visit_time', '>=', Carbon::now()->subWeek())
+            ->selectRaw('DATE(visit_time) as date, COUNT(*) as count')
+            ->groupBy('date')
+            ->orderBy('date')
+            ->get();
+    });
 
-      // Dapatkan daftar siswa yang tidak ada di daftar yang sudah membayar
-      $siswaYangBelumBayar = Siswa::whereNotIn('id', $paidSppSiswaIds)->get();
+    $bayar_spp = BayarSppHead::all();
 
-      return view('back.dashboard', compact(
-         'siswaYangBelumBayar', // Daftar siswa yang belum membayar
-         'count_guru',
-         'count_siswa',
-         'count_mapel',
-         'count_ruangan',
-         'gender_data_siswa',
-         'gender_data_guru',
-         'berita',
-         'kategoriBerita',
-         'visits'
-      ));
+   // Dapatkan bulan dan tahun saat ini
+   $currentMonth = $this->getIndonesianMonthName(Carbon::now()->format('F'));
+   $currentYear = Carbon::now()->format('Y');
 
+   // Dapatkan ID siswa yang membayar SPP pada bulan dan tahun yang sedang berjalan
+   $paidSppSiswaIds = BayarSppHead::where('bulan', $currentMonth)
+      ->where('tahun', $currentYear)
+      ->pluck('siswa_id'); // Mendapatkan daftar ID siswa yang sudah membayar
 
+   // Dapatkan daftar siswa yang tidak ada di daftar yang sudah membayar
+   $siswaYangBelumBayar = Siswa::whereNotIn('id', $paidSppSiswaIds)->get();
 
-      return view('back.dashboard', compact(
-         'bayar_spp',
-         'count_guru',
-         'count_siswa',
-         'count_mapel',
-         'count_ruangan',
-         'gender_data_siswa',
-         'gender_data_guru',
-         'berita',
-         'kategoriBerita',
-         'visits'
-      ));
-   }
+    return view('back.dashboard', compact(
+        'siswaYangBelumBayar',
+        'bayar_spp',
+        'count_guru',
+        'count_siswa',
+        'count_mapel',
+        'count_ruangan',
+        'gender_data_siswa',
+        'gender_data_guru',
+        'berita',
+        'kategoriBerita',
+        'visits'
+    ));
+}
+
 }
