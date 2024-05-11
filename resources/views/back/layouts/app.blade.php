@@ -472,6 +472,15 @@
                                 </p>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a href="/pendaftaran" class="nav-link <?php echo $currentPath == '/pendaftaran' ? 'active' : ''; ?>">
+                                <i class="nav-icon fas fa-inbox"></i>
+                                
+                                <p>
+                                    Pendaftaran Siswa
+                                </p>
+                            </a>
+                        </li>
                         <li class="nav-header">Penilaian</li>
                         <li class="nav-item">
                             <a href="#" class="nav-link">

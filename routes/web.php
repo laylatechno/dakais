@@ -46,6 +46,7 @@ use App\Http\Controllers\MutasiBarangController;
 use App\Http\Controllers\NilaiSiswaController;
 use App\Http\Controllers\PemasukanController;
 use App\Http\Controllers\PembelianController;
+use App\Http\Controllers\PendaftaranController;
 use App\Http\Controllers\PenempatanKelasController;
 use App\Http\Controllers\PengeluaranController;
 use App\Http\Controllers\PenjualanController;
@@ -65,6 +66,7 @@ use App\Http\Controllers\VisitorController;
 use App\Http\Controllers\WaktuMengajarController;
 use App\Models\Absensi;
 use App\Models\BayarSppHead;
+use App\Models\Pendaftaran;
 use App\Models\Penjualan;
 
 /*
@@ -120,6 +122,7 @@ Route::resource('/kontak_sekolah', KontakController::class);
 Route::get('/unduhan_sekolah', [HomeController::class, 'unduhan_sekolah']);
  
 
+Route::resource('/daftar_sekolah', PendaftaranController::class);
 
 
 
@@ -205,7 +208,9 @@ Route::resource('absensi', AbsensiController::class)->middleware('auth');
 Route::get('/kelas/{kelasId}/siswa', [AbsensiController::class, 'getSiswaByKelas'])->name('absensi.getSiswaByKelas');
 
 
- 
+// Pendaftaran 
+Route::get('/pendaftaran', [PendaftaranController::class, 'home']);
+
 
 
 

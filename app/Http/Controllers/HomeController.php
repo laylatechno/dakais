@@ -18,47 +18,47 @@ use App\Models\Unduhan;
 use Illuminate\Http\Request;
 use Jenssegers\Agent\Agent; // Pustaka untuk mengurai user-
 
- 
- 
+
+
 class HomeController extends Controller
 {
     public function index()
-{
-    $agent = new Agent(); // Buat instance untuk mengurai user-agent
+    {
+        $agent = new Agent(); // Buat instance untuk mengurai user-agent
 
-    // Simpan visitor
-    $ip_address = $_SERVER['REMOTE_ADDR'];
-    $visit_time = date('Y-m-d H:i:s');
-    $session_id = session_id(); // Ambil ID sesi
-    $user_agent = $_SERVER['HTTP_USER_AGENT'];
+        // Simpan visitor
+        $ip_address = $_SERVER['REMOTE_ADDR'];
+        $visit_time = date('Y-m-d H:i:s');
+        $session_id = session_id(); // Ambil ID sesi
+        $user_agent = $_SERVER['HTTP_USER_AGENT'];
 
-    // Ambil informasi tentang perangkat dan OS
-    $device = $agent->device(); // Nama perangkat (misalnya, iPhone, Android)
-    $platform = $agent->platform(); // Nama OS (misalnya, Windows, iOS)
-    $browser = $agent->browser(); // Nama browser (misalnya, Chrome, Safari)
+        // Ambil informasi tentang perangkat dan OS
+        $device = $agent->device(); // Nama perangkat (misalnya, iPhone, Android)
+        $platform = $agent->platform(); // Nama OS (misalnya, Windows, iOS)
+        $browser = $agent->browser(); // Nama browser (misalnya, Chrome, Safari)
 
-    Visitor::create([
-        'ip_address' => $ip_address,
-        'visit_time' => $visit_time,
-        'session_id' => $session_id,
-        'user_agent' => $user_agent,
-        'device' => $device,
-        'platform' => $platform,
-        'browser' => $browser,
-    ]);
+        Visitor::create([
+            'ip_address' => $ip_address,
+            'visit_time' => $visit_time,
+            'session_id' => $session_id,
+            'user_agent' => $user_agent,
+            'device' => $device,
+            'platform' => $platform,
+            'browser' => $browser,
+        ]);
 
-    // Data lainnya yang diperlukan untuk tampilan
-    $slider = Slider::all();
-    $kegiatan = Kegiatan::where('status', 'Aktif')->take(3)->get();
-    $about = About::all();
-    $testimoni = Testimoni::all();
-    $mitra = Mitra::all();
-    $hitung = Hitung::all();
-    $berita = Berita::with('kategoriBerita')->get();
-    $guru = Guru::where('status_aktif', 'Aktif')->take(4)->get();
+        // Data lainnya yang diperlukan untuk tampilan
+        $slider = Slider::all();
+        $kegiatan = Kegiatan::where('status', 'Aktif')->take(3)->get();
+        $about = About::all();
+        $testimoni = Testimoni::all();
+        $mitra = Mitra::all();
+        $hitung = Hitung::all();
+        $berita = Berita::with('kategoriBerita')->get();
+        $guru = Guru::where('status_aktif', 'Aktif')->take(4)->get();
 
-    return view('front.home', compact('slider', 'about', 'guru', 'testimoni', 'berita', 'mitra', 'hitung', 'kegiatan'));
-}
+        return view('front.home', compact('slider', 'about', 'guru', 'testimoni', 'berita', 'mitra', 'hitung', 'kegiatan'));
+    }
 
 
     public function tentang()
@@ -165,4 +165,8 @@ class HomeController extends Controller
         $unduhan = Unduhan::orderBy('id', 'desc')->get();
         return view('front.unduhan', compact('about', 'unduhan'));
     }
+
+   
+
+    
 }
