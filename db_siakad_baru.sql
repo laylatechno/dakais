@@ -65,7 +65,7 @@ CREATE TABLE IF NOT EXISTS `alasan` (
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table db_akademik.alasan: ~0 rows (approximately)
+-- Dumping data for table db_akademik.alasan: ~1 rows (approximately)
 INSERT INTO `alasan` (`id`, `nama_alasan`, `keterangan`, `ikon`, `urutan`, `created_at`, `updated_at`) VALUES
 	(5, 'Mudah Digunakan', 'Mudah Digunakan', 'fa fa-user', '1', '2023-11-03 09:02:52', '2023-11-03 09:02:52');
 
@@ -91,11 +91,12 @@ CREATE TABLE IF NOT EXISTS `barang` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table db_akademik.barang: ~1 rows (approximately)
+-- Dumping data for table db_akademik.barang: ~2 rows (approximately)
 INSERT INTO `barang` (`id`, `kategori_barang_id`, `kode_barang`, `nama_barang`, `merk`, `type`, `kondisi_baik`, `kondisi_sedang`, `kondisi_rusak`, `tanggal_masuk`, `status`, `ruangan_id`, `harga_perolehan`, `asal`, `pic`, `gambar`, `keterangan`, `created_at`, `updated_at`) VALUES
-	(9, '2', '876877', 'Toolkit', 'Harm', 'Kit', '0', '0', '0', '2024-01-05', 'Baru', '1', '800000', 'Bengkel', 'Rudi Aja', '20240105014144_2.png.png', NULL, '2024-01-04 18:41:44', '2024-04-12 17:43:16');
+	(9, '2', '876877', 'Toolkit', 'Harm', 'Kit', '0', '0', '0', '2024-01-05', 'Baru', '1', '800000', 'Bengkel', 'Rudi Aja', '20240508122237_Thumbnail YouTube  (1).png.webp', NULL, '2024-01-04 18:41:44', '2024-05-08 05:22:37'),
+	(11, '2', '232312', 'Sepeda', 'BMX', 'FA', '0', '0', '0', '2024-05-08', 'Baru', '4', '800000', 'xxxxx', 'Rudi Aja', '20240508121914_Thumbnail_YouTube_.webp', NULL, '2024-05-08 05:19:15', '2024-05-08 10:29:39');
 
 -- Dumping structure for table db_akademik.bayar_spp_head
 CREATE TABLE IF NOT EXISTS `bayar_spp_head` (
@@ -117,7 +118,7 @@ CREATE TABLE IF NOT EXISTS `bayar_spp_head` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table db_akademik.bayar_spp_head: ~2 rows (approximately)
+-- Dumping data for table db_akademik.bayar_spp_head: ~1 rows (approximately)
 INSERT INTO `bayar_spp_head` (`id`, `tanggal_bayar`, `kode_pembayaran`, `siswa_id`, `jumlah_spp`, `jumlah_bayar`, `metode_pembayaran`, `bukti_transfer`, `keterangan`, `spp`, `bulan`, `tahun`, `status_head`, `created_at`, `updated_at`) VALUES
 	(30, '2024-05-02', 'SPP02052024009', '11', '450000', '450000', 'Cash', NULL, NULL, '18', 'Juli', '2024', 'Lunas', '2024-05-01 21:59:37', '2024-05-01 21:59:37');
 
@@ -152,9 +153,9 @@ CREATE TABLE IF NOT EXISTS `bulan` (
   `id` int NOT NULL AUTO_INCREMENT,
   `nama_bulan` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4  ;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table db_akademik.bulan: ~4 rows (approximately)
+-- Dumping data for table db_akademik.bulan: ~12 rows (approximately)
 INSERT INTO `bulan` (`id`, `nama_bulan`) VALUES
 	(1, 'JANUARI'),
 	(2, 'FEBRUARI'),
@@ -217,9 +218,9 @@ CREATE TABLE IF NOT EXISTS `galeri` (
 
 -- Dumping data for table db_akademik.galeri: ~3 rows (approximately)
 INSERT INTO `galeri` (`id`, `nama_galeri`, `kategori_galeri_id`, `keterangan`, `link`, `gambar`, `urutan`, `created_at`, `updated_at`) VALUES
-	(2, 'Kegiatan Malam', '1', 'Kegiatan Malam', 'https://forms.gle/rdYBfem7QmLGLzFC8', '20231204073821_WhatsApp_Image_2023-11-27_at_21.04.24.jpeg.jpeg', '1', '2023-11-03 03:53:07', '2023-12-04 00:38:21'),
-	(3, 'Survey Acara', '1', 'Survey Acara', 'https://drive.google.com/file/d/13lofIH_M8FtOHFbDP2HXVw9UV4HwNhtp/preview', '20240423233622_biru_minimalis_ucapan_selamat_hari_raya_idul_fitri_instagram_post.png.png', '2', '2024-04-23 16:36:22', '2024-04-23 16:36:22'),
-	(4, 'Kegiatan Malam', '2', 'dssf', 'https://drive.google.com/file/d/13lofIH_M8FtOHFbDP2HXVw9UV4HwNhtp/preview', '20240423234207_SNACK.png.png', '3', '2024-04-23 16:42:07', '2024-04-23 16:42:07');
+	(2, 'Kegiatan Malam', '1', 'Kegiatan Malam', 'https://forms.gle/rdYBfem7QmLGLzFC8', '20240508180646_20240423233622_biru_minimalis_ucapan_selamat_hari_raya_idul_fitri_instagram_post.png.png.webp', '1', '2023-11-03 03:53:07', '2024-05-08 11:06:46'),
+	(3, 'Survey Acara', '1', 'Survey Acara', 'https://drive.google.com/file/d/13lofIH_M8FtOHFbDP2HXVw9UV4HwNhtp/preview', '20240508180655_20240423234207_SNACK.png.png.webp', '2', '2024-04-23 16:36:22', '2024-05-08 11:06:55'),
+	(4, 'Kegiatan Malam', '2', 'dssf', 'https://drive.google.com/file/d/13lofIH_M8FtOHFbDP2HXVw9UV4HwNhtp/preview', '20240508180633_20231204073821_WhatsApp_Image_2023-11-27_at_21.04.24.jpeg.jpeg.webp', '3', '2024-04-23 16:42:07', '2024-05-08 11:06:33');
 
 -- Dumping structure for table db_akademik.guru
 CREATE TABLE IF NOT EXISTS `guru` (
@@ -254,7 +255,7 @@ CREATE TABLE IF NOT EXISTS `guru` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table db_akademik.guru: ~10 rows (approximately)
+-- Dumping data for table db_akademik.guru: ~12 rows (approximately)
 INSERT INTO `guru` (`id`, `nip`, `nama_guru`, `kode_guru`, `tempat_lahir`, `tanggal_lahir`, `jenis_kelamin`, `no_telp`, `instagram`, `email`, `gelar_depan`, `gelar_belakang`, `alamat`, `honor`, `tunjangan_1`, `tunjangan_2`, `tunjangan_3`, `tunjangan_4`, `gambar`, `username`, `password`, `tanggal_masuk`, `status`, `status_aktif`, `posisi`, `motto`, `created_at`, `updated_at`) VALUES
 	(1, '000xxx', 'Guru Kosong', '000xxx', 'Tanjung Pinang', '1999-01-01', 'Laki-laki', '085320555394', NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, NULL, NULL, '0@gmail.com', '12345678', '2023-12-29', 'Non Guru', 'Non Aktif', '', '', '2023-12-28 18:30:37', '2024-01-13 05:00:32'),
 	(7, '32701', 'Muhammad Rafi Heryadi, S.Kom', 'GR01', 'Tanjung Pinang', '1994-12-28', 'Laki-laki', '085320555394', 'https://www.instagram.com/?hl=id', 'muhammadrafiheryadi94@gmail.com', NULL, NULL, NULL, '1000000', NULL, NULL, NULL, NULL, '20240507122037_26.webp', 'muhammadrafiheryadi94@gmail.com', '$2y$10$ZA8Rj23te.0Aj3S9Zbgkwu2NS3dgmSIt/sdX51PeBgEGC1s285iAq', '2023-12-29', 'Guru', 'Aktif', 'Guru TIK', 'Do The Best For Be The Best', '2023-12-28 16:50:09', '2024-05-07 05:20:38'),
@@ -298,7 +299,7 @@ CREATE TABLE IF NOT EXISTS `jadwal_pelajaran` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=97 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table db_akademik.jadwal_pelajaran: ~4 rows (approximately)
+-- Dumping data for table db_akademik.jadwal_pelajaran: ~5 rows (approximately)
 INSERT INTO `jadwal_pelajaran` (`id`, `hari`, `kelas_id`, `created_at`, `updated_at`) VALUES
 	(92, 'Senin', '5', '2024-04-06 09:15:38', '2024-04-06 09:15:38'),
 	(93, 'Selasa', '5', '2024-04-06 09:15:57', '2024-04-06 09:15:57'),
@@ -587,9 +588,9 @@ CREATE TABLE IF NOT EXISTS `log_histori` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=723 DEFAULT CHARSET=utf8mb4  ;
+) ENGINE=InnoDB AUTO_INCREMENT=735 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table db_akademik.log_histori: ~59 rows (approximately)
+-- Dumping data for table db_akademik.log_histori: ~96 rows (approximately)
 INSERT INTO `log_histori` (`ID`, `Tabel_Asal`, `ID_Entitas`, `Aksi`, `Waktu`, `Pengguna`, `Data_Lama`, `Data_Baru`, `updated_at`, `created_at`) VALUES
 	(639, 'Form Tahun Ajaran', 26, 'Update', '2024-05-03 18:03:09', '3', '{"id":26,"nama_tahun_ajaran":"2024\\/2025 Semester 2","status":"Non Aktif","created_at":"2024-04-29T13:08:54.000000Z","updated_at":"2024-04-29T16:27:12.000000Z"}', '{"nama_tahun_ajaran":"2024\\/2025 Semester 2","status":"Non Aktif"}', '2024-05-03 18:03:09', '2024-05-03 18:03:09'),
 	(640, 'Form Tahun Ajaran', 9, 'Update', '2024-05-03 18:12:13', '3', '{"id":9,"nama_tahun_ajaran":"2024\\/2025 Semester 1","status":"Aktif","created_at":"2023-11-04T06:26:09.000000Z","updated_at":"2024-04-29T16:27:55.000000Z"}', '{"nama_tahun_ajaran":"2024\\/2025 Semester 1","status":"Non Aktif"}', '2024-05-03 18:12:13', '2024-05-03 18:12:13'),
@@ -674,7 +675,19 @@ INSERT INTO `log_histori` (`ID`, `Tabel_Asal`, `ID_Entitas`, `Aksi`, `Waktu`, `P
 	(719, 'kegiatan', 1, 'Update', '2024-05-07 08:28:43', '3', '{"id":1,"nama_kegiatan":"Seminar Parenting Sekolah","tanggal_kegiatan":"2024-04-23","jam":"02:00 - 04:00 WIB","tempat":"Gedung Santika","map":"https:\\/\\/www.google.com\\/maps\\/embed?pb=!1m14!1m8!1m3!1d15828.989006170726!2d108.2199555!3d-7.3261021!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e6f5748b3363aff%3A0x2f0e4a4f98e527ec!2sMasjid%20Agung%20Tasikmalaya!5e0!3m2!1sen!2sid!4v1713891379492!5m2!1sen!2sid","gambar":"20240423162706_1-13-website-blog-Family-in-the-Sunset-1160x665.webp","status":"Aktif","deskripsi":"Lorem ipsum dolor sit amet consectetur adipiscing elit suscipit, praesent posuere fames lobortis aptent augue fusce magnis netus, senectus aenean taciti mollis accumsan pretium risus. Ante erat ridiculus in vestibulum accumsan dignissim taciti tempor nibh, a enim justo tortor mi consequat penatibus porta, venenatis vivamus egestas euismod tristique pulvinar augue maecenas. Auctor aenean nam dignissim egestas cubilia risus cum ultricies nibh, sodales penatibus scelerisque gravida nec vivamus a id montes, tortor ad suscipit ut quam nisl tellus vestibulum.\\r\\n\\r\\nQuisque praesent sem lectus dictum condimentum, aliquet taciti netus hendrerit dapibus, justo ligula magna tellus. Rutrum suspendisse donec mollis nisi neque ridiculus accumsan, mus fringilla aptent dis ornare eget, mi eleifend tempus lacus mauris pulvinar suscipit, aliquet ultricies sociis montes dictumst. Conubia primis dapibus purus proin massa taciti sagittis, per nec scelerisque egestas tempor malesuada sociosqu curabitur, bibendum nulla lacinia nunc hendrerit ligula.","created_at":"2024-04-23T07:48:12.000000Z","updated_at":"2024-04-23T17:10:05.000000Z"}', '{"id":1,"nama_kegiatan":"Seminar Parenting Sekolah","tanggal_kegiatan":"2024-04-23","jam":"02:00 - 04:00 WIB","tempat":"Gedung Santika","map":"https:\\/\\/www.google.com\\/maps\\/embed?pb=!1m14!1m8!1m3!1d15828.989006170726!2d108.2199555!3d-7.3261021!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e6f5748b3363aff%3A0x2f0e4a4f98e527ec!2sMasjid%20Agung%20Tasikmalaya!5e0!3m2!1sen!2sid!4v1713891379492!5m2!1sen!2sid","gambar":"20240507152843_20240422223505_mengenal-kurikulum-sekolah-alam-banyak-bermain-tapi-bukan-mainmain-hnk.jpg.jpg.webp","status":"Aktif","deskripsi":"Lorem ipsum dolor sit amet consectetur adipiscing elit suscipit, praesent posuere fames lobortis aptent augue fusce magnis netus, senectus aenean taciti mollis accumsan pretium risus. Ante erat ridiculus in vestibulum accumsan dignissim taciti tempor nibh, a enim justo tortor mi consequat penatibus porta, venenatis vivamus egestas euismod tristique pulvinar augue maecenas. Auctor aenean nam dignissim egestas cubilia risus cum ultricies nibh, sodales penatibus scelerisque gravida nec vivamus a id montes, tortor ad suscipit ut quam nisl tellus vestibulum.\\r\\n\\r\\nQuisque praesent sem lectus dictum condimentum, aliquet taciti netus hendrerit dapibus, justo ligula magna tellus. Rutrum suspendisse donec mollis nisi neque ridiculus accumsan, mus fringilla aptent dis ornare eget, mi eleifend tempus lacus mauris pulvinar suscipit, aliquet ultricies sociis montes dictumst. Conubia primis dapibus purus proin massa taciti sagittis, per nec scelerisque egestas tempor malesuada sociosqu curabitur, bibendum nulla lacinia nunc hendrerit ligula.","created_at":"2024-04-23T07:48:12.000000Z","updated_at":"2024-05-07T15:28:43.000000Z"}', '2024-05-07 08:28:43', '2024-05-07 08:28:43'),
 	(720, 'kegiatan', 3, 'Update', '2024-05-07 08:29:18', '3', '{"id":3,"nama_kegiatan":"Pembangunan Gedung Sekolah","tanggal_kegiatan":"2024-04-23","jam":"02:00 - 04:00 WIB","tempat":"Sekolah","map":"https:\\/\\/www.google.com\\/maps\\/embed?pb=!1m14!1m8!1m3!1d15828.989006170726!2d108.2199555!3d-7.3261021!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e6f5748b3363aff%3A0x2f0e4a4f98e527ec!2sMasjid%20Agung%20Tasikmalaya!5e0!3m2!1sen!2sid!4v1713891379492!5m2!1sen!2sid","gambar":"20240507152821_banner_1713827801.jpeg.webp","status":"Aktif","deskripsi":"Lorem ipsum dolor sit amet consectetur adipiscing elit condimentum hendrerit erat, per diam maecenas integer primis id lobortis nullam gravida fermentum, risus iaculis ullamcorper commodo pellentesque viverra facilisis blandit curabitur. Ultricies dictum volutpat egestas montes eu laoreet a est, nascetur mi tincidunt platea litora duis nunc vivamus tristique, ac lacinia eget rutrum sapien erat arcu. Vivamus placerat cum est nulla mollis phasellus gravida bibendum donec lacinia velit, nibh dapibus in nunc posuere euismod blandit malesuada volutpat aptent integer, odio nisl vitae pharetra viverra eget mattis lacus netus a.\\r\\n\\r\\nQuis curabitur vehicula eget viverra sodales lectus phasellus, nibh ultrices nulla hendrerit mollis vitae aptent morbi, ornare sagittis feugiat augue risus non. At euismod sem a accumsan ullamcorper nibh, lobortis class malesuada faucibus eu tempor nullam, curae nam leo taciti odio. Tempor consequat dapibus ligula molestie penatibus, mollis donec erat himenaeos ornare volutpat, scelerisque vehicula vestibulum cras.","created_at":"2024-04-23T15:54:59.000000Z","updated_at":"2024-05-07T15:28:22.000000Z"}', '{"id":3,"nama_kegiatan":"Pembangunan Gedung Sekolah","tanggal_kegiatan":"2024-04-23","jam":"02:00 - 04:00 WIB","tempat":"Sekolah","map":"https:\\/\\/www.google.com\\/maps\\/embed?pb=!1m14!1m8!1m3!1d15828.989006170726!2d108.2199555!3d-7.3261021!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e6f5748b3363aff%3A0x2f0e4a4f98e527ec!2sMasjid%20Agung%20Tasikmalaya!5e0!3m2!1sen!2sid!4v1713891379492!5m2!1sen!2sid","gambar":"20240507152917_banner_1713827801.jpeg.webp","status":"Aktif","deskripsi":"Lorem ipsum dolor sit amet consectetur adipiscing elit condimentum hendrerit erat, per diam maecenas integer primis id lobortis nullam gravida fermentum, risus iaculis ullamcorper commodo pellentesque viverra facilisis blandit curabitur. Ultricies dictum volutpat egestas montes eu laoreet a est, nascetur mi tincidunt platea litora duis nunc vivamus tristique, ac lacinia eget rutrum sapien erat arcu. Vivamus placerat cum est nulla mollis phasellus gravida bibendum donec lacinia velit, nibh dapibus in nunc posuere euismod blandit malesuada volutpat aptent integer, odio nisl vitae pharetra viverra eget mattis lacus netus a.\\r\\n\\r\\nQuis curabitur vehicula eget viverra sodales lectus phasellus, nibh ultrices nulla hendrerit mollis vitae aptent morbi, ornare sagittis feugiat augue risus non. At euismod sem a accumsan ullamcorper nibh, lobortis class malesuada faucibus eu tempor nullam, curae nam leo taciti odio. Tempor consequat dapibus ligula molestie penatibus, mollis donec erat himenaeos ornare volutpat, scelerisque vehicula vestibulum cras.","created_at":"2024-04-23T15:54:59.000000Z","updated_at":"2024-05-07T15:29:18.000000Z"}', '2024-05-07 08:29:18', '2024-05-07 08:29:18'),
 	(721, 'kegiatan', 3, 'Update', '2024-05-07 08:29:49', '3', '{"id":3,"nama_kegiatan":"Pembangunan Gedung Sekolah","tanggal_kegiatan":"2024-04-23","jam":"02:00 - 04:00 WIB","tempat":"Sekolah","map":"https:\\/\\/www.google.com\\/maps\\/embed?pb=!1m14!1m8!1m3!1d15828.989006170726!2d108.2199555!3d-7.3261021!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e6f5748b3363aff%3A0x2f0e4a4f98e527ec!2sMasjid%20Agung%20Tasikmalaya!5e0!3m2!1sen!2sid!4v1713891379492!5m2!1sen!2sid","gambar":"20240507152917_banner_1713827801.jpeg.webp","status":"Aktif","deskripsi":"Lorem ipsum dolor sit amet consectetur adipiscing elit condimentum hendrerit erat, per diam maecenas integer primis id lobortis nullam gravida fermentum, risus iaculis ullamcorper commodo pellentesque viverra facilisis blandit curabitur. Ultricies dictum volutpat egestas montes eu laoreet a est, nascetur mi tincidunt platea litora duis nunc vivamus tristique, ac lacinia eget rutrum sapien erat arcu. Vivamus placerat cum est nulla mollis phasellus gravida bibendum donec lacinia velit, nibh dapibus in nunc posuere euismod blandit malesuada volutpat aptent integer, odio nisl vitae pharetra viverra eget mattis lacus netus a.\\r\\n\\r\\nQuis curabitur vehicula eget viverra sodales lectus phasellus, nibh ultrices nulla hendrerit mollis vitae aptent morbi, ornare sagittis feugiat augue risus non. At euismod sem a accumsan ullamcorper nibh, lobortis class malesuada faucibus eu tempor nullam, curae nam leo taciti odio. Tempor consequat dapibus ligula molestie penatibus, mollis donec erat himenaeos ornare volutpat, scelerisque vehicula vestibulum cras.","created_at":"2024-04-23T15:54:59.000000Z","updated_at":"2024-05-07T15:29:18.000000Z"}', '{"id":3,"nama_kegiatan":"Pembangunan Gedung Sekolah","tanggal_kegiatan":"2024-04-23","jam":"02:00 - 04:00 WIB","tempat":"Sekolah","map":"https:\\/\\/www.google.com\\/maps\\/embed?pb=!1m14!1m8!1m3!1d15828.989006170726!2d108.2199555!3d-7.3261021!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e6f5748b3363aff%3A0x2f0e4a4f98e527ec!2sMasjid%20Agung%20Tasikmalaya!5e0!3m2!1sen!2sid!4v1713891379492!5m2!1sen!2sid","gambar":"20240507152948_1.png.webp","status":"Aktif","deskripsi":"Lorem ipsum dolor sit amet consectetur adipiscing elit condimentum hendrerit erat, per diam maecenas integer primis id lobortis nullam gravida fermentum, risus iaculis ullamcorper commodo pellentesque viverra facilisis blandit curabitur. Ultricies dictum volutpat egestas montes eu laoreet a est, nascetur mi tincidunt platea litora duis nunc vivamus tristique, ac lacinia eget rutrum sapien erat arcu. Vivamus placerat cum est nulla mollis phasellus gravida bibendum donec lacinia velit, nibh dapibus in nunc posuere euismod blandit malesuada volutpat aptent integer, odio nisl vitae pharetra viverra eget mattis lacus netus a.\\r\\n\\r\\nQuis curabitur vehicula eget viverra sodales lectus phasellus, nibh ultrices nulla hendrerit mollis vitae aptent morbi, ornare sagittis feugiat augue risus non. At euismod sem a accumsan ullamcorper nibh, lobortis class malesuada faucibus eu tempor nullam, curae nam leo taciti odio. Tempor consequat dapibus ligula molestie penatibus, mollis donec erat himenaeos ornare volutpat, scelerisque vehicula vestibulum cras.","created_at":"2024-04-23T15:54:59.000000Z","updated_at":"2024-05-07T15:29:48.000000Z"}', '2024-05-07 08:29:49', '2024-05-07 08:29:49'),
-	(722, 'kegiatan', 3, 'Update', '2024-05-07 08:30:00', '3', '{"id":3,"nama_kegiatan":"Pembangunan Gedung Sekolah","tanggal_kegiatan":"2024-04-23","jam":"02:00 - 04:00 WIB","tempat":"Sekolah","map":"https:\\/\\/www.google.com\\/maps\\/embed?pb=!1m14!1m8!1m3!1d15828.989006170726!2d108.2199555!3d-7.3261021!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e6f5748b3363aff%3A0x2f0e4a4f98e527ec!2sMasjid%20Agung%20Tasikmalaya!5e0!3m2!1sen!2sid!4v1713891379492!5m2!1sen!2sid","gambar":"20240507152948_1.png.webp","status":"Aktif","deskripsi":"Lorem ipsum dolor sit amet consectetur adipiscing elit condimentum hendrerit erat, per diam maecenas integer primis id lobortis nullam gravida fermentum, risus iaculis ullamcorper commodo pellentesque viverra facilisis blandit curabitur. Ultricies dictum volutpat egestas montes eu laoreet a est, nascetur mi tincidunt platea litora duis nunc vivamus tristique, ac lacinia eget rutrum sapien erat arcu. Vivamus placerat cum est nulla mollis phasellus gravida bibendum donec lacinia velit, nibh dapibus in nunc posuere euismod blandit malesuada volutpat aptent integer, odio nisl vitae pharetra viverra eget mattis lacus netus a.\\r\\n\\r\\nQuis curabitur vehicula eget viverra sodales lectus phasellus, nibh ultrices nulla hendrerit mollis vitae aptent morbi, ornare sagittis feugiat augue risus non. At euismod sem a accumsan ullamcorper nibh, lobortis class malesuada faucibus eu tempor nullam, curae nam leo taciti odio. Tempor consequat dapibus ligula molestie penatibus, mollis donec erat himenaeos ornare volutpat, scelerisque vehicula vestibulum cras.","created_at":"2024-04-23T15:54:59.000000Z","updated_at":"2024-05-07T15:29:48.000000Z"}', '{"id":3,"nama_kegiatan":"Pembangunan Gedung Sekolah","tanggal_kegiatan":"2024-04-23","jam":"02:00 - 04:00 WIB","tempat":"Sekolah","map":"https:\\/\\/www.google.com\\/maps\\/embed?pb=!1m14!1m8!1m3!1d15828.989006170726!2d108.2199555!3d-7.3261021!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e6f5748b3363aff%3A0x2f0e4a4f98e527ec!2sMasjid%20Agung%20Tasikmalaya!5e0!3m2!1sen!2sid!4v1713891379492!5m2!1sen!2sid","gambar":"20240507152959_banner_1713827801.jpeg.webp","status":"Aktif","deskripsi":"Lorem ipsum dolor sit amet consectetur adipiscing elit condimentum hendrerit erat, per diam maecenas integer primis id lobortis nullam gravida fermentum, risus iaculis ullamcorper commodo pellentesque viverra facilisis blandit curabitur. Ultricies dictum volutpat egestas montes eu laoreet a est, nascetur mi tincidunt platea litora duis nunc vivamus tristique, ac lacinia eget rutrum sapien erat arcu. Vivamus placerat cum est nulla mollis phasellus gravida bibendum donec lacinia velit, nibh dapibus in nunc posuere euismod blandit malesuada volutpat aptent integer, odio nisl vitae pharetra viverra eget mattis lacus netus a.\\r\\n\\r\\nQuis curabitur vehicula eget viverra sodales lectus phasellus, nibh ultrices nulla hendrerit mollis vitae aptent morbi, ornare sagittis feugiat augue risus non. At euismod sem a accumsan ullamcorper nibh, lobortis class malesuada faucibus eu tempor nullam, curae nam leo taciti odio. Tempor consequat dapibus ligula molestie penatibus, mollis donec erat himenaeos ornare volutpat, scelerisque vehicula vestibulum cras.","created_at":"2024-04-23T15:54:59.000000Z","updated_at":"2024-05-07T15:29:59.000000Z"}', '2024-05-07 08:30:00', '2024-05-07 08:30:00');
+	(722, 'kegiatan', 3, 'Update', '2024-05-07 08:30:00', '3', '{"id":3,"nama_kegiatan":"Pembangunan Gedung Sekolah","tanggal_kegiatan":"2024-04-23","jam":"02:00 - 04:00 WIB","tempat":"Sekolah","map":"https:\\/\\/www.google.com\\/maps\\/embed?pb=!1m14!1m8!1m3!1d15828.989006170726!2d108.2199555!3d-7.3261021!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e6f5748b3363aff%3A0x2f0e4a4f98e527ec!2sMasjid%20Agung%20Tasikmalaya!5e0!3m2!1sen!2sid!4v1713891379492!5m2!1sen!2sid","gambar":"20240507152948_1.png.webp","status":"Aktif","deskripsi":"Lorem ipsum dolor sit amet consectetur adipiscing elit condimentum hendrerit erat, per diam maecenas integer primis id lobortis nullam gravida fermentum, risus iaculis ullamcorper commodo pellentesque viverra facilisis blandit curabitur. Ultricies dictum volutpat egestas montes eu laoreet a est, nascetur mi tincidunt platea litora duis nunc vivamus tristique, ac lacinia eget rutrum sapien erat arcu. Vivamus placerat cum est nulla mollis phasellus gravida bibendum donec lacinia velit, nibh dapibus in nunc posuere euismod blandit malesuada volutpat aptent integer, odio nisl vitae pharetra viverra eget mattis lacus netus a.\\r\\n\\r\\nQuis curabitur vehicula eget viverra sodales lectus phasellus, nibh ultrices nulla hendrerit mollis vitae aptent morbi, ornare sagittis feugiat augue risus non. At euismod sem a accumsan ullamcorper nibh, lobortis class malesuada faucibus eu tempor nullam, curae nam leo taciti odio. Tempor consequat dapibus ligula molestie penatibus, mollis donec erat himenaeos ornare volutpat, scelerisque vehicula vestibulum cras.","created_at":"2024-04-23T15:54:59.000000Z","updated_at":"2024-05-07T15:29:48.000000Z"}', '{"id":3,"nama_kegiatan":"Pembangunan Gedung Sekolah","tanggal_kegiatan":"2024-04-23","jam":"02:00 - 04:00 WIB","tempat":"Sekolah","map":"https:\\/\\/www.google.com\\/maps\\/embed?pb=!1m14!1m8!1m3!1d15828.989006170726!2d108.2199555!3d-7.3261021!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e6f5748b3363aff%3A0x2f0e4a4f98e527ec!2sMasjid%20Agung%20Tasikmalaya!5e0!3m2!1sen!2sid!4v1713891379492!5m2!1sen!2sid","gambar":"20240507152959_banner_1713827801.jpeg.webp","status":"Aktif","deskripsi":"Lorem ipsum dolor sit amet consectetur adipiscing elit condimentum hendrerit erat, per diam maecenas integer primis id lobortis nullam gravida fermentum, risus iaculis ullamcorper commodo pellentesque viverra facilisis blandit curabitur. Ultricies dictum volutpat egestas montes eu laoreet a est, nascetur mi tincidunt platea litora duis nunc vivamus tristique, ac lacinia eget rutrum sapien erat arcu. Vivamus placerat cum est nulla mollis phasellus gravida bibendum donec lacinia velit, nibh dapibus in nunc posuere euismod blandit malesuada volutpat aptent integer, odio nisl vitae pharetra viverra eget mattis lacus netus a.\\r\\n\\r\\nQuis curabitur vehicula eget viverra sodales lectus phasellus, nibh ultrices nulla hendrerit mollis vitae aptent morbi, ornare sagittis feugiat augue risus non. At euismod sem a accumsan ullamcorper nibh, lobortis class malesuada faucibus eu tempor nullam, curae nam leo taciti odio. Tempor consequat dapibus ligula molestie penatibus, mollis donec erat himenaeos ornare volutpat, scelerisque vehicula vestibulum cras.","created_at":"2024-04-23T15:54:59.000000Z","updated_at":"2024-05-07T15:29:59.000000Z"}', '2024-05-07 08:30:00', '2024-05-07 08:30:00'),
+	(723, 'barang', 11, 'Create', '2024-05-08 05:19:15', '3', NULL, '{"kategori_barang_id":"2","kode_barang":"232312","nama_barang":"Sepeda","merk":"BMX","type":"FA","tanggal_masuk":"2024-05-08","kondisi_baik":"0","kondisi_sedang":"0","kondisi_rusak":"0","ruangan_id":"1","status":"Baru","asal":"xxxxx","pic":"Rudi Aja","keterangan":null,"gambar":"20240508121914_Thumbnail_YouTube_.webp","harga_perolehan":"800000","updated_at":"2024-05-08T12:19:15.000000Z","created_at":"2024-05-08T12:19:15.000000Z","id":11}', '2024-05-08 05:19:15', '2024-05-08 05:19:15'),
+	(724, 'barang', 9, 'Update', '2024-05-08 05:19:44', '3', '{"id":9,"kategori_barang_id":"2","kode_barang":"876877","nama_barang":"Toolkit","merk":"Harm","type":"Kit","kondisi_baik":"0","kondisi_sedang":"0","kondisi_rusak":"0","tanggal_masuk":"2024-01-05","status":"Baru","ruangan_id":"1","harga_perolehan":"800000","asal":"Bengkel","pic":"Rudi Aja","gambar":"20240105014144_2.png.png","keterangan":null,"created_at":"2024-01-05T01:41:44.000000Z","updated_at":"2024-04-13T00:43:16.000000Z"}', '{"id":9,"kategori_barang_id":"2","kode_barang":"876877","nama_barang":"Toolkit","merk":"Harm","type":"Kit","kondisi_baik":"0","kondisi_sedang":"0","kondisi_rusak":"0","tanggal_masuk":"2024-01-05","status":"Baru","ruangan_id":"1","harga_perolehan":"800000","asal":"Bengkel","pic":"Rudi Aja","gambar":"20240508121943_Thumbnail YouTube  (1).png","keterangan":null,"created_at":"2024-01-05T01:41:44.000000Z","updated_at":"2024-05-08T12:19:44.000000Z"}', '2024-05-08 05:19:44', '2024-05-08 05:19:44'),
+	(725, 'barang', 9, 'Update', '2024-05-08 05:22:37', '3', '{"id":9,"kategori_barang_id":"2","kode_barang":"876877","nama_barang":"Toolkit","merk":"Harm","type":"Kit","kondisi_baik":"0","kondisi_sedang":"0","kondisi_rusak":"0","tanggal_masuk":"2024-01-05","status":"Baru","ruangan_id":"1","harga_perolehan":"800000","asal":"Bengkel","pic":"Rudi Aja","gambar":"20240508121943_Thumbnail YouTube  (1).png","keterangan":null,"created_at":"2024-01-05T01:41:44.000000Z","updated_at":"2024-05-08T12:19:44.000000Z"}', '{"id":9,"kategori_barang_id":"2","kode_barang":"876877","nama_barang":"Toolkit","merk":"Harm","type":"Kit","kondisi_baik":"0","kondisi_sedang":"0","kondisi_rusak":"0","tanggal_masuk":"2024-01-05","status":"Baru","ruangan_id":"1","harga_perolehan":"800000","asal":"Bengkel","pic":"Rudi Aja","gambar":"20240508122237_Thumbnail YouTube  (1).png.webp","keterangan":null,"created_at":"2024-01-05T01:41:44.000000Z","updated_at":"2024-05-08T12:22:37.000000Z"}', '2024-05-08 05:22:37', '2024-05-08 05:22:37'),
+	(726, 'pengeluaran', 18, 'Update', '2024-05-08 10:09:16', '3', '{"id":18,"tanggal_pengeluaran":"2024-04-08","nama_pengeluaran":"Listrik","jumlah_pengeluaran":"200000","keterangan":"999","pic":"Rudi","bukti":null,"created_at":"2024-04-08T15:01:43.000000Z","updated_at":"2024-04-08T15:01:43.000000Z"}', '{"id":18,"tanggal_pengeluaran":"2024-04-08","nama_pengeluaran":"Listrik","jumlah_pengeluaran":"200000","keterangan":"999","pic":"Rudi","bukti":"1715188155_Thumbnail YouTube .webp","created_at":"2024-04-08T15:01:43.000000Z","updated_at":"2024-05-08T17:09:16.000000Z"}', '2024-05-08 10:09:16', '2024-05-08 10:09:16'),
+	(727, 'pengeluaran', 17, 'Update', '2024-05-08 10:09:28', '3', '{"id":17,"tanggal_pengeluaran":"2024-04-08","nama_pengeluaran":"Gaji Karyawan","jumlah_pengeluaran":"800000","keterangan":"12345","pic":"Rudi Aja","bukti":null,"created_at":"2024-04-08T14:59:56.000000Z","updated_at":"2024-04-08T14:59:56.000000Z"}', '{"id":17,"tanggal_pengeluaran":"2024-04-08","nama_pengeluaran":"Gaji Karyawan","jumlah_pengeluaran":"800000","keterangan":"12345","pic":"Rudi Aja","bukti":"1715188168_Thumbnail YouTube  (1).webp","created_at":"2024-04-08T14:59:56.000000Z","updated_at":"2024-05-08T17:09:28.000000Z"}', '2024-05-08 10:09:28', '2024-05-08 10:09:28'),
+	(728, 'pengeluaran', 19, 'Create', '2024-05-08 10:10:24', '3', NULL, '{"tanggal_pengeluaran":"2024-05-08","nama_pengeluaran":"Air PDAM","keterangan":"Air PDAM","pic":"Rudi Aja","bukti":"20240508171024_2.png.webp","jumlah_pengeluaran":"500000","updated_at":"2024-05-08T17:10:24.000000Z","created_at":"2024-05-08T17:10:24.000000Z","id":19}', '2024-05-08 10:10:24', '2024-05-08 10:10:24'),
+	(729, 'pemasukan', 4, 'Update', '2024-05-08 10:13:02', '3', '{"id":4,"tanggal_pemasukan":"2024-04-07","nama_pemasukan":"Dana BOS","jumlah_pemasukan":"1000000","keterangan":"9876","pic":"Andrey","bukti":null,"created_at":"2024-04-08T15:02:28.000000Z","updated_at":"2024-04-08T15:02:28.000000Z"}', '{"id":4,"tanggal_pemasukan":"2024-04-07","nama_pemasukan":"Dana BOS","jumlah_pemasukan":"1000000","keterangan":"9876","pic":"Andrey","bukti":"1715188381_2.webp","created_at":"2024-04-08T15:02:28.000000Z","updated_at":"2024-05-08T17:13:02.000000Z"}', '2024-05-08 10:13:02', '2024-05-08 10:13:02'),
+	(730, 'pemasukan', 5, 'Create', '2024-05-08 10:13:21', '3', NULL, '{"tanggal_pemasukan":"2024-05-08","nama_pemasukan":"Dana BOS","keterangan":"Dana BOS","pic":"Giri","bukti":"20240508171320_1.png.webp","jumlah_pemasukan":"1000000","updated_at":"2024-05-08T17:13:21.000000Z","created_at":"2024-05-08T17:13:21.000000Z","id":5}', '2024-05-08 10:13:21', '2024-05-08 10:13:21'),
+	(731, 'pemasukan', 5, 'Update', '2024-05-08 10:13:36', '3', '{"id":5,"tanggal_pemasukan":"2024-05-08","nama_pemasukan":"Dana BOS","jumlah_pemasukan":"1000000","keterangan":"Dana BOS","pic":"Giri","bukti":"20240508171320_1.png.webp","created_at":"2024-05-08T17:13:21.000000Z","updated_at":"2024-05-08T17:13:21.000000Z"}', '{"id":5,"tanggal_pemasukan":"2024-05-08","nama_pemasukan":"Donatur","jumlah_pemasukan":"1000000","keterangan":"Dana BOS","pic":"Giri","bukti":"20240508171320_1.png.webp","created_at":"2024-05-08T17:13:21.000000Z","updated_at":"2024-05-08T17:13:36.000000Z"}', '2024-05-08 10:13:36', '2024-05-08 10:13:36'),
+	(732, 'mutasiBarang', 18, 'Create', '2024-05-08 10:29:39', '3', NULL, '{"jenis_mutasi":"Keluar","tanggal_mutasi":"2024-05-08","tanggal_kembali":"2024-05-09","kode_mutasi":"12347","barang_id":"11","kondisi_barang":"Baik","jumlah_tersedia":"0","qty":"0","ruangan_id_asal":"1","ruangan_id_tujuan":"4","pic":"Rudi","keterangan":null,"bukti":"20240508172939_Thumbnail_YouTube_.png.webp","updated_at":"2024-05-08T17:29:39.000000Z","created_at":"2024-05-08T17:29:39.000000Z","id":18}', '2024-05-08 10:29:39', '2024-05-08 10:29:39'),
+	(733, 'Form Tambah Siswa', 25, 'Create', '2024-05-11 16:21:42', NULL, NULL, '{"_token":"jel1e84SwD876A3lS6VE84hHLwyIOz1TxxVURFmq","nik":"20702d","nama_siswa":"Maryam Layla Alfathunissa","email":"koperasidua@gmail.com","jenis_kelamin":"Laki-laki","tempat_lahir":"Tasikmalaya","tanggal_lahir":"2024-05-15","provinsi":"Jawa Barat","kota":"Tasikmalaya","alamat":"Jl. Tajur Indah No 121 Indihiang","nama_ayah":"Gugun","no_telp_ayah":"085345354354","nama_ibu":"Rini","no_telp_ibu":"085345354354","sekolah_asal":"SD ABBASH","kelas":"6B","foto":{}}', '2024-05-11 16:21:42', '2024-05-11 16:21:42'),
+	(734, 'Form Tambah Siswa', 26, 'Create', '2024-05-11 16:21:52', NULL, NULL, '{"_token":"jel1e84SwD876A3lS6VE84hHLwyIOz1TxxVURFmq","nik":"20702d","nama_siswa":"Maryam Layla Alfathunissa","email":"koperasidua@gmail.com","jenis_kelamin":"Laki-laki","tempat_lahir":"Tasikmalaya","tanggal_lahir":"2024-05-15","provinsi":"Jawa Barat","kota":"Tasikmalaya","alamat":"Jl. Tajur Indah No 121 Indihiang","nama_ayah":"Gugun","no_telp_ayah":"085345354354","nama_ibu":"Rini","no_telp_ibu":"085345354354","sekolah_asal":"SD ABBASH","kelas":"6B","foto":{}}', '2024-05-11 16:21:52', '2024-05-11 16:21:52');
 
 -- Dumping structure for table db_akademik.mapel
 CREATE TABLE IF NOT EXISTS `mapel` (
@@ -745,9 +758,9 @@ CREATE TABLE IF NOT EXISTS `migrations` (
   `migration` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=80 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=81 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table db_akademik.migrations: ~50 rows (approximately)
+-- Dumping data for table db_akademik.migrations: ~58 rows (approximately)
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 	(19, '2023_11_01_173357_create_siswas_table', 1),
 	(20, '2023_11_02_154106_create_sliders_table', 2),
@@ -805,7 +818,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 	(76, '2024_04_23_235239_create_kontaks_table', 57),
 	(77, '2024_04_24_011335_create_unduhans_table', 58),
 	(78, '2024_04_24_021019_create_links_table', 59),
-	(79, '2024_05_05_150738_create_absensis_table', 60);
+	(79, '2024_05_05_150738_create_absensis_table', 60),
+	(80, '2024_05_11_130818_create_pendaftarans_table', 61);
 
 -- Dumping structure for table db_akademik.mitra
 CREATE TABLE IF NOT EXISTS `mitra` (
@@ -824,9 +838,9 @@ CREATE TABLE IF NOT EXISTS `mitra` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table db_akademik.mitra: ~6 rows (approximately)
+-- Dumping data for table db_akademik.mitra: ~7 rows (approximately)
 INSERT INTO `mitra` (`id`, `nama_mitra`, `no_telp`, `email`, `instagram`, `youtube`, `website`, `keterangan`, `gambar`, `urutan`, `created_at`, `updated_at`) VALUES
-	(1, 'PT. Dekan', '085320555394', 'admin@admin.com', '@muhraff', 'muhraff', 'https://a.com', 'Test keterangan', '20240423020837_Picture1.png.png', '1', '2023-11-03 07:13:46', '2024-04-22 19:08:37'),
+	(1, 'PT. Dekan', '085320555394', 'admin@admin.com', '@muhraff', 'muhraff', 'https://a.com', 'Test keterangan', '20240510044033_Picture1.png.webp', '1', '2023-11-03 07:13:46', '2024-05-09 21:40:35'),
 	(2, 'PT. Dekan', '085320555394', 'koperasisatu@gmail.com', 'https://www.instagram.com/muhammad_rafi94/?hl=id', 'https://www.youtube.com/watch?v=r44RKWyfcFw&amp;fbclid=IwAR21beSJORalzmzokxDRcGfkZA1AtRTE__l5N4r09HcGS5Y6vOluyouM9EM', 'https://www.youtube.com/watch?v=r44RKWyfcFw&amp;fbclid=IwAR21beSJORalzmzokxDRcGfkZA1AtRTE__l5N4r09HcGS5Y6vOluyouM9EM', 'https://www.youtube.com/watch?v=r44RKWyfcFw&amp;fbclid=IwAR21beSJORalzmzokxDRcGfkZA1AtRTE__l5N4r09HcGS5Y6vOluyouM9EM', '20240423020917_SMP_ISI_2.png.png', '2', '2024-04-22 19:09:17', '2024-04-22 19:09:17'),
 	(3, 'PT. Dekan', '085320555394', 'koperasisatu@gmail.com', 'https://www.instagram.com/muhammad_rafi94/?hl=id', 'https://www.youtube.com/watch?v=r44RKWyfcFw&amp;fbclid=IwAR21beSJORalzmzokxDRcGfkZA1AtRTE__l5N4r09HcGS5Y6vOluyouM9EM', 'www.ltpresent.com', NULL, '20240423100506_1.png.png', '3', '2024-04-23 03:05:06', '2024-04-23 03:05:06'),
 	(4, 'PT. Dekan', '085320555394', 'koperasisatu@gmail.com', NULL, NULL, NULL, NULL, '20240423100646_2.png.png', '4', '2024-04-23 03:06:46', '2024-04-23 03:06:46'),
@@ -853,11 +867,12 @@ CREATE TABLE IF NOT EXISTS `mutasi_barang` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table db_akademik.mutasi_barang: ~1 rows (approximately)
+-- Dumping data for table db_akademik.mutasi_barang: ~2 rows (approximately)
 INSERT INTO `mutasi_barang` (`id`, `jenis_mutasi`, `tanggal_mutasi`, `tanggal_kembali`, `kode_mutasi`, `barang_id`, `qty`, `kondisi_barang`, `jumlah_tersedia`, `ruangan_id_asal`, `ruangan_id_tujuan`, `pic`, `bukti`, `keterangan`, `created_at`, `updated_at`) VALUES
-	(17, 'Keluar', '2024-04-13', '2024-04-20', '1234', '9', '20', 'Baik', '20', '4', '1', 'Rudi Aja', '20240413004316_SNACK_(4).png.png', 'Keterangan', '2024-04-12 17:43:16', '2024-04-12 17:43:16');
+	(17, 'Keluar', '2024-04-13', '2024-04-20', '1234', '9', '20', 'Baik', '20', '4', '1', 'Rudi Aja', '20240413004316_SNACK_(4).png.png', 'Keterangan', '2024-04-12 17:43:16', '2024-04-12 17:43:16'),
+	(18, 'Keluar', '2024-05-08', '2024-05-09', '12347', '11', '0', 'Baik', '0', '1', '4', 'Rudi', '20240508172939_Thumbnail_YouTube_.png.webp', NULL, '2024-05-08 10:29:39', '2024-05-08 10:29:39');
 
 -- Dumping structure for table db_akademik.nilai_siswa_detail
 CREATE TABLE IF NOT EXISTS `nilai_siswa_detail` (
@@ -899,7 +914,7 @@ CREATE TABLE IF NOT EXISTS `nilai_siswa_head` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table db_akademik.nilai_siswa_head: ~0 rows (approximately)
+-- Dumping data for table db_akademik.nilai_siswa_head: ~1 rows (approximately)
 INSERT INTO `nilai_siswa_head` (`id`, `tahun_ajaran_id`, `kelas_id`, `siswa_id`, `mapel_id`, `total_nilai`, `keterangan`, `created_at`, `updated_at`) VALUES
 	(13, '9', '5', '11', '8', '81', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.', '2024-04-12 16:52:45', '2024-04-12 16:52:45');
 
@@ -925,11 +940,12 @@ CREATE TABLE IF NOT EXISTS `pemasukan` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table db_akademik.pemasukan: ~0 rows (approximately)
+-- Dumping data for table db_akademik.pemasukan: ~2 rows (approximately)
 INSERT INTO `pemasukan` (`id`, `tanggal_pemasukan`, `nama_pemasukan`, `jumlah_pemasukan`, `keterangan`, `pic`, `bukti`, `created_at`, `updated_at`) VALUES
-	(4, '2024-04-07', 'Dana BOS', '1000000', '9876', 'Andrey', NULL, '2024-04-08 08:02:28', '2024-04-08 08:02:28');
+	(4, '2024-04-07', 'Dana BOS', '1000000', '9876', 'Andrey', '1715188381_2.webp', '2024-04-08 08:02:28', '2024-05-08 10:13:02'),
+	(5, '2024-05-08', 'Donatur', '1000000', 'Dana BOS', 'Giri', '20240508171320_1.png.webp', '2024-05-08 10:13:21', '2024-05-08 10:13:36');
 
 -- Dumping structure for table db_akademik.pembelian
 CREATE TABLE IF NOT EXISTS `pembelian` (
@@ -948,7 +964,7 @@ CREATE TABLE IF NOT EXISTS `pembelian` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=61 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table db_akademik.pembelian: ~0 rows (approximately)
+-- Dumping data for table db_akademik.pembelian: ~1 rows (approximately)
 INSERT INTO `pembelian` (`id`, `tanggal_pembelian`, `kode_pembelian`, `supplier_id`, `nama_supplier`, `total_bayar`, `jenis_pembayaran`, `bukti`, `pic`, `keterangan`, `created_at`, `updated_at`) VALUES
 	(60, '2024-03-23', 'LTPOS-20240323-000001', '3', 'Jaya Lestari', '30000', 'CASH', NULL, 'Muhammad Rafi Heryadi', NULL, '2024-03-23 09:03:44', '2024-03-23 09:03:44');
 
@@ -970,6 +986,28 @@ CREATE TABLE IF NOT EXISTS `pembelian_detail` (
 INSERT INTO `pembelian_detail` (`id`, `pembelian_id`, `produk_id`, `nama_produk`, `qty`, `harga_beli`, `total`, `created_at`, `updated_at`) VALUES
 	(68, '60', '4', 'Es Teh Botol', '1', '10000', '10000', '2024-03-23 09:03:44', '2024-03-23 09:03:44'),
 	(69, '60', '5', 'Keripik Taro', '1', '4000', '4000', '2024-03-23 09:03:44', '2024-03-23 09:03:44');
+
+-- Dumping structure for table db_akademik.pendaftaran
+CREATE TABLE IF NOT EXISTS `pendaftaran` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `tanggal_pendaftaran` datetime NOT NULL,
+  `nik` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `siswa_id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `status` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Dumping data for table db_akademik.pendaftaran: ~7 rows (approximately)
+INSERT INTO `pendaftaran` (`id`, `tanggal_pendaftaran`, `nik`, `siswa_id`, `status`, `created_at`, `updated_at`) VALUES
+	(1, '2024-05-11 14:29:26', '3278042812940008e', '21', 'Pending', '2024-05-11 07:29:26', '2024-05-11 07:29:26'),
+	(2, '2024-05-11 14:35:56', '3278042812940008ess', '22', 'Pending', '2024-05-11 07:35:56', '2024-05-11 07:35:56'),
+	(3, '2024-05-11 14:39:45', '20704fff', '23', 'Pending', '2024-05-11 07:39:45', '2024-05-11 07:39:45'),
+	(4, '2024-05-11 14:55:59', '20701ff', '24', 'Pending', '2024-05-11 07:55:59', '2024-05-11 07:55:59'),
+	(5, '2024-05-11 23:25:45', '20702d', '28', 'Pending', '2024-05-11 16:25:45', '2024-05-11 16:25:45'),
+	(6, '2024-05-11 23:28:18', '3278042812940008e', '29', 'Pending', '2024-05-11 16:28:18', '2024-05-11 16:28:18'),
+	(7, '2024-05-11 23:31:47', '20702d', '30', 'Pending', '2024-05-11 16:31:47', '2024-05-11 16:31:47');
 
 -- Dumping structure for table db_akademik.penempatan_kelas_detail
 CREATE TABLE IF NOT EXISTS `penempatan_kelas_detail` (
@@ -1015,12 +1053,13 @@ CREATE TABLE IF NOT EXISTS `pengeluaran` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table db_akademik.pengeluaran: ~0 rows (approximately)
+-- Dumping data for table db_akademik.pengeluaran: ~3 rows (approximately)
 INSERT INTO `pengeluaran` (`id`, `tanggal_pengeluaran`, `nama_pengeluaran`, `jumlah_pengeluaran`, `keterangan`, `pic`, `bukti`, `created_at`, `updated_at`) VALUES
-	(17, '2024-04-08', 'Gaji Karyawan', '800000', '12345', 'Rudi Aja', NULL, '2024-04-08 07:59:56', '2024-04-08 07:59:56'),
-	(18, '2024-04-08', 'Listrik', '200000', '999', 'Rudi', NULL, '2024-04-08 08:01:43', '2024-04-08 08:01:43');
+	(17, '2024-04-08', 'Gaji Karyawan', '800000', '12345', 'Rudi Aja', '1715188168_Thumbnail YouTube  (1).webp', '2024-04-08 07:59:56', '2024-05-08 10:09:28'),
+	(18, '2024-04-08', 'Listrik', '200000', '999', 'Rudi', '1715188155_Thumbnail YouTube .webp', '2024-04-08 08:01:43', '2024-05-08 10:09:16'),
+	(19, '2024-05-08', 'Air PDAM', '500000', 'Air PDAM', 'Rudi Aja', '20240508171024_2.png.webp', '2024-05-08 10:10:24', '2024-05-08 10:10:24');
 
 -- Dumping structure for table db_akademik.penjualan
 CREATE TABLE IF NOT EXISTS `penjualan` (
@@ -1103,7 +1142,7 @@ CREATE TABLE IF NOT EXISTS `produk` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table db_akademik.produk: ~1 rows (approximately)
+-- Dumping data for table db_akademik.produk: ~2 rows (approximately)
 INSERT INTO `produk` (`id`, `kategori_produk_id`, `satuan_produk_id_1`, `satuan_produk_id_2`, `isi`, `kode_produk`, `nama_produk`, `merk`, `type`, `stok`, `status`, `lokasi`, `harga_beli`, `harga_jual_1`, `harga_jual_2`, `harga_jual_3`, `gambar`, `deskripsi`, `created_at`, `updated_at`) VALUES
 	(4, 3, 4, 1, 24, '1234', 'Es Teh Botol', 'Es Teh Botol', 'Es Teh Botol', '20', 'Aktif', 'Etalase', '10000', '11000', '12000', '13000', '20240321052058_Desain_tanpa_judul.png.png', 'Tes', '2024-03-20 22:20:58', '2024-04-07 09:36:17'),
 	(5, 2, 3, 1, 12, '1234', 'Keripik Taro', 'Keripik Taro', 'Keripik Taro', '10', 'Aktif', 'Etalase', '4000', '5000', '6000', '7000', '20240322012950_Thumbnail_YouTube__(1).png.png', 'Keripik Taro', '2024-03-21 18:29:50', '2024-04-07 09:36:14');
@@ -1136,7 +1175,7 @@ CREATE TABLE IF NOT EXISTS `profil` (
 
 -- Dumping data for table db_akademik.profil: ~1 rows (approximately)
 INSERT INTO `profil` (`id`, `nama_sekolah`, `npsn`, `kepala_sekolah_id`, `bendahara_sekolah_id`, `operator_sekolah_id`, `status`, `alamat`, `no_telp`, `email`, `instagram`, `facebook`, `website`, `youtube`, `deskripsi`, `logo`, `favicon`, `gambar`, `map`, `created_at`, `updated_at`) VALUES
-	(1, 'SDIT MARYAM LAYLA ALFATHUNISSA', '72328412233', '7', '11', '12', 'Swasta', 'Jl. Tajur Indah No 121 RT/RW 002/008 Indihiang Kota Tasikmalaya', '085320555394', 'sditmaryamlayla@gmail.com', 'https://www.instagram.com/?hl=id', 'https://www.facebook.com/', 'https://maryamlayla.com', 'https://www.youtube.com/watch?v=vUYpB1kwzE4', 'Sekolah Islam Terpadu MARYAM LAYLA ALFATHUNISSA. \r\nVel hac eleifend netus nibh, arcu platea aptent mi, viverra dictumst vitae. Tincidunt ultrices diam viverra enim vivamus inceptos molestie dapibus semper vehicula nam mauris, aliquam dictumst volutpat morbi a lobortis taciti odio venenatis magnis consequat, sagittis nisl massa et libero risus vel platea mollis bibendum in. Donec augue lobortis cum montes netus etiam interdum mus, semper iaculis torquent metus nullam aptent himenaeos id, blandit tempus magnis senectus risus placerat per.', 'logo_1714364503.png', 'favicon_1714365779.png', 'banner_1715095302.webp', 'https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15828.989006170726!2d108.2199555!3d-7.3261021!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e6f5748b3363aff%3A0x2f0e4a4f98e527ec!2sMasjid%20Agung%20Tasikmalaya!5e0!3m2!1sen!2sid!4v1713891379492!5m2!1sen!2sid', NULL, '2024-05-07 08:21:43');
+	(1, 'SDIT LAYLA JANNAH', '72328412233', '7', '11', '12', 'Swasta', 'Jl. Tajur Indah No 121 RT/RW 002/008 Indihiang Kota Tasikmalaya', '085320555394', 'sditmaryamlayla@gmail.com', 'https://www.instagram.com/?hl=id', 'https://www.facebook.com/', 'https://maryamlayla.com', 'https://www.youtube.com/watch?v=vUYpB1kwzE4', 'Sekolah Islam Terpadu LAYLA JANNAH\r\nVel hac eleifend netus nibh, arcu platea aptent mi, viverra dictumst vitae. Tincidunt ultrices diam viverra enim vivamus inceptos molestie dapibus semper vehicula nam mauris, aliquam dictumst volutpat morbi a lobortis taciti odio venenatis magnis consequat, sagittis nisl massa et libero risus vel platea mollis bibendum in. Donec augue lobortis cum montes netus etiam interdum mus, semper iaculis torquent metus nullam aptent himenaeos id, blandit tempus magnis senectus risus placerat per.', 'logo_1714364503.png', 'favicon_1714365779.png', 'banner_1715095302.webp', 'https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15828.989006170726!2d108.2199555!3d-7.3261021!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e6f5748b3363aff%3A0x2f0e4a4f98e527ec!2sMasjid%20Agung%20Tasikmalaya!5e0!3m2!1sen!2sid!4v1713891379492!5m2!1sen!2sid', NULL, '2024-05-11 02:03:58');
 
 -- Dumping structure for table db_akademik.ruangan
 CREATE TABLE IF NOT EXISTS `ruangan` (
@@ -1179,7 +1218,7 @@ INSERT INTO `satuan_produk` (`id`, `nama_satuan_produk`, `urutan`, `created_at`,
 CREATE TABLE IF NOT EXISTS `siswa` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `nik` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `nis` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `nis` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `nama_siswa` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `jenis_kelamin` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -1188,21 +1227,21 @@ CREATE TABLE IF NOT EXISTS `siswa` (
   `provinsi` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `kota` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `alamat` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `nama_ayah` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `pekerjaan_ayah` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `penghasilan_ayah` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `no_telp_ayah` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `nama_ibu` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `pekerjaan_ibu` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `penghasilan_ibu` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `no_telp_ibu` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `nama_wali` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `pekerjaan_wali` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `penghasilan_wali` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `no_telp_wali` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `tahun_masuk` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `sekolah_asal` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `kelas` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `nama_ayah` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `pekerjaan_ayah` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `penghasilan_ayah` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `no_telp_ayah` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `nama_ibu` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `pekerjaan_ibu` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `penghasilan_ibu` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `no_telp_ibu` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `nama_wali` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `pekerjaan_wali` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `penghasilan_wali` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `no_telp_wali` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `tahun_masuk` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `sekolah_asal` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `kelas` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `foto` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `kk` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `ijazah` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -1213,16 +1252,17 @@ CREATE TABLE IF NOT EXISTS `siswa` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table db_akademik.siswa: ~5 rows (approximately)
+-- Dumping data for table db_akademik.siswa: ~7 rows (approximately)
 INSERT INTO `siswa` (`id`, `nik`, `nis`, `nama_siswa`, `email`, `jenis_kelamin`, `tempat_lahir`, `tanggal_lahir`, `provinsi`, `kota`, `alamat`, `nama_ayah`, `pekerjaan_ayah`, `penghasilan_ayah`, `no_telp_ayah`, `nama_ibu`, `pekerjaan_ibu`, `penghasilan_ibu`, `no_telp_ibu`, `nama_wali`, `pekerjaan_wali`, `penghasilan_wali`, `no_telp_wali`, `tahun_masuk`, `sekolah_asal`, `kelas`, `foto`, `kk`, `ijazah`, `akte`, `ktp`, `jumlah_tabungan`, `status`, `created_at`, `updated_at`) VALUES
 	(11, '20701', '20701', 'Ramdan Rahmatillah', 'ramdan@gmail.com', 'Laki-laki', 'Tanjung Pinang', '1993-11-05', 'Jawa Barat', 'Kota Tasikmalaya', 'Jl. Tajur Indah', 'Rudi', 'Wiraswasta', '2-5 Jt', '085345354354', 'Rini', 'IRT', '2-5 Jt', '085345354354', 'Herman', 'Dokter', '2-5 Jt', '085345354354', '2022', 'SD ABBASH', '6B', '20240507150406_35.webp', '20231105113802_MUHAMMAD_RAFI_HERYADI.pdf.pdf', '20231105103600_ALUR_WEBSITE_MAUBIKINCV.pdf.pdf', '20231105103600_ALUR_WEBSITE_MAUBIKINCV.pdf.pdf', '20231105103600_ALUR_WEBSITE_MAUBIKINCV.pdf.pdf', '300000', NULL, '2023-11-05 03:36:00', '2024-05-07 08:04:06'),
 	(14, '20702', '20702', 'Susanti Setiawati', 'susanti@gmail.com', 'Perempuan', 'Jakarta', '1993-12-29', 'Jawa Barat', 'Kota Tasikmalaya', 'Jl. Pamijahan', 'Rudi', 'Wiraswasta', '2-5 Jt', '085345354354', 'Rini', 'IRT', '2-5 Jt', '085345354354', 'Herman', 'Dokter', '>5 Jt', '085345354354', '2022', 'SD ABBASH', '6A', '20240507150427_36.webp', '20231229005826_12.pdf.pdf', '20231229005826_12.pdf.pdf', '20231229005826_12.pdf.pdf', '20231229005826_12.pdf.pdf', '100000', NULL, '2023-12-28 17:58:26', '2024-05-07 08:04:27'),
 	(15, '20703', '20703', 'Hasan Hamdalah', 'hasan@gmail.com', 'Laki-laki', 'Jakarta', '1993-11-11', 'Jawa Barat', 'Kota Tasikmalaya', 'Jl. Rajapolah', 'Rudi', 'Wiraswasta', '2-5 Jt', '085345354354', 'Rini', 'IRT', '2-5 Jt', '085345354354', 'Herman', 'Dokter', '>5 Jt', '085345354354', '2022', 'SD ABBASH', '6A', '20240507150442_28.webp', '20231229010159_ilovepdf_merged.pdf.pdf', '20231229010159_ilovepdf_merged.pdf.pdf', '20231229010159_ilovepdf_merged.pdf.pdf', '20231229010159_ilovepdf_merged.pdf.pdf', NULL, NULL, '2023-12-28 18:01:59', '2024-05-07 08:04:42'),
 	(16, '20704', '20704', 'Sansan Sananta', 'sansan@gmail.com', 'Laki-laki', 'Tasikmalaya', '1992-12-29', 'Jawa Barat', 'Kota Tasikmalaya', 'Jl. Cilacap', 'Rudi', 'Wiraswasta', '>5 Jt', '085345354354', 'Rini', 'IRT', '>5 Jt', '085345354354', 'Herman', 'Dokter', '>5 Jt', '085345354354', '2022', 'SD ABBASH', '6C', '20240507150451_30.webp', '20231229010508_12.pdf.pdf', '20231229010508_12.pdf.pdf', '20231229010508_12.pdf.pdf', '20231229010508_12.pdf.pdf', NULL, NULL, '2023-12-28 18:05:08', '2024-05-07 08:04:51'),
 	(19, '44354677555', '20709', 'Martin Guera', 'martin@gmail.com', 'Laki-laki', 'Tanjung Pinang', '1992-11-11', 'Jawa Barat', 'Tasikmalaya', 'Perumahan CGM Sukarindik Kecamatan Bungursari. Blok C31. RT/RW 02/11. Kota Tasikmalaya\r\nJl. Tajur Indah', 'Gugun', 'Wiraswasta', '2-5 Jt', '085345354354', 'Rini', 'IRT', '2-5 Jt', '085345354354', 'Herman', 'Dokter', '>5 Jt', '085345354354', '2022', 'SD ABBASH', '6B', '20240507150502_48.webp', NULL, NULL, NULL, NULL, NULL, NULL, '2024-05-04 08:57:36', '2024-05-07 08:05:02'),
-	(20, '20705', '20705', 'Kamasera Armada', 'kamasera@gmail.com', 'Perempuan', 'Tanjung Pinang', '1993-11-11', 'Jawa Barat', 'Tasikmalaya', 'Perumahan CGM Sukarindik Kecamatan Bungursari. Blok C31. RT/RW 02/11. Kota Tasikmalaya\r\nJl. Tajur Indah', 'Gugun', 'Wiraswasta', '2-5 Jt', '085345354354', 'Sumarti', 'IRT', '2-5 Jt', '085345354354', 'Herman', 'Dokter', '2-5 Jt', '085345354354', '2022', 'SD ABBASH', '6B', '20240507150343_29.webp', '20240507141823_1813-6612-1-PB.pdf.pdf', '20240507141823_1813-6612-1-PB.pdf.pdf', '20240507141823_1813-6612-1-PB.pdf.pdf', '20240507141823_1813-6612-1-PB.pdf.pdf', NULL, NULL, '2024-05-07 07:18:23', '2024-05-07 08:05:35');
+	(20, '20705', '20705', 'Kamasera Armada', 'kamasera@gmail.com', 'Perempuan', 'Tanjung Pinang', '1993-11-11', 'Jawa Barat', 'Tasikmalaya', 'Perumahan CGM Sukarindik Kecamatan Bungursari. Blok C31. RT/RW 02/11. Kota Tasikmalaya\r\nJl. Tajur Indah', 'Gugun', 'Wiraswasta', '2-5 Jt', '085345354354', 'Sumarti', 'IRT', '2-5 Jt', '085345354354', 'Herman', 'Dokter', '2-5 Jt', '085345354354', '2022', 'SD ABBASH', '6B', '20240507150343_29.webp', '20240507141823_1813-6612-1-PB.pdf.pdf', '20240507141823_1813-6612-1-PB.pdf.pdf', '20240507141823_1813-6612-1-PB.pdf.pdf', '20240507141823_1813-6612-1-PB.pdf.pdf', NULL, NULL, '2024-05-07 07:18:23', '2024-05-07 08:05:35'),
+	(30, '20702d', NULL, 'Koperasi Satu', 'koperasisatu@gmail.com', 'Laki-laki', 'Tanjung Pinang', '2024-05-12', 'Jawa Barat', 'Tasikmalaya', 'Perumahan CGM Sukarindik Kecamatan Bungursari. Blok C31. RT/RW 02/11. Kota Tasikmalaya', 'Rudi', NULL, NULL, '085345354354', 'Rini', NULL, NULL, '085345354354', NULL, NULL, NULL, NULL, NULL, 'SD ABBASH', '6B', '20240511233143_IMG_20221204_110935.webp', NULL, NULL, NULL, NULL, NULL, NULL, '2024-05-11 16:31:47', '2024-05-11 16:31:47');
 
 -- Dumping structure for table db_akademik.slider
 CREATE TABLE IF NOT EXISTS `slider` (
@@ -1237,7 +1277,7 @@ CREATE TABLE IF NOT EXISTS `slider` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table db_akademik.slider: ~0 rows (approximately)
+-- Dumping data for table db_akademik.slider: ~2 rows (approximately)
 INSERT INTO `slider` (`id`, `nama_slider`, `keterangan`, `link`, `urutan`, `gambar`, `created_at`, `updated_at`) VALUES
 	(2, 'Sekolah Terbaik Untuk Anak Anda', 'Jangan Salah Untuk Menyekolahkan Anak Anda Kami Mengajak Anda Untuk Bergabung Dengan Sekolah Terbaik Untuk Anak Anda', 'https://ltpresent.com', '1', '20240507151532_20240422223505_mengenal-kurikulum-sekolah-alam-banyak-bermain-tapi-bukan-mainmain-hnk.jpg.webp', '2023-11-02 18:41:33', '2024-05-07 08:15:33'),
 	(3, 'Dengan Program Terbaik', 'Memberikan Anda Dengan Program Terbaik', 'https://forms.gle/rdYBfem7QmLGLzFC8', '2', '20240507151542_20240422223516_depoknetizen-blogspot-com.jpg.webp', '2023-11-03 02:30:48', '2024-05-07 08:15:42');
@@ -1257,7 +1297,7 @@ CREATE TABLE IF NOT EXISTS `spp` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table db_akademik.spp: ~11 rows (approximately)
+-- Dumping data for table db_akademik.spp: ~12 rows (approximately)
 INSERT INTO `spp` (`id`, `tahun_ajaran_id`, `jumlah_spp`, `tanggal_jatuh_tempo`, `bulan`, `tahun`, `keterangan`, `status`, `created_at`, `updated_at`) VALUES
 	(18, '9', '450000', '29', 'Juli', '2024', NULL, 'Aktif', '2024-04-29 09:18:40', '2024-04-29 18:17:36'),
 	(19, '9', '450000', '29', 'Agustus', '2024', NULL, 'Aktif', '2024-04-29 09:18:55', '2024-04-29 18:18:07'),
@@ -1307,7 +1347,7 @@ CREATE TABLE IF NOT EXISTS `surat_keluar` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table db_akademik.surat_keluar: ~0 rows (approximately)
+-- Dumping data for table db_akademik.surat_keluar: ~1 rows (approximately)
 INSERT INTO `surat_keluar` (`id`, `tanggal_keluar`, `nomor_surat`, `penerima`, `jenis_surat`, `perihal`, `lampiran`, `tindak_lanjut`, `keterangan`, `created_at`, `updated_at`) VALUES
 	(3, '2024-04-13', '6465646', 'Alex', 'Undangan', 'Undangan', '20240413001408_Qoutation-033-Point_of_Sale-Perhiasan.docx.docx', '1111', '4fyyryr5y', '2024-04-12 17:14:08', '2024-04-12 17:14:08');
 
@@ -1375,19 +1415,19 @@ CREATE TABLE IF NOT EXISTS `tarik_tabungan` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table db_akademik.tarik_tabungan: ~0 rows (approximately)
+-- Dumping data for table db_akademik.tarik_tabungan: ~1 rows (approximately)
 INSERT INTO `tarik_tabungan` (`id`, `tanggal_tarik`, `siswa_id`, `jumlah_tarik`, `keterangan`, `pic`, `created_at`, `updated_at`) VALUES
 	(7, '2024-01-19', '14', '200000', 'zzzzz', 'zzzz', '2024-01-19 06:39:23', '2024-01-19 06:39:38');
 
 -- Dumping structure for table db_akademik.tes
 CREATE TABLE IF NOT EXISTS `tes` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `nama` varchar(50) CHARACTER SET utf8mb4  DEFAULT NULL,
-  `no` varchar(50) CHARACTER SET utf8mb4  DEFAULT NULL,
+  `nama` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `no` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4  ;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table db_akademik.tes: ~0 rows (approximately)
 
@@ -1403,7 +1443,7 @@ CREATE TABLE IF NOT EXISTS `testimoni` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table db_akademik.testimoni: ~3 rows (approximately)
+-- Dumping data for table db_akademik.testimoni: ~4 rows (approximately)
 INSERT INTO `testimoni` (`id`, `nama_testimoni`, `keterangan`, `gambar`, `urutan`, `created_at`, `updated_at`) VALUES
 	(16, 'Regan Alamsyah', 'Mantap !!! semua thempletenya keren banget', '20240507153338_32.webp', '1', '2023-10-09 06:54:01', '2024-05-07 08:33:38'),
 	(17, 'Rendi Gumilar', 'MasyaAlloh mantap, pengerjaan cepat harga terjangkau', '20240507153358_29.webp', '2', '2023-10-09 06:54:38', '2024-05-07 08:33:59'),
@@ -1442,7 +1482,7 @@ CREATE TABLE IF NOT EXISTS `unduhan` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table db_akademik.unduhan: ~0 rows (approximately)
+-- Dumping data for table db_akademik.unduhan: ~1 rows (approximately)
 INSERT INTO `unduhan` (`id`, `tanggal_publish`, `nama_unduhan`, `kategori`, `link`, `thumbnail`, `file`, `created_at`, `updated_at`) VALUES
 	(3, '2024-04-24', 'Dokumen Sekolah', 'Angka', 'https://drive.google.com/file/d/13lofIH_M8FtOHFbDP2HXVw9UV4HwNhtp/preview', '20240424014914_IMG_2894-scaled.jpg.jpg', '20240424014914_BRIEF_WEB_SISTEM_PT.PSI.pdf.pdf', '2024-04-23 18:49:14', '2024-04-23 18:49:14');
 
@@ -1461,7 +1501,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   UNIQUE KEY `users_email_unique` (`email`)
 ) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table db_akademik.users: ~0 rows (approximately)
+-- Dumping data for table db_akademik.users: ~2 rows (approximately)
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `role`, `remember_token`, `created_at`, `updated_at`) VALUES
 	(3, 'Muhammad Rafi Heryadi', 'muhammadrafiheryadi94@gmail.com', NULL, '$2y$10$p96HVtHFrERLNA1s9kQYoeZTW5VfCXTjN5QRL29Wk/dXo1Nb79NLy', 'Superadmin', NULL, '2023-11-10 21:37:12', '2023-11-10 21:37:12'),
 	(4, 'Maryam Layla Khoerunnisa', 'alfathunissamaryamlayla@gmail.com', NULL, '$2y$10$7eGwaCmM0XI2Ym.TcHoxqe6k4uTZImExky64YPHNWdmeukmYfoOuu', 'Guru', NULL, '2023-11-10 22:44:46', '2024-01-07 08:11:11');
@@ -1480,9 +1520,9 @@ CREATE TABLE IF NOT EXISTS `visitor` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`visitor_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=71 DEFAULT CHARSET=utf8mb4  ;
+) ENGINE=InnoDB AUTO_INCREMENT=104 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table db_akademik.visitor: ~40 rows (approximately)
+-- Dumping data for table db_akademik.visitor: ~99 rows (approximately)
 INSERT INTO `visitor` (`visitor_id`, `visit_time`, `ip_address`, `session_id`, `cookie_id`, `user_agent`, `device`, `platform`, `browser`, `created_at`, `updated_at`) VALUES
 	(5, '2024-04-25 11:34:37', '127.0.0.1', '', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36', 'WebKit', 'Windows', 'Chrome', '2024-04-28 11:34:37', '2024-04-28 11:34:37'),
 	(6, '2024-04-25 11:37:28', '127.0.0.1', '', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36 Edg/124.0.0.0', 'WebKit', 'Windows', 'Edge', '2024-04-28 11:37:29', '2024-04-28 11:37:29'),
@@ -1549,7 +1589,40 @@ INSERT INTO `visitor` (`visitor_id`, `visit_time`, `ip_address`, `session_id`, `
 	(67, '2024-05-07 08:23:02', '127.0.0.1', '', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36', 'WebKit', 'Windows', 'Chrome', '2024-05-07 08:23:02', '2024-05-07 08:23:02'),
 	(68, '2024-05-07 08:30:03', '127.0.0.1', '', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36', 'WebKit', 'Windows', 'Chrome', '2024-05-07 08:30:03', '2024-05-07 08:30:03'),
 	(69, '2024-05-07 08:34:24', '127.0.0.1', '', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36', 'WebKit', 'Windows', 'Chrome', '2024-05-07 08:34:24', '2024-05-07 08:34:24'),
-	(70, '2024-05-07 08:39:03', '127.0.0.1', '', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36', 'WebKit', 'Windows', 'Chrome', '2024-05-07 08:39:03', '2024-05-07 08:39:03');
+	(70, '2024-05-07 08:39:03', '127.0.0.1', '', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36', 'WebKit', 'Windows', 'Chrome', '2024-05-07 08:39:03', '2024-05-07 08:39:03'),
+	(71, '2024-05-08 05:17:20', '127.0.0.1', '', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36', 'WebKit', 'Windows', 'Chrome', '2024-05-08 05:17:20', '2024-05-08 05:17:20'),
+	(72, '2024-05-08 10:05:54', '127.0.0.1', '', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36', 'WebKit', 'Windows', 'Chrome', '2024-05-08 10:05:54', '2024-05-08 10:05:54'),
+	(73, '2024-05-09 20:47:43', '127.0.0.1', '', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36', 'WebKit', 'Windows', 'Chrome', '2024-05-09 20:47:43', '2024-05-09 20:47:43'),
+	(74, '2024-05-09 21:02:42', '127.0.0.1', '', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36', 'WebKit', 'Windows', 'Chrome', '2024-05-09 21:02:42', '2024-05-09 21:02:42'),
+	(75, '2024-05-09 22:43:48', '127.0.0.1', '', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36', 'WebKit', 'Windows', 'Chrome', '2024-05-09 22:43:48', '2024-05-09 22:43:48'),
+	(76, '2024-05-09 22:44:47', '127.0.0.1', '', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36', 'WebKit', 'Windows', 'Chrome', '2024-05-09 22:44:47', '2024-05-09 22:44:47'),
+	(77, '2024-05-09 22:45:26', '127.0.0.1', '', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36', 'WebKit', 'Windows', 'Chrome', '2024-05-09 22:45:26', '2024-05-09 22:45:26'),
+	(78, '2024-05-09 22:45:35', '127.0.0.1', '', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36', 'WebKit', 'Windows', 'Chrome', '2024-05-09 22:45:35', '2024-05-09 22:45:35'),
+	(79, '2024-05-09 22:45:55', '127.0.0.1', '', NULL, 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', 'Macintosh', 'OS X', 'Chrome', '2024-05-09 22:45:55', '2024-05-09 22:45:55'),
+	(80, '2024-05-09 22:46:34', '127.0.0.1', '', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36', 'WebKit', 'Windows', 'Chrome', '2024-05-09 22:46:34', '2024-05-09 22:46:34'),
+	(81, '2024-05-09 22:47:46', '127.0.0.1', '', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36', 'WebKit', 'Windows', 'Chrome', '2024-05-09 22:47:46', '2024-05-09 22:47:46'),
+	(82, '2024-05-09 22:47:59', '127.0.0.1', '', NULL, 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', 'Macintosh', 'OS X', 'Chrome', '2024-05-09 22:47:59', '2024-05-09 22:47:59'),
+	(83, '2024-05-09 23:00:44', '127.0.0.1', '', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36', 'WebKit', 'Windows', 'Chrome', '2024-05-09 23:00:44', '2024-05-09 23:00:44'),
+	(84, '2024-05-09 23:02:03', '127.0.0.1', '', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36', 'WebKit', 'Windows', 'Chrome', '2024-05-09 23:02:03', '2024-05-09 23:02:03'),
+	(85, '2024-05-09 23:02:17', '127.0.0.1', '', NULL, 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', 'Macintosh', 'OS X', 'Chrome', '2024-05-09 23:02:17', '2024-05-09 23:02:17'),
+	(86, '2024-05-09 23:03:15', '127.0.0.1', '', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36', 'WebKit', 'Windows', 'Chrome', '2024-05-09 23:03:16', '2024-05-09 23:03:16'),
+	(87, '2024-05-10 09:11:06', '127.0.0.1', '', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36', 'WebKit', 'Windows', 'Chrome', '2024-05-10 09:11:06', '2024-05-10 09:11:06'),
+	(88, '2024-05-10 10:29:48', '127.0.0.1', '', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36', 'WebKit', 'Windows', 'Chrome', '2024-05-10 10:29:48', '2024-05-10 10:29:48'),
+	(89, '2024-05-11 01:55:04', '127.0.0.1', '', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36', 'WebKit', 'Windows', 'Chrome', '2024-05-11 01:55:04', '2024-05-11 01:55:04'),
+	(90, '2024-05-11 02:03:38', '127.0.0.1', '', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36', 'WebKit', 'Windows', 'Chrome', '2024-05-11 02:03:38', '2024-05-11 02:03:38'),
+	(91, '2024-05-11 02:03:51', '127.0.0.1', '', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36', 'WebKit', 'Windows', 'Chrome', '2024-05-11 02:03:51', '2024-05-11 02:03:51'),
+	(92, '2024-05-11 02:04:01', '127.0.0.1', '', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36', 'WebKit', 'Windows', 'Chrome', '2024-05-11 02:04:01', '2024-05-11 02:04:01'),
+	(93, '2024-05-11 02:31:26', '127.0.0.1', '', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36', 'WebKit', 'Windows', 'Chrome', '2024-05-11 02:31:26', '2024-05-11 02:31:26'),
+	(94, '2024-05-11 16:45:05', '127.0.0.1', '', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36', 'WebKit', 'Windows', 'Chrome', '2024-05-11 16:45:05', '2024-05-11 16:45:05'),
+	(95, '2024-05-11 16:45:13', '127.0.0.1', '', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36', 'WebKit', 'Windows', 'Chrome', '2024-05-11 16:45:13', '2024-05-11 16:45:13'),
+	(96, '2024-05-11 17:37:20', '127.0.0.1', '', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36', 'WebKit', 'Windows', 'Chrome', '2024-05-11 17:37:20', '2024-05-11 17:37:20'),
+	(97, '2024-05-11 17:39:08', '127.0.0.1', '', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36', 'WebKit', 'Windows', 'Chrome', '2024-05-11 17:39:08', '2024-05-11 17:39:08'),
+	(98, '2024-05-11 17:39:19', '127.0.0.1', '', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36', 'WebKit', 'Windows', 'Chrome', '2024-05-11 17:39:19', '2024-05-11 17:39:19'),
+	(99, '2024-05-11 17:40:11', '127.0.0.1', '', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36', 'WebKit', 'Windows', 'Chrome', '2024-05-11 17:40:11', '2024-05-11 17:40:11'),
+	(100, '2024-05-11 17:41:08', '127.0.0.1', '', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36', 'WebKit', 'Windows', 'Chrome', '2024-05-11 17:41:08', '2024-05-11 17:41:08'),
+	(101, '2024-05-11 17:42:01', '127.0.0.1', '', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36', 'WebKit', 'Windows', 'Chrome', '2024-05-11 17:42:01', '2024-05-11 17:42:01'),
+	(102, '2024-05-11 17:42:12', '127.0.0.1', '', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36', 'WebKit', 'Windows', 'Chrome', '2024-05-11 17:42:12', '2024-05-11 17:42:12'),
+	(103, '2024-05-11 17:42:37', '127.0.0.1', '', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36', 'WebKit', 'Windows', 'Chrome', '2024-05-11 17:42:37', '2024-05-11 17:42:37');
 
 -- Dumping structure for table db_akademik.waktu_mengajar
 CREATE TABLE IF NOT EXISTS `waktu_mengajar` (

@@ -394,9 +394,10 @@
                                 $whatsapp_url = "https://wa.me/{$no_telp}?text={$encoded_pesan}"; // Membuat URL lengkap
                             @endphp
                             <a href="{{ $whatsapp_url }}"  target="_blank">
-                                <button class="btn">Daftar!</button>
+                                <button class="btn">Hubungi Via WA</button>
                             </a>
-
+                            <a href="/daftar_sekolah" class="btn">Daftar Sekarang</a>
+                            
                         </div>
 
                         <ul class="newsletter-social">

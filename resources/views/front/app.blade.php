@@ -67,7 +67,7 @@
                     <div class="col-lg-4 col-md-6 col-12">
                         <div class="toolbar-login">
                             <div class="button">
-                                <a href="">Pendaftaran Siswa Baru</a>
+                                <a href="/daftar_sekolah">Pendaftaran Siswa Baru</a>
                                 @php
                                 $no_telp = str_replace(['-', ' ', '+'], '', $profil->no_telp);  // Menghapus tanda tambah (+), spasi, dan tanda hubung jika ada
                                 $pesan = "Hallo.. !! Apakah berkenan saya bertanya terkait informasi sekolah ?";
