@@ -54,7 +54,7 @@
         <div class="toolbar-area">
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-8 col-md-6 col-12">
+                    <div class="col-lg-6 col-md-6 col-12">
                         <div class="toolbar-social">
                             <ul>
                                 <li><span class="title">Ikuti Kami : </span></li>
@@ -64,10 +64,11 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="col-lg-4 col-md-6 col-12">
+                    <div class="col-lg-6 col-md-6 col-12">
                         <div class="toolbar-login">
                             <div class="button">
-                                <a href="/daftar_sekolah">Pendaftaran Siswa Baru</a>
+                                
+                                <a href="/login_user">Login</a>
                                 @php
                                 $no_telp = str_replace(['-', ' ', '+'], '', $profil->no_telp);  // Menghapus tanda tambah (+), spasi, dan tanda hubung jika ada
                                 $pesan = "Hallo.. !! Apakah berkenan saya bertanya terkait informasi sekolah ?";
@@ -78,6 +79,7 @@
                                 <a href="{{ $whatsapp_url }}" class="btn" target="_blank"><i class="lni lni-whatsapp"></i>&nbsp; Kontak Via WhatsApp</a>
                                 
                             </div>
+                         
                         </div>
                     </div>
                 </div>

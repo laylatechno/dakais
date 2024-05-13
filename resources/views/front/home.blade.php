@@ -124,7 +124,8 @@
                                     $encoded_pesan = urlencode($pesan); // Meng-encode pesan agar aman dalam URL
                                     $whatsapp_url = "https://wa.me/{$no_telp}?text={$encoded_pesan}"; // Membuat URL lengkap
                                 @endphp
-                                <a href="{{ $whatsapp_url }}" class="btn" target="_blank">Selengkapnya</a>
+                                {{-- <a href="{{ $whatsapp_url }}" class="btn" target="_blank">Pendaftaran Siswa Baru</a> --}}
+                                <a href="/daftar_sekolah" class="btn" target="_blank">Pendaftaran Siswa Baru</a>
                                 <a href="javascript:void(0)" class="video btn" id="openPopup" style="margin: 5px;"> Play
                                     Video <i class="lni lni-play"></i></a>
 

@@ -21,6 +21,16 @@
     <!-- Daterange picker -->
     <link rel="stylesheet" href="{{ asset('themplete/back') }}/plugins/daterangepicker/daterangepicker.css">
 
+
+
+
+
+
+
+
+
+
+
     <!-- Google Font: Source Sans Pro -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="stylesheet"
@@ -33,6 +43,8 @@
     <link rel="stylesheet" href="{{ asset('themplete/back') }}/dist/css/adminlte.min.css">
     <!-- overlayScrollbars -->
     <link rel="stylesheet" href="{{ asset('themplete/back') }}/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+    <!-- Daterange picker -->
+    {{-- <link rel="stylesheet" href="{{ asset('themplete/back')}}/plugins/daterangepicker/daterangepicker.css"> --}}
     <!-- summernote -->
     <link rel="stylesheet" href="{{ asset('themplete/back') }}/plugins/summernote/summernote-bs4.min.css">
     <!-- Favicon icon -->
@@ -87,7 +99,7 @@
                     <a href="/dashboard" class="nav-link">Home</a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
-                    <a href="https://wa.me/628971033234" class="nav-link">Kontak Person</a>
+                    <a href="https://wa.me/6285320555394" class="nav-link">Kontak Person</a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
                     <a href="/" target="_blank" class="nav-link">Lihat Website</a>
@@ -97,7 +109,7 @@
             <!-- Right navbar links -->
             <ul class="navbar-nav ml-auto">
                 <!-- Navbar Search -->
-                {{-- <li class="nav-item">
+                <li class="nav-item">
                     <a class="nav-link" data-widget="navbar-search" href="#" role="button">
                         <i class="fas fa-search"></i>
                     </a>
@@ -117,17 +129,17 @@
                             </div>
                         </form>
                     </div>
-                </li> --}}
+                </li>
 
                 <!-- Messages Dropdown Menu -->
                 <li class="nav-item dropdown">
-                    <a class="nav-link" href="/lihat_kontak" style="color: red;">
+                    <a class="nav-link"  href="/lihat_kontak" style="color: red;">
                         <i class="far fa-envelope"></i> <b>Kontak Masuk
-                        </b>
+                        </b>                        
                     </a>
-
+                   
                 </li>
-
+              
                 <li class="nav-item">
                     <a class="nav-link" data-widget="fullscreen" href="#" role="button">
                         <i class="fas fa-expand-arrows-alt"></i>
@@ -145,8 +157,8 @@
             <!-- Brand Logo -->
             <a href="/dashboard" class="brand-link">
 
-                <img src="/upload/profil/{{ $profil->logo }}" alt="" class="brand-image img-circle elevation-3"
-                    style="opacity: .8">
+                <img src="/upload/profil/{{ $profil->logo }}" alt=""
+                    class="brand-image img-circle elevation-3" style="opacity: .8">
                 <span class="brand-text font-weight-light">SISTEM AKADEMIK</span>
             </a>
 
@@ -164,7 +176,7 @@
                 </div>
 
                 <!-- SidebarSearch Form -->
-                {{-- <div class="form-inline">
+                <div class="form-inline">
                     <div class="input-group" data-widget="sidebar-search">
                         <input class="form-control form-control-sidebar" type="search" placeholder="Search"
                             aria-label="Search">
@@ -174,7 +186,7 @@
                             </button>
                         </div>
                     </div>
-                </div> --}}
+                </div>
 
 
                 <?php
@@ -186,6 +198,8 @@
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                         data-accordion="false">
+                        <!-- Add icons to the links using the .nav-icon class
+             with font-awesome or any other icon font library -->
 
                         <li class="nav-item">
                             <a href="/dashboard" class="nav-link <?php echo $currentPath == '/dashboard' ? 'active' : ''; ?>">
@@ -196,10 +210,8 @@
                             </a>
                         </li>
                         <li class="nav-header">Master</li>
-                        <li class="nav-item 
-                        <?php echo strpos($currentPath, '/wali_kelas') !== false || strpos($currentPath, '/pengawas') !== false || strpos($currentPath, '/kepala_sekolah') !== false || strpos($currentPath, '/ruangan') !== false || strpos($currentPath, '/jurusan') !== false || strpos($currentPath, '/kurikulum') !== false || strpos($currentPath, '/tahunajaran') !== false || strpos($currentPath, '/guru') !== false || strpos($currentPath, '/siswa') !== false || strpos($currentPath, '/mapel') !== false || strpos($currentPath, '/kelas') !== false ? 'menu-open active' : ''; ?> ">
-
-                            <a href="#" class="nav-link">
+                        <li class="nav-item <?php echo strpos($currentPath, '/wali_kelas') !== false || strpos($currentPath, '/pengawas') !== false || strpos($currentPath, '/kepala_sekolah') !== false || strpos($currentPath, '/ruangan') !== false || strpos($currentPath, '/jurusan') !== false || strpos($currentPath, '/kurikulum') !== false || strpos($currentPath, '/tahunajaran') !== false || strpos($currentPath, '/guru') !== false || strpos($currentPath, '/siswa') !== false || strpos($currentPath, '/mapel') !== false || strpos($currentPath, '/kelas') !== false ? 'menu-open active' : ''; ?> ">
+                            <a href="#" class="nav-link <?php echo strpos($currentPath, '/tahunajaran') !== false || strpos($currentPath, '/guru') !== false || strpos($currentPath, '/mapel') !== false ? 'active' : ''; ?>">
 
                                 <i class="nav-icon fas fa-columns"></i>
                                 <p>
@@ -268,16 +280,14 @@
                                         <p>Kepala Sekolah</p>
                                     </a>
                                 </li>
-
+                               
 
 
 
                             </ul>
                         </li>
                         <li class="nav-header">Transaksi</li>
-                        <li class="nav-item 
-                        <?php echo strpos($currentPath, '/pengeluaran') !== false || strpos($currentPath, '/pemasukan') !== false ? 'menu-open active' : ''; ?> ">
-
+                        <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-bullseye"></i>
                                 <p>
@@ -288,14 +298,13 @@
                             <ul class="nav nav-treeview">
 
                                 <li class="nav-item">
-
-                                    <a href="/pengeluaran" class="nav-link <?php echo $currentPath == '/pengeluaran' ? 'active' : ''; ?>">
+                                    <a href="/pengeluaran" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Pengeluaran</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="/pemasukan" class="nav-link <?php echo $currentPath == '/pemasukan' ? 'active' : ''; ?>">
+                                    <a href="/pemasukan" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Pemasukan</p>
                                     </a>
@@ -304,8 +313,7 @@
                             </ul>
                         </li>
 
-                        <li class="nav-item 
-                        <?php echo strpos($currentPath, '/spp') !== false || strpos($currentPath, '/bayar_spp') !== false || strpos($currentPath, '/rekap_spp') !== false ? 'menu-open active' : ''; ?> ">
+                        <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-school"></i>
                                 <p>
@@ -316,19 +324,19 @@
                             <ul class="nav nav-treeview">
 
                                 <li class="nav-item">
-                                    <a href="/spp" class="nav-link <?php echo $currentPath == '/spp' ? 'active' : ''; ?>">
+                                    <a href="/spp" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Master SPP</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="/bayar_spp" class="nav-link <?php echo $currentPath == '/bayar_spp' ? 'active' : ''; ?>">
+                                    <a href="/bayar_spp" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Bayar SPP</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="/rekap_spp" class="nav-link <?php echo $currentPath == '/rekap_spp' ? 'active' : ''; ?>">
+                                    <a href="/rekap_spp" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Rekap SPP</p>
                                     </a>
@@ -338,8 +346,7 @@
                             </ul>
                         </li>
 
-                        <li class="nav-item 
-                        <?php echo strpos($currentPath, '/tabungan') !== false || strpos($currentPath, '/tarik_tabungan') !== false ? 'menu-open active' : ''; ?> ">
+                        <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-address-book"></i>
                                 <p>
@@ -350,13 +357,13 @@
                             <ul class="nav nav-treeview">
 
                                 <li class="nav-item">
-                                    <a href="/tabungan" class="nav-link <?php echo $currentPath == '/tabungan' ? 'active' : ''; ?>">
+                                    <a href="/tabungan" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Simpan Tabungan</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="/tarik_tabungan" class="nav-link <?php echo $currentPath == '/tarik_tabungan' ? 'active' : ''; ?>">
+                                    <a href="/tarik_tabungan" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Tarik Tabungan</p>
                                     </a>
@@ -364,8 +371,7 @@
                             </ul>
                         </li>
 
-                        <li class="nav-item 
-                        <?php echo strpos($currentPath, '/kategori_barang') !== false || strpos($currentPath, '/barang') !== false || strpos($currentPath, '/mutasi_barang') !== false ? 'menu-open active' : ''; ?> ">
+                        <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-brush"></i>
                                 <p>
@@ -376,19 +382,19 @@
                             <ul class="nav nav-treeview">
 
                                 <li class="nav-item">
-                                    <a href="/kategori_barang" class="nav-link <?php echo $currentPath == '/kategori_barang' ? 'active' : ''; ?>">
+                                    <a href="/kategori_barang" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Kategori Barang</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="/barang" class="nav-link <?php echo $currentPath == '/barang' ? 'active' : ''; ?>">
+                                    <a href="/barang" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Barang</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="/mutasi_barang" class="nav-link <?php echo $currentPath == '/mutasi_barang' ? 'active' : ''; ?>">
+                                    <a href="/mutasi_barang" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Mutasi</p>
                                     </a>
@@ -398,8 +404,7 @@
                             </ul>
                         </li>
 
-                        <li class="nav-item 
-                        <?php echo strpos($currentPath, '/surat_masuk') !== false || strpos($currentPath, '/surat_keluar') !== false ? 'menu-open active' : ''; ?> ">
+                        <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-envelope"></i>
                                 <p>
@@ -410,13 +415,13 @@
                             <ul class="nav nav-treeview">
 
                                 <li class="nav-item">
-                                    <a href="/surat_masuk" class="nav-link <?php echo $currentPath == '/surat_masuk' ? 'active' : ''; ?>">
+                                    <a href="/surat_masuk" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Surat Masuk</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="/surat_keluar" class="nav-link <?php echo $currentPath == '/surat_keluar' ? 'active' : ''; ?>">
+                                    <a href="/surat_keluar" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Surat Keluar</p>
                                     </a>
@@ -424,8 +429,7 @@
                             </ul>
                         </li>
                         <li class="nav-header">Akademik</li>
-                        <li class="nav-item 
-                        <?php echo strpos($currentPath, '/waktumengajar') !== false || strpos($currentPath, '/jadwal_pelajaran') !== false ? 'menu-open active' : ''; ?> ">
+                        <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-list"></i>
                                 <p>
@@ -436,18 +440,18 @@
                             <ul class="nav nav-treeview">
 
                                 <li class="nav-item">
-                                    <a href="/waktumengajar" class="nav-link <?php echo $currentPath == '/waktumengajar' ? 'active' : ''; ?>">
+                                    <a href="/waktumengajar" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Waktu Mengajar</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="/jadwal_pelajaran" class="nav-link <?php echo $currentPath == '/jadwal_pelajaran' ? 'active' : ''; ?>">
+                                    <a href="/jadwal_pelajaran" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Isi Jadwal Pelajaran</p>
                                     </a>
                                 </li>
-
+                               
 
                             </ul>
                         </li>
@@ -462,7 +466,7 @@
                         <li class="nav-item">
                             <a href="/absensi" class="nav-link <?php echo $currentPath == '/absensi' ? 'active' : ''; ?>">
                                 <i class="nav-icon fas fa-book"></i>
-
+                                
                                 <p>
                                     Absensi
                                 </p>
@@ -471,15 +475,14 @@
                         <li class="nav-item">
                             <a href="/pendaftaran" class="nav-link <?php echo $currentPath == '/pendaftaran' ? 'active' : ''; ?>">
                                 <i class="nav-icon fas fa-inbox"></i>
-
+                                
                                 <p>
                                     Pendaftaran Siswa
                                 </p>
                             </a>
                         </li>
                         <li class="nav-header">Penilaian</li>
-                        <li class="nav-item 
-                        <?php echo strpos($currentPath, '/jenis_ujian') !== false || strpos($currentPath, '/nilai_siswa') !== false ? 'menu-open active' : ''; ?> ">
+                        <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-calculator"></i>
                                 <p>
@@ -490,13 +493,13 @@
                             <ul class="nav nav-treeview">
 
                                 <li class="nav-item">
-                                    <a href="/jenis_ujian" class="nav-link <?php echo $currentPath == '/jenis_ujian' ? 'active' : ''; ?>">
+                                    <a href="/jenis_ujian" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Jenis Ujian</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="/nilai_siswa" class="nav-link <?php echo $currentPath == '/nilai_siswa' ? 'active' : ''; ?>">
+                                    <a href="/nilai_siswa" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Nilai Siswa</p>
                                     </a>
@@ -504,13 +507,12 @@
 
                             </ul>
                         </li>
-
+                      
 
 
 
                         <li class="nav-header">Website</li>
-                        <li class="nav-item 
-                        <?php echo strpos($currentPath, '/kategoriberita') !== false || strpos($currentPath, '/berita') !== false ? 'menu-open active' : ''; ?> ">
+                        <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-blog"></i>
                                 <p>
@@ -520,13 +522,13 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="/kategoriberita" class="nav-link <?php echo $currentPath == '/kategoriberita' ? 'active' : ''; ?>">
+                                    <a href="/kategoriberita" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Kategori</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="/berita" class="nav-link <?php echo $currentPath == '/berita' ? 'active' : ''; ?>">
+                                    <a href="/berita" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Data Blog</p>
                                     </a>
@@ -534,8 +536,7 @@
 
                             </ul>
                         </li>
-                        <li class="nav-item 
-                        <?php echo strpos($currentPath, '/kategorigaleri') !== false || strpos($currentPath, '/galeri') !== false ? 'menu-open active' : ''; ?> ">
+                        <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon far fa-image"></i>
                                 <p>
@@ -545,13 +546,13 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="/kategorigaleri" class="nav-link <?php echo $currentPath == '/kategorigaleri' ? 'active' : ''; ?>">
+                                    <a href="/kategorigaleri" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Kategori</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="/galeri" class="nav-link <?php echo $currentPath == '/galeri' ? 'active' : ''; ?>">
+                                    <a href="/galeri" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Data Galeri</p>
                                     </a>
@@ -559,8 +560,7 @@
 
                             </ul>
                         </li>
-                        <li class="nav-item 
-                        <?php echo strpos($currentPath, '/slider') !== false || strpos($currentPath, '/about') !== false || strpos($currentPath, '/alasan') !== false || strpos($currentPath, '/faq') !== false || strpos($currentPath, '/mitra') !== false || strpos($currentPath, '/hitung') !== false || strpos($currentPath, '/kegiatan') !== false || strpos($currentPath, '/testimoni') !== false || strpos($currentPath, '/link') !== false || strpos($currentPath, '/lihat_kontak') !== false || strpos($currentPath, '/visitor') !== false ? 'menu-open active' : ''; ?> ">
+                        <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-globe"></i>
                                 <p>
@@ -570,7 +570,7 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="/slider" class="nav-link <?php echo $currentPath == '/slider' ? 'active' : ''; ?>">
+                                    <a href="/slider" class="nav-link">
 
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>
@@ -579,7 +579,7 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="/about" class="nav-link <?php echo $currentPath == '/about' ? 'active' : ''; ?>">
+                                    <a href="/about" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>
                                             About Us
@@ -587,7 +587,8 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="/alasan" class="nav-link <?php echo $currentPath == '/alasan' ? 'active' : ''; ?>">
+                                    <a href="/alasan" class="nav-link">
+                                        {{-- <i class="nav-icon fas fa-columns"></i> --}}
                                         <i class="far fa-circle nav-icon"></i>
 
                                         <p>
@@ -597,7 +598,8 @@
                                 </li>
 
                                 <li class="nav-item">
-                                    <a href="/faq" class="nav-link <?php echo $currentPath == '/faq' ? 'active' : ''; ?>">
+                                    <a href="/faq" class="nav-link">
+                                        {{-- <i class="nav-icon fas fa-search"></i> --}}
                                         <i class="far fa-circle nav-icon"></i>
 
                                         <p>
@@ -606,7 +608,9 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="/mitra" class="nav-link <?php echo $currentPath == '/mitra' ? 'active' : ''; ?>">
+                                    <a href="/mitra" class="nav-link">
+
+                                        {{-- <i class="nav-icon far fa-handshake"></i> --}}
                                         <i class="far fa-circle nav-icon"></i>
 
                                         <p>
@@ -615,7 +619,9 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="/hitung" class="nav-link <?php echo $currentPath == '/hitung' ? 'active' : ''; ?>">
+                                    <a href="/hitung" class="nav-link">
+
+                                        {{-- <i class="nav-icon far fa-handshake"></i> --}}
                                         <i class="far fa-circle nav-icon"></i>
 
                                         <p>
@@ -624,7 +630,9 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="/kegiatan" class="nav-link <?php echo $currentPath == '/kegiatan' ? 'active' : ''; ?>">
+                                    <a href="/kegiatan" class="nav-link">
+
+                                        {{-- <i class="nav-icon far fa-handshake"></i> --}}
                                         <i class="far fa-circle nav-icon"></i>
 
                                         <p>
@@ -633,7 +641,9 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="/testimoni" class="nav-link <?php echo $currentPath == '/testimoni' ? 'active' : ''; ?>">
+                                    <a href="/testimoni" class="nav-link">
+
+                                        {{-- <i class="nav-icon far fa-handshake"></i> --}}
                                         <i class="far fa-circle nav-icon"></i>
 
                                         <p>
@@ -642,7 +652,9 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="/link" class="nav-link <?php echo $currentPath == '/link' ? 'active' : ''; ?>">
+                                    <a href="/link" class="nav-link">
+
+                                        {{-- <i class="nav-icon far fa-handshake"></i> --}}
                                         <i class="far fa-circle nav-icon"></i>
 
                                         <p>
@@ -651,7 +663,8 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="/lihat_kontak" class="nav-link <?php echo $currentPath == '/lihat_kontak' ? 'active' : ''; ?>">
+                                    <a href="/lihat_kontak" class="nav-link">
+                                        {{-- <i class="nav-icon far fa-address-book"></i> --}}
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>
                                             Kontak
@@ -659,7 +672,8 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="/visitor" class="nav-link <?php echo $currentPath == '/visitor' ? 'active' : ''; ?>">
+                                    <a href="/visitor" class="nav-link">
+                                        {{-- <i class="nav-icon far fa-address-book"></i> --}}
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>
                                             Visitor
@@ -672,7 +686,7 @@
 
                         <li class="nav-header">POS</li>
                         <li class="nav-item">
-                            <a href="/supplier" class="nav-link <?php echo $currentPath == '/supplier' ? 'active' : ''; ?>">
+                            <a href="/supplier" class="nav-link">
                                 <i class="nav-icon far fa-user"></i>
                                 <p>
                                     Supplier
@@ -680,7 +694,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="/member" class="nav-link <?php echo $currentPath == '/member' ? 'active' : ''; ?>">
+                            <a href="/member" class="nav-link">
                                 <i class="nav-icon fas fa-users"></i>
                                 <p>
                                     Member
@@ -688,15 +702,14 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="/top_up_member" class="nav-link <?php echo $currentPath == '/top_up_member' ? 'active' : ''; ?>">
+                            <a href="/top_up_member" class="nav-link">
                                 <i class="nav-icon fas fa-upload"></i>
                                 <p>
                                     Top Up Member
                                 </p>
                             </a>
                         </li>
-                        <li class="nav-item 
-                        <?php echo strpos($currentPath, '/satuan_produk') !== false || strpos($currentPath, '/kategori_produk') !== false || strpos($currentPath, '/produk') !== false ? 'menu-open active' : ''; ?> ">
+                        <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-soap"></i>
                                 <p>
@@ -706,20 +719,19 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-
-                                    <a href="/satuan_produk" class="nav-link <?php echo $currentPath == '/satuan_produk' ? 'active' : ''; ?>">
+                                    <a href="/satuan_produk" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Satuan</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="/kategori_produk" class="nav-link <?php echo $currentPath == '/kategori_produk' ? 'active' : ''; ?>">
+                                    <a href="/kategori_produk" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Kategori</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="/produk" class="nav-link <?php echo $currentPath == '/produk' ? 'active' : ''; ?>">
+                                    <a href="/produk" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Data Produk</p>
                                     </a>
@@ -727,8 +739,7 @@
 
                             </ul>
                         </li>
-                        <li class="nav-item 
-                        <?php echo strpos($currentPath, '/pembelian') !== false || strpos($currentPath, '/penjualan') !== false ? 'menu-open active' : ''; ?> ">
+                        <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-keyboard"></i>
                                 <p>
@@ -738,13 +749,13 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="/pembelian" class="nav-link <?php echo $currentPath == '/pembelian' ? 'active' : ''; ?>">
+                                    <a href="/pembelian" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Pembelian</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="/penjualan" class="nav-link <?php echo $currentPath == '/penjualan' ? 'active' : ''; ?>">
+                                    <a href="/penjualan" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Penjualan</p>
                                     </a>
@@ -752,8 +763,7 @@
 
                             </ul>
                         </li>
-                        <li class="nav-item 
-                        <?php echo strpos($currentPath, '/income') !== false || strpos($currentPath, '/expense') !== false ? 'menu-open active' : ''; ?> ">
+                        <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-swatchbook"></i>
                                 <p>
@@ -763,13 +773,13 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="/income" class="nav-link <?php echo $currentPath == '/income' ? 'active' : ''; ?>">
+                                    <a href="/kategoriberita" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Income</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="/expense" class="nav-link <?php echo $currentPath == '/expense' ? 'active' : ''; ?>">
+                                    <a href="/berita" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Expense</p>
                                     </a>
@@ -779,9 +789,17 @@
                         </li>
 
 
+
+
+
+
+
+
+
+
                         <li class="nav-header">Pengaturan</li>
                         <li class="nav-item">
-                            <a href="/profil/1/edit" class="nav-link <?php echo $currentPath == '/profil/1/edit' ? 'active' : ''; ?>">
+                            <a href="/profil/1/edit" class="nav-link">
                                 <i class="nav-icon far fa-plus-square"></i>
                                 <p>
                                     Profil Umum
@@ -789,7 +807,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="/users" class="nav-link <?php echo $currentPath == '/users' ? 'active' : ''; ?>">
+                            <a href="/users" class="nav-link">
                                 <i class="nav-icon far fa-user"></i>
                                 <p>
                                     User
@@ -797,7 +815,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="/backup_database" class="nav-link <?php echo $currentPath == '/backup_database' ? 'active' : ''; ?>">
+                            <a href="/backup_database" class="nav-link">
                                 <i class="nav-icon fas fa-database"></i>
                                 <p>
                                     Back Up Database
@@ -805,7 +823,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="/log_histori" class="nav-link <?php echo $currentPath == '/log_histori' ? 'active' : ''; ?>">
+                            <a href="/log_histori" class="nav-link">
                                 <i class="nav-icon fas fa-history"></i>
                                 <p>
                                     Log Histori
@@ -815,8 +833,7 @@
 
 
                         <li class="nav-header">Laporan</li>
-                        <li class="nav-item 
-                        <?php echo strpos($currentPath, '/laporan/guru') !== false || strpos($currentPath, '/laporan/siswa') !== false || strpos($currentPath, '/laporan/kelas') !== false ? 'menu-open active' : ''; ?> ">
+                        <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-file"></i>
                                 <p>
@@ -826,29 +843,30 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="{{ route('laporan.guru') }}" class="nav-link <?php echo $currentPath == '/laporan/guru' ? 'active' : ''; ?>">
+                                    <a href="{{ route('laporan.guru') }}" class="nav-link">
+                                        <!-- Menggunakan route() untuk tautan guru -->
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Guru</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{{ route('laporan.siswa') }}" class="nav-link <?php echo $currentPath == '/laporan/siswa' ? 'active' : ''; ?>">
+                                    <a href="{{ route('laporan.siswa') }}" class="nav-link">
+                                        <!-- Menggunakan route() untuk tautan siswa -->
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Siswa</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{{ route('laporan.kelas') }}" class="nav-link <?php echo $currentPath == '/laporan/kelas' ? 'active' : ''; ?>">
+                                    <a href="{{ route('laporan.kelas') }}" class="nav-link">
+                                        <!-- Menggunakan route() untuk tautan kelas -->
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Kelas</p>
                                     </a>
                                 </li>
                             </ul>
                         </li>
-                        
-                        <li class="nav-item 
-                        <?php echo strpos($currentPath, '/laporan/nilai_siswa') !== false || strpos($currentPath, '/tampilkan-jadwal') !== false || strpos($currentPath, '/laporan/absensi') !== false ? 'menu-open active' : ''; ?> ">
 
+                        <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-file"></i>
                                 <p>
@@ -858,20 +876,19 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                        <a href="{{ route('laporan.nilai_siswa') }}" class="nav-link <?php echo $currentPath == '/laporan/nilai_siswa' ? 'active' : ''; ?>">
+                                    <a href="{{ route('laporan.nilai_siswa') }}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Nilai Siswa</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    
-                                        <a href="/tampilkan-jadwal" class="nav-link <?php echo $currentPath == '/tampilkan-jadwal' ? 'active' : ''; ?>">
+                                    <a href="/tampilkan-jadwal" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Jadwal Pelajaran</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{{ route('laporan.absensi') }}" class="nav-link <?php echo $currentPath == '/laporan/absensi' ? 'active' : ''; ?>">
+                                    <a href="{{ route('laporan.absensi') }}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Absensi</p>
                                     </a>
@@ -879,9 +896,7 @@
 
                             </ul>
                         </li>
-                        <li class="nav-item 
-                        <?php echo strpos($currentPath, '/laporan/keuangan') !== false || strpos($currentPath, '/surat') !== false || strpos($currentPath, '/laporan/barang') !== false || strpos($currentPath, '/laporan/mutasi_barang') !== false ? 'menu-open active' : ''; ?> ">
-
+                        <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-file"></i>
                                 <p>
@@ -891,25 +906,25 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="{{ route('laporan.keuangan') }}" class="nav-link <?php echo $currentPath == '/laporan/keuangan' ? 'active' : ''; ?>">
+                                    <a href="{{ route('laporan.keuangan') }}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Keuangan</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{{ route('laporan.surat') }}" class="nav-link <?php echo $currentPath == '/laporan/surat' ? 'active' : ''; ?>">
+                                    <a href="{{ route('laporan.surat') }}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Administrasi Surat</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{{ route('laporan.barang') }}" class="nav-link <?php echo $currentPath == '/laporan/barang' ? 'active' : ''; ?>">
+                                    <a href="{{ route('laporan.barang') }}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Aset Barang</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{{ route('laporan.mutasi_barang') }}" class="nav-link <?php echo $currentPath == '/laporan/mutasi_barang' ? 'active' : ''; ?>">
+                                    <a href="{{ route('laporan.mutasi_barang') }}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Mutasi Aset Barang</p>
                                     </a>
@@ -1062,19 +1077,19 @@
             $("#example1").DataTable({
                 "responsive": true,
                 "lengthChange": true,
-                "lengthMenu": [10, 25, 50, 100],
+                "lengthMenu": [10, 25, 50, 100], 
                 "autoWidth": false,
                 "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
             }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-
+    
             $("#example3").DataTable({
                 "responsive": true,
                 "lengthChange": true,
-                "lengthMenu": [5, 10, 25, 50, 100],
+                "lengthMenu": [5, 10, 25, 50, 100], 
                 "autoWidth": false,
                 "buttons": ["copy", "csv", "excel", "pdf", "print"]
             }).buttons().container().appendTo('#example3_wrapper .col-md-6:eq(0)');
-
+    
             $('#example2').DataTable({
                 "paging": true,
                 "lengthChange": false,
@@ -1084,18 +1099,18 @@
                 "autoWidth": false,
                 "responsive": true,
             });
-
+    
             // Tambahkan konfigurasi untuk example4 yang sama dengan example1
             $("#example4").DataTable({
                 "responsive": true,
-                "lengthChange": true,
-                "lengthMenu": [10, 25, 50, 100],
+                "lengthChange": true, 
+                "lengthMenu": [10, 25, 50, 100], 
                 "autoWidth": false,
                 "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
             }).buttons().container().appendTo('#example4_wrapper .col-md-6:eq(0)');
         });
     </script>
-
+    
 
 
 

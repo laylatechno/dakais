@@ -41,6 +41,7 @@ use App\Http\Controllers\LihatJadwalPelajaranController;
 use App\Http\Controllers\LihatKontakController;
 use App\Http\Controllers\LinkController;
 use App\Http\Controllers\LogHistoriController;
+use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\MutasiBarangController;
 use App\Http\Controllers\NilaiSiswaController;
@@ -84,6 +85,7 @@ use App\Models\Penjualan;
 //     return view('welcome');
 // });
 
+Route::get('/login_user', [LoginController::class, 'login'])->name('login');
 
 // Home
 Route::get('/auth', [AuthController::class, 'login'])->name('login');

@@ -153,7 +153,7 @@ CREATE TABLE IF NOT EXISTS `bulan` (
   `id` int NOT NULL AUTO_INCREMENT,
   `nama_bulan` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 ;
 
 -- Dumping data for table db_akademik.bulan: ~12 rows (approximately)
 INSERT INTO `bulan` (`id`, `nama_bulan`) VALUES
@@ -588,7 +588,7 @@ CREATE TABLE IF NOT EXISTS `log_histori` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=735 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=735 DEFAULT CHARSET=utf8mb4;
 
 -- Dumping data for table db_akademik.log_histori: ~96 rows (approximately)
 INSERT INTO `log_histori` (`ID`, `Tabel_Asal`, `ID_Entitas`, `Aksi`, `Waktu`, `Pengguna`, `Data_Lama`, `Data_Baru`, `updated_at`, `created_at`) VALUES
@@ -1422,12 +1422,12 @@ INSERT INTO `tarik_tabungan` (`id`, `tanggal_tarik`, `siswa_id`, `jumlah_tarik`,
 -- Dumping structure for table db_akademik.tes
 CREATE TABLE IF NOT EXISTS `tes` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `nama` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
-  `no` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `nama` varchar(50) CHARACTER SET utf8mb4  DEFAULT NULL,
+  `no` varchar(50) CHARACTER SET utf8mb4  DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
 
 -- Dumping data for table db_akademik.tes: ~0 rows (approximately)
 
@@ -1520,7 +1520,7 @@ CREATE TABLE IF NOT EXISTS `visitor` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`visitor_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=104 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=104 DEFAULT CHARSET=utf8mb4 ;
 
 -- Dumping data for table db_akademik.visitor: ~99 rows (approximately)
 INSERT INTO `visitor` (`visitor_id`, `visit_time`, `ip_address`, `session_id`, `cookie_id`, `user_agent`, `device`, `platform`, `browser`, `created_at`, `updated_at`) VALUES
