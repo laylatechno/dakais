@@ -9,7 +9,7 @@
             <div class="card-body">
                 <h5 class="card-title mb-0"><b>Form User</b></h5>
                 <br><hr>
-                <form action="{{ route('users.store') }}"  method="post" >
+                <form action="{{ route('users.store') }}"  method="post" enctype="multipart/form-data">
                     @csrf
                     @error('name')
                         <small style="color: red">{{ $message }} </small>
@@ -42,6 +42,15 @@
                             <option value="Operator">Operator</option>
                             <option value="Bendahara">Bendahara</option>
                         </select>
+                    </div>
+
+                    
+                    @error('picture')
+                    <small style="color: red">{{ $message }} </small>
+                    @enderror
+                    <div class="form-group">
+                        <label>Gambar <small class="text-muted">(Masukkan dengan tipe file jpg, png, jpeg & maksimal size 2 mb) </small> </label>
+                        <input type="file" class="form-control phone-inputmask" name="picture">
                     </div>
                     
                     @error('password')

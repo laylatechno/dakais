@@ -121,7 +121,13 @@
 
                 <!-- Messages Dropdown Menu -->
                 <li class="nav-item dropdown">
-                    <a class="nav-link" href="/lihat_kontak" style="color: red;">
+                    <a class="nav-link" style="color: rgb(5, 5, 5);">
+                         <span>({{ Auth::user()->role }})</span>
+                    </a>
+
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link"  style="color: red;">
                         <i class="far fa-envelope"></i> <b>Kontak Masuk
                         </b>
                     </a>
@@ -155,13 +161,21 @@
                 <!-- Sidebar user panel (optional) -->
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                     <div class="image">
-                        <img src="{{ asset('themplete/back') }}/dist/img/avatar.png" class="img-circle elevation-2"
-                            alt="User Image">
+                        @if(Auth::user()->picture)
+                            <img src="{{ asset('upload/user/' . Auth::user()->picture) }}"
+                                 class="img-circle elevation-2"
+                                 alt="User Image">
+                        @else
+                            <img src="{{ asset('themplete/back') }}/dist/img/avatar.png"
+                                 class="img-circle elevation-2"
+                                 alt="User Image">
+                        @endif
                     </div>
                     <div class="info">
                         <a href="#" class="d-block">{{ Auth::user()->name }}</a>
                     </div>
                 </div>
+                
 
                 <!-- SidebarSearch Form -->
                 {{-- <div class="form-inline">
@@ -195,6 +209,8 @@
                                 </p>
                             </a>
                         </li>
+
+                        @if(Auth::check() && (Auth::user()->role == 'Superadmin' || Auth::user()->role == 'Operator'))
                         <li class="nav-header">Master</li>
                         <li class="nav-item 
                         <?php echo strpos($currentPath, '/wali_kelas') !== false || strpos($currentPath, '/pengawas') !== false || strpos($currentPath, '/kepala_sekolah') !== false || strpos($currentPath, '/ruangan') !== false || strpos($currentPath, '/jurusan') !== false || strpos($currentPath, '/kurikulum') !== false || strpos($currentPath, '/tahunajaran') !== false || strpos($currentPath, '/guru') !== false || strpos($currentPath, '/siswa') !== false || strpos($currentPath, '/mapel') !== false || strpos($currentPath, '/kelas') !== false ? 'menu-open active' : ''; ?> ">
@@ -274,6 +290,9 @@
 
                             </ul>
                         </li>
+                        @endif
+                        
+                        @if(in_array(Auth::user()->role, ['Superadmin', 'Operator', 'Bendahara']))
                         <li class="nav-header">Transaksi</li>
                         <li class="nav-item 
                         <?php echo strpos($currentPath, '/pengeluaran') !== false || strpos($currentPath, '/pemasukan') !== false ? 'menu-open active' : ''; ?> ">
@@ -423,6 +442,9 @@
                                 </li>
                             </ul>
                         </li>
+                        @endif
+
+                        @if(in_array(Auth::user()->role, ['Superadmin','Guru']))
                         <li class="nav-header">Akademik</li>
                         <li class="nav-item 
                         <?php echo strpos($currentPath, '/waktumengajar') !== false || strpos($currentPath, '/jadwal_pelajaran') !== false ? 'menu-open active' : ''; ?> ">
@@ -504,10 +526,11 @@
 
                             </ul>
                         </li>
+                        @endif
 
 
 
-
+                        @if(in_array(Auth::user()->role, ['Superadmin','Operator']))
                         <li class="nav-header">Website</li>
                         <li class="nav-item 
                         <?php echo strpos($currentPath, '/kategoriberita') !== false || strpos($currentPath, '/berita') !== false ? 'menu-open active' : ''; ?> ">
@@ -677,7 +700,10 @@
 
                             </ul>
                         </li>
+                        @endif
 
+
+                        @if(in_array(Auth::user()->role, ['Superadmin','Bendahara']))
                         <li class="nav-header">POS</li>
                         <li class="nav-item">
                             <a href="/supplier" class="nav-link <?php echo $currentPath == '/supplier' ? 'active' : ''; ?>">
@@ -785,8 +811,10 @@
 
                             </ul>
                         </li>
+                        @endif
 
 
+                        @if(in_array(Auth::user()->role, ['Superadmin','Operator']))
                         <li class="nav-header">Pengaturan</li>
                         <li class="nav-item">
                             <a href="/profil/1/edit" class="nav-link <?php echo $currentPath == '/profil/1/edit' ? 'active' : ''; ?>">
@@ -820,9 +848,12 @@
                                 </p>
                             </a>
                         </li>
+                        @endif
 
 
+                       
                         <li class="nav-header">Laporan</li>
+                        @if(in_array(Auth::user()->role, ['Superadmin','Operator']))
                         <li class="nav-item 
                         <?php echo strpos($currentPath, '/laporan/guru') !== false || strpos($currentPath, '/laporan/siswa') !== false || strpos($currentPath, '/laporan/kelas') !== false ? 'menu-open active' : ''; ?> ">
                             <a href="#" class="nav-link">
@@ -853,7 +884,10 @@
                                 </li>
                             </ul>
                         </li>
+                        @endif
                         
+
+                        @if(in_array(Auth::user()->role, ['Superadmin','Guru']))
                         <li class="nav-item 
                         <?php echo strpos($currentPath, '/laporan/nilai_siswa') !== false || strpos($currentPath, '/tampilkan-jadwal') !== false || strpos($currentPath, '/laporan/absensi') !== false ? 'menu-open active' : ''; ?> ">
 
@@ -887,8 +921,11 @@
 
                             </ul>
                         </li>
+                        @endif
+
+                        @if(in_array(Auth::user()->role, ['Superadmin', 'Operator', 'Bendahara']))
                         <li class="nav-item 
-                        <?php echo strpos($currentPath, '/laporan/keuangan') !== false || strpos($currentPath, '/surat') !== false || strpos($currentPath, '/laporan/barang') !== false || strpos($currentPath, '/laporan/mutasi_barang') !== false ? 'menu-open active' : ''; ?> ">
+                        <?php echo strpos($currentPath, '/laporan/keuangan') !== false || strpos($currentPath, '/laporan/surat') !== false || strpos($currentPath, '/laporan/barang') !== false || strpos($currentPath, '/laporan/mutasi_barang') !== false ? 'menu-open active' : ''; ?> ">
 
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-file"></i>
@@ -926,7 +963,7 @@
 
                             </ul>
                         </li>
-
+                        @endif
 
                         <li class="nav-header">Logout</li>
                         <li class="nav-item">

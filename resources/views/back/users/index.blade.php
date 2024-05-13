@@ -31,6 +31,7 @@
               <th>Nama User</th>
               <th>Email</th>
               <th>Role</th>
+              <th>Gambar</th>
               <th>Aksi</th>
             </tr>
             </thead>
@@ -44,6 +45,7 @@
                     <td>{{ $p->name}}</td>
                     <td>{{ $p->email}}</td>
                     <td>{{ $p->role}}</td>
+                    <td><a href="/upload/user/{{ $p->picture}}" target="_blank"><img style="max-width:50px; max-height:50px" src="/upload/user/{{ $p->picture}}" alt=""></a></td>
                                   
                      
                      
@@ -69,15 +71,7 @@
             
   
             </tbody>
-            <tfoot>
-            <tr>
-                <th>No</th>
-                <th>Nama User</th>
-                <th>Email</th>
-                <th>Role</th>
-                <th>Aksi</th>
-            </tr>
-            </tfoot>
+            
           </table>
         </div>
         <!-- /.card-body -->
