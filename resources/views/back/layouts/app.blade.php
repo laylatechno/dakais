@@ -560,7 +560,7 @@
                             </ul>
                         </li>
                         <li class="nav-item 
-                        <?php echo strpos($currentPath, '/slider') !== false || strpos($currentPath, '/about') !== false || strpos($currentPath, '/alasan') !== false || strpos($currentPath, '/faq') !== false || strpos($currentPath, '/mitra') !== false || strpos($currentPath, '/hitung') !== false || strpos($currentPath, '/kegiatan') !== false || strpos($currentPath, '/testimoni') !== false || strpos($currentPath, '/link') !== false || strpos($currentPath, '/lihat_kontak') !== false || strpos($currentPath, '/visitor') !== false ? 'menu-open active' : ''; ?> ">
+                        <?php echo strpos($currentPath, '/slider') !== false || strpos($currentPath, '/about') !== false || strpos($currentPath, '/alasan') !== false || strpos($currentPath, '/faq') !== false || strpos($currentPath, '/mitra') !== false || strpos($currentPath, '/hitung') !== false || strpos($currentPath, '/kegiatan') !== false || strpos($currentPath, '/testimoni') !== false || strpos($currentPath, '/link') !== false || strpos($currentPath, '/lihat_kontak') !== false || strpos($currentPath, '/visitor') !== false || strpos($currentPath, '/unduhan') !== false ? 'menu-open active' : ''; ?> ">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-globe"></i>
                                 <p>
@@ -663,6 +663,14 @@
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>
                                             Visitor
+                                        </p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="/unduhan" class="nav-link <?php echo $currentPath == '/unduhan' ? 'active' : ''; ?>">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>
+                                            Unduhan
                                         </p>
                                     </a>
                                 </li>

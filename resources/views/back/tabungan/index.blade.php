@@ -305,11 +305,7 @@
   
   </script>
 
-  
-
- 
-
-
+   
 
 {{-- PERINTAH SIMPAN DATA --}}
 <script>

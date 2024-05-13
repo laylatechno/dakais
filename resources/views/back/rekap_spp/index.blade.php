@@ -62,7 +62,7 @@
                                 <!-- Hanya ambil item pertama dari setiap kelompok -->
                             @endforeach
                         @endforeach
-                    
+
 
 
 
@@ -78,9 +78,10 @@
 
 
             <div class="card-body" id="tabel2">
-             
 
-                <h3>Bulan Sudah Dibayarkan: <span id="nama_siswa_belum_bayar">{{ $nama_siswa ?? 'Belum Ada Siswa' }}</span></h3>
+
+                <h3>Bulan Sudah Dibayarkan: <span
+                        id="nama_siswa_belum_bayar">{{ $nama_siswa ?? 'Belum Ada Siswa' }}</span></h3>
                 <table id="" class="table table-bordered table-striped">
                     <thead>
                         <tr>
@@ -125,11 +126,12 @@
                     </tbody>
 
                 </table>
-              
+
                 <br>
                 <hr>
                 <!-- Pada bagian view di mana Anda ingin menampilkan nama siswa -->
-<h3>Bulan Yang Belum Dibayarkan: <span id="nama_siswa_belum_bayar">{{ $nama_siswa ?? 'Belum Ada Siswa' }}</span></h3>
+                <h3>Bulan Yang Belum Dibayarkan: <span
+                        id="nama_siswa_belum_bayar">{{ $nama_siswa ?? 'Belum Ada Siswa' }}</span></h3>
 
                 <table id="" class="table table-bordered table-striped">
                     <thead>
@@ -160,7 +162,7 @@
                     <button id="btnPrint" class="btn btn-success" style="color:white;"><i class="fas fa-print"></i>
                         Cetak</button>
                 </div>
-               
+
 
 
 
@@ -174,23 +176,12 @@
 </div>
 
 
-
-
-
-
-
-
-
 @endsection
 
 
 
 @push('scripts')
-<!-- Memuat skrip JavaScript Select2 -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
-<!-- SweetAlert CDN -->
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-
+ 
 
 
 <script>
@@ -201,266 +192,6 @@
         });
     });
 </script>
-
-
-
-
-<!-- Siswa -->
-<script>
-    $(document).ready(function() {
-        $('#siswa_id').select2({
-            minimumInputLength: 1,
-        });
-
-        $('#siswa_id_edit').select2({
-            minimumInputLength: 1,
-        });
-
-        $(document).on('select2:open', () => {
-            document.querySelector('.select2-search__field').focus();
-        });
-
-
-
-    });
-</script>
-
-
-{{-- Simpan Data --}}
-<script>
-    $(document).ready(function() {
-        $('#btn-simpan-bayar-spp').on('click', function(e) {
-            e.preventDefault();
-            const tombolSimpan = $('#btn-simpan-bayar-spp')
-            var formData = new FormData($('#form_bayar-spp')[0]);
-
-            $.ajax({
-                url: '/simpan/bayar/spp',
-                type: 'POST',
-                data: formData,
-                processData: false,
-                contentType: false,
-                beforeSend: function() {
-                    $('form').find('.error-message').remove()
-                    tombolSimpan.prop('disabled', true)
-                },
-                success: function(response) {
-                    // Tindakan jika permintaan berhasil
-                    console.log(response);
-
-                    // Tampilkan notifikasi Sukses menggunakan SweetAlert dengan tombol OK
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Sukses!',
-                        text: response.message || 'Data berhasil disimpan.',
-                        confirmButtonText: 'OK'
-                    }).then((result) => {
-                        // Di sini, jika pengguna menekan tombol OK, Anda bisa melakukan tindakan lain jika diperlukan
-                        if (result.isConfirmed) {
-                            // Misalnya, mengarahkan ke halaman lain, melakukan refresh, dll.
-                            window.location
-                                .reload(); // Contoh: melakukan refresh halaman
-                        }
-                    });
-
-                    // Lakukan tindakan seperti mengosongkan formulir, dll.
-                },
-                complete: function() {
-                    tombolSimpan.prop('disabled', false);
-                },
-                error: function(xhr, status, error) {
-                    // Tindakan jika ada kesalahan
-                    console.error(error);
-
-                    // Tampilkan pesan error dari server di SweetAlert
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Oops...',
-                        text: xhr.responseJSON.message ||
-                            'Terjadi kesalahan saat menyimpan data.',
-                        confirmButtonText: 'OK'
-                    });
-                }
-            });
-        });
-    });
-</script>
-
-
-
-{{-- Edit Data --}}
-<script>
-    $(document).on('click', '.btn-edit', function() {
-        var id = $(this).data('id');
-
-        $.ajax({
-            url: '/ambil-bayar-spp/' + id, // Ganti dengan URL yang sesuai di backend
-            type: 'GET',
-            success: function(response) {
-                // Mengisikan data ke dalam form edit
-                function addThousandSeparator(num) {
-                    var parts = num.toString().split(".");
-                    parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-                    return parts.join(".");
-                }
-                var pembayaran = response;
-                $('#siswa_id_edit').val(pembayaran.siswa_id).trigger('change');
-                $('#kode_pembayaran_edit').val(pembayaran.kode_pembayaran);
-                $('#tanggal_bayar_edit').val(pembayaran.tanggal_bayar);
-                $('#spp_edit').val(pembayaran.spp);
-
-
-                $('#jumlah_bayar_edit').val(pembayaran.jumlah_bayar);
-                // Mengubah format jumlah_spp_edit sebelum menampilkannya
-                var formattedSpp = addThousandSeparator(pembayaran
-                    .jumlah_bayar); // Format jumlah_spp
-                $('#jumlah_bayar_edit').val(formattedSpp);
-
-
-                $('#jumlah_spp_edit').val(pembayaran.jumlah_spp);
-                // Mengubah format jumlah_spp_edit sebelum menampilkannya
-                var formattedSpp = addThousandSeparator(pembayaran.jumlah_spp); // Format jumlah_spp
-                $('#jumlah_spp_edit').val(formattedSpp);
-
-
-                $('#metode_pembayaran_edit').val(pembayaran.metode_pembayaran);
-                $('#keterangan_edit').val(pembayaran.keterangan);
-                $('#id').val(pembayaran.id);
-
-
-                // Mengatur data siswa yang terpilih di select2
-                var selectedBulan = pembayaran.bulan_id.map(
-                    String); // Konversi ke string karena select2 menggunakan string
-                $('#bulan_id_edit').val(selectedBulan).trigger('change');
-            },
-            error: function(xhr) {
-                console.log(xhr.responseText);
-            }
-        });
-    });
-</script>
-
-
-{{-- PERINTAH UPDATE DATA --}}
-<script>
-    $(document).ready(function() {
-        $('#btn-update-spp').click(function(e) {
-            e.preventDefault();
-            const tombolUpdate = $('#btn-update-spp');
-            var id = $('#id').val();
-            var formData = new FormData($('#form_bayar-spp-edit')[0]);
-
-            $.ajax({
-                type: 'POST',
-                url: '/bayar/spp/' + id,
-                data: formData,
-                headers: {
-                    'X-HTTP-Method-Override': 'PUT'
-                },
-                contentType: false,
-                processData: false,
-                beforeSend: function() {
-                    $('form').find('.error-message').remove();
-                    tombolUpdate.prop('disabled', true);
-                },
-                success: function(response) {
-                    $('#modal-pemasukan-edit').modal('hide');
-                    Swal.fire({
-                        title: 'Sukses!',
-                        text: response.message,
-                        icon: 'success',
-                        confirmButtonText: 'OK'
-                    }).then((result) => {
-                        if (result.isConfirmed || result.isDismissed) {
-                            location.reload();
-                        }
-                    });
-                },
-                complete: function() {
-                    tombolUpdate.prop('disabled', false);
-                },
-                error: function(xhr) {
-                    if (xhr.status !== 422) {
-                        $('#modal-pemasukan-edit').modal('hide');
-                    }
-                    var errorMessages = xhr.responseJSON.errors;
-                    var errorMessage = '';
-                    $.each(errorMessages, function(key, value) {
-                        errorMessage += value + '<br>';
-                    });
-                    Swal.fire({
-                        title: 'Error!',
-                        html: errorMessage,
-                        icon: 'error',
-                        confirmButtonText: 'OK'
-                    });
-                }
-            });
-        });
-    });
-</script>
-{{-- PERINTAH UPDATE DATA --}}
-
-
-{{-- Delete Data --}}
-<script>
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
-    $(document).on('click', '.btn-delete', function() {
-        var id = $(this).data('id');
-
-        Swal.fire({
-            title: 'Anda yakin?',
-            text: 'Data akan dihapus permanen!',
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#d33',
-            cancelButtonColor: '#3085d6',
-            confirmButtonText: 'Ya, hapus!',
-            cancelButtonText: 'Batal'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                $.ajax({
-                    type: 'DELETE',
-                    url: '/hapus-bayar-spp/' + id,
-                    success: function(response) {
-                        Swal.fire({
-                            title: 'Sukses!',
-                            text: 'Data berhasil dihapus.',
-                            icon: 'success',
-                            confirmButtonText: 'OK'
-                        }).then((result) => {
-                            if (result.isConfirmed || result.isDismissed) {
-                                // Lakukan sesuatu setelah penghapusan berhasil
-                                // Contohnya, refresh halaman atau manipulasi UI lainnya
-                                window.location.reload(); // Contoh refresh halaman
-                            }
-                        });
-                    },
-                    error: function(xhr) {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Oops...',
-                            text: 'Terjadi kesalahan saat menghapus data!'
-                        });
-                    }
-                });
-            }
-        });
-    });
-</script>
 @endpush
 
-
-@push('css')
-<link rel="stylesheet" href="{{ asset('themplete/back/plugins/select2/css/custom.css') }}">
-<style>
-    .select2-container {
-        width: 100% !important;
-
-    }
-</style>
-@endpush
+ 

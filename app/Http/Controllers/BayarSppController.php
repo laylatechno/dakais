@@ -48,34 +48,7 @@ class BayarSppController extends Controller
 
         return view('back.bayar_spp.index', compact('bayar_spp', 'bulan', 'siswa', 'spp'));
     }
-
-    // public function tagihanSpp()
-    // {
-    //     $tahunAjaran = TahunAjaran::select('id', 'nama_tahun_ajaran')->get();
-    //     $bulan = Bulan::all();
-    //     $siswa = Siswa::all();
-    //     $bayar_spp = BayarSppHead::all();
-
-    //     return view('back.tagihan_spp.index', compact('bayar_spp', 'bulan', 'siswa', 'tahunAjaran'));
-    // }
-
-    public function getSppDetails($id)
-    {
-        $spp = Spp::find($id); // Temukan data Spp berdasarkan ID
-        if ($spp) {
-            return response()->json([
-                'success' => true,
-                'jumlah_spp' => $spp->jumlah_spp, // Mengembalikan nilai jumlah_spp
-            ]);
-        } else {
-            return response()->json([
-                'success' => false,
-                'message' => 'Data tidak ditemukan.',
-            ]);
-        }
-    }
-
-
+ 
 
     public function simpanBayarSpp(Request $request)
     {
@@ -130,33 +103,7 @@ class BayarSppController extends Controller
         return response()->json(['message' => 'Data disimpan']);
     }
 
-
-
-    // public function getBayarSppById($id)
-    // {
-    //     $bayarSiswa = BayarSppHead::with('siswa')->findOrFail($id);
-    //     $bulan = BayarSppDetail::where('bayar_bayarSppHead_head_id', $id)->pluck('bulan_id')->toArray();
-
-
-    //     return response()->json([
-    //         'siswa_id' => $bayarSiswa->siswa_id,
-    //         'bulan_id' => $bulan,
-    //     ]);
-    // }
-
-    // public function getBayarSppById($id)
-    // {
-    //     $bayarSiswa = BayarSppHead::with('siswa')->findOrFail($id);
-
-    //     $data = $bayarSiswa->toArray();
-
-    //     return response()->json($data);
-    // }
-
-
-
-
-    public function hapusBayarSpp($id)
+     public function hapusBayarSpp($id)
     {
         // Temukan data BayarSppHead berdasarkan ID
         $bayarSppHead = BayarSppHead::findOrFail($id);
@@ -188,8 +135,6 @@ class BayarSppController extends Controller
             return response()->json(['message' => 'Terjadi kesalahan saat menghapus data'], 500);
         }
     }
-
-
 
     /**
      * 
@@ -232,6 +177,21 @@ class BayarSppController extends Controller
     public function edit($id)
     {
     }
+
+    
+    public function getSppEdit($id)
+    {
+        try {
+            $bayar_spp = BayarSppHead::findOrFail($id);
+            
+            // Jika data ditemukan, kembalikan sebagai respons JSON
+            return response()->json($bayar_spp);
+        } catch (\Exception $e) {
+            // Jika terjadi kesalahan, kembalikan pesan kesalahan
+            return response()->json(['error' => 'Data pembayaran SPP tidak ditemukan.'], 404);
+        }
+    }
+
 
     public function update(Request $request, $id)
     {
@@ -286,9 +246,6 @@ class BayarSppController extends Controller
             'message' => $message,
         ]);
     }
-
-
-
 
 
     public function destroy($id)

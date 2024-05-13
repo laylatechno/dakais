@@ -64,10 +64,6 @@
                                 </tr>
                             @endforeach
 
-
-
-
-
                         </tbody>
 
                     </table>
@@ -105,9 +101,10 @@
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-md-6">
+
+                                        {{-- buat kode pembayaran --}}
                                         <?php
                                         use App\Models\BayarSppHead;
-                                        
                                         // Ambil kode pembayaran terakhir dari tabel
                                         $lastPayment = BayarSppHead::orderBy('created_at', 'desc')->first();
                                         
@@ -125,6 +122,8 @@
                                         
                                         $kode_pembayaran = $kode_spp . $tanggal_hari_ini . $bulan_spp . $tahun . $nextNumber;
                                         ?>
+                                        {{-- buat kode pembayaran --}}
+
 
                                         <!-- Input field untuk kode pembayaran -->
                                         <div class="form-group" id="kode_pembayaran_container">
@@ -334,7 +333,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Form Penempatan Kelas</h4>
+                    <h4 class="modal-title">Form Edit Bayar Spp</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -532,13 +531,7 @@
     </div>
 
 
-
-
-
-
 @endsection
-
-
 
 @push('scripts')
     <!-- Memuat skrip JavaScript Select2 -->
@@ -547,13 +540,7 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
 
-
-
-
-
-
-
-    <!-- Siswa -->
+    <!-- Cari Siswa -->
     <script>
         $(document).ready(function() {
             $('#siswa_id').select2({
@@ -635,10 +622,12 @@
     </script>
 
 
-
     {{-- Edit Data --}}
     <script>
-        $(document).on('click', '.btn-edit', function() {
+         $(document).ready(function() {
+           
+            $('.btn-edit').click(function(e) {
+                e.preventDefault();
             var id = $(this).data('id');
 
             $.ajax({
@@ -684,6 +673,7 @@
                 error: function(xhr) {
                     console.log(xhr.responseText);
                 }
+            });
             });
         });
     </script>

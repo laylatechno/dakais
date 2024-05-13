@@ -112,12 +112,6 @@ class JadwalPelajaranController extends Controller
     }
     
 
-
-
-    
-     
-     
-
     /**
      * Display the specified resource.
      *
@@ -200,9 +194,6 @@ class JadwalPelajaranController extends Controller
     // Jika berhasil diupdate
     return redirect('/jadwal_pelajaran')->with('message', 'Data berhasil diupdate');
 }
-
-    
-    
 
     /**
      * Remove the specified resource from storage.

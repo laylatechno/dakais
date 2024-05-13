@@ -5,13 +5,13 @@ namespace App\Http\Controllers;
 use App\Models\Guru;
 use App\Models\Kelas;
 
- 
+
 use App\Models\BayarSppHead;
 use App\Models\Bulan;
 use App\Models\LogHistori;
 use App\Models\Siswa;
 use App\Models\Spp;
- 
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -39,44 +39,44 @@ class RekapSppController extends Controller
         $log->save();
     }
 
-    
+
 
     public function index(Request $request, $siswa_id = null)
-{
-    // Mengambil data umum
-    $spp = Spp::where('status', 'Aktif')->get(); // Data SPP
-    $bulan = Bulan::all();
-    $siswa = Siswa::all();
- // Mendapatkan nama siswa
- $nama_siswa = Siswa::find($siswa_id)?->nama_siswa;
-    // Data rekap SPP
-    if ($siswa_id) {
-        $rekap_spp_detail = BayarSppHead::where('siswa_id', $siswa_id)->get(); // Filter berdasarkan siswa_id
-    } else {
-        $rekap_spp_detail = collect(); // Semua data rekap SPP
-    }
+    {
+        // Mengambil data umum
+        $spp = Spp::where('status', 'Aktif')->get(); // Data SPP
+        $bulan = Bulan::all();
+        $siswa = Siswa::all();
+        // Mendapatkan nama siswa
+        $nama_siswa = Siswa::find($siswa_id)?->nama_siswa;
+        // Data rekap SPP
+        if ($siswa_id) {
+            $rekap_spp_detail = BayarSppHead::where('siswa_id', $siswa_id)->get(); // Filter berdasarkan siswa_id
+        } else {
+            $rekap_spp_detail = collect(); // Semua data rekap SPP
+        }
 
-    $rekap_spp_head = BayarSppHead::all()->groupBy('siswa_id'); // Kelompokkan berdasarkan siswa_id
+        $rekap_spp_head = BayarSppHead::all()->groupBy('siswa_id'); // Kelompokkan berdasarkan siswa_id
 
-    // Bagian "unpaid" untuk siswa tertentu
-    if ($siswa_id) {
-        // Filter SPP berdasarkan status "Aktif" dan left join dengan `bayar_spp_head`
-        $unpaid_spp = Spp::where('status', 'Aktif') // Hanya mengambil SPP yang aktif
-            ->leftJoin('bayar_spp_head', function ($join) use ($siswa_id) {
-                $join->on('spp.id', '=', 'bayar_spp_head.spp') 
-                     ->where('bayar_spp_head.siswa_id', '=', $siswa_id); // Filter berdasarkan siswa_id
-            })
-            ->whereNull('bayar_spp_head.id') // Ambil SPP yang belum dibayar oleh siswa tersebut
-            ->orderBy('spp.id', 'asc') // Mengurutkan berdasarkan id SPP dalam urutan naik
-            ->select('spp.id as spp', 'spp.bulan', 'spp.tahun', 'spp.id') // Memilih kolom yang diperlukan
-            ->get();
-    } else {
-        $unpaid_spp = collect(); // Tidak ada data unpaid jika siswa_id tidak ada
+        // Bagian "unpaid" untuk siswa tertentu
+        if ($siswa_id) {
+            // Filter SPP berdasarkan status "Aktif" dan left join dengan `bayar_spp_head`
+            $unpaid_spp = Spp::where('status', 'Aktif') // Hanya mengambil SPP yang aktif
+                ->leftJoin('bayar_spp_head', function ($join) use ($siswa_id) {
+                    $join->on('spp.id', '=', 'bayar_spp_head.spp')
+                        ->where('bayar_spp_head.siswa_id', '=', $siswa_id); // Filter berdasarkan siswa_id
+                })
+                ->whereNull('bayar_spp_head.id') // Ambil SPP yang belum dibayar oleh siswa tersebut
+                ->orderBy('spp.id', 'asc') // Mengurutkan berdasarkan id SPP dalam urutan naik
+                ->select('spp.id as spp', 'spp.bulan', 'spp.tahun', 'spp.id') // Memilih kolom yang diperlukan
+                ->get();
+        } else {
+            $unpaid_spp = collect(); // Tidak ada data unpaid jika siswa_id tidak ada
+        }
+
+
+        return view('back.rekap_spp.index', compact('rekap_spp_head', 'bulan', 'siswa', 'spp', 'rekap_spp_detail', 'unpaid_spp', 'nama_siswa'));
     }
-    
-    
-    return view('back.rekap_spp.index', compact('rekap_spp_head', 'bulan', 'siswa', 'spp', 'rekap_spp_detail', 'unpaid_spp', 'nama_siswa'));
-}
 
 
 
@@ -116,7 +116,7 @@ class RekapSppController extends Controller
             'tanggal_bayar' => 'required',
             'jumlah_bayar' => 'required',
             'metode_pembayaran' => 'required',
-            
+
         ]);
 
         if ($validator->fails()) {
@@ -125,7 +125,7 @@ class RekapSppController extends Controller
 
         // Periksa kombinasi bulan_id dan siswa_id sebelum menyimpan
         $input = $request->all();
-       
+
 
         // Menghapus koma pada jumlah_spp dan jumlah_bayar sebelum menyimpan
         $input = $request->all();
@@ -149,7 +149,7 @@ class RekapSppController extends Controller
             'status_head' => 'Lunas',
         ]);
 
-       
+
         $loggedInUserId = Auth::id();
 
         // Simpan log histori untuk operasi Create dengan user_id yang sedang login
@@ -295,7 +295,7 @@ class RekapSppController extends Controller
         $bayarSppHead->spp = $spp;
         $bayarSppHead->save();
 
-      
+
 
         // Buat pesan sukses
         $message = "Data berhasil diupdate";

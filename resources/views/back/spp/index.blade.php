@@ -388,9 +388,6 @@
     </div>
 
 
-
-
-
 @endsection
 
 
@@ -456,8 +453,6 @@
         });
     </script>
     {{-- PERINTAH SIMPAN DATA --}}
-
-
 
     {{-- PERINTAH EDIT DATA --}}
     <script>
