@@ -3,6 +3,7 @@
 
 
 <!-- Mirrored from demo.graygrids.com/themes/edugrids/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 14 Apr 2024 10:00:44 GMT -->
+
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
@@ -58,28 +59,42 @@
                         <div class="toolbar-social">
                             <ul>
                                 <li><span class="title">Ikuti Kami : </span></li>
-                                <li><a href="{{ $profil->facebook }}" target="_blank"><i class="lni lni-facebook-original"></i></a></li>
-                                <li><a href="{{ $profil->youtube }}" target="_blank"><i class="lni lni-youtube"></i></a></li>
-                                <li><a href="{{ $profil->instagram }}" target="_blank"><i class="lni lni-instagram"></i></a></li>
+                                <li><a href="{{ $profil->facebook }}" target="_blank"><i
+                                            class="lni lni-facebook-original"></i></a></li>
+                                <li><a href="{{ $profil->youtube }}" target="_blank"><i class="lni lni-youtube"></i></a>
+                                </li>
+                                <li><a href="{{ $profil->instagram }}" target="_blank"><i
+                                            class="lni lni-instagram"></i></a></li>
                             </ul>
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-6 col-12">
                         <div class="toolbar-login">
                             <div class="button">
-                                
-                                <a href="/login_user">Login</a>
+
+                                @guest('siswa')
+                                    <a href="/login-area">Login</a>
+                                @endguest
+                                @auth('siswa')
+                                    <form id="logout-form" action="{{ route('area.logout') }}" method="POST"
+                                        style="display: inline;">
+                                        @csrf
+                                        <button type="submit"
+                                            style="background: none; border: none; padding: 0; margin-right:5px; color: #eef1f4;   cursor: pointer;">Logout</button>
+                                    </form>
+                                @endauth
                                 @php
-                                $no_telp = str_replace(['-', ' ', '+'], '', $profil->no_telp);  // Menghapus tanda tambah (+), spasi, dan tanda hubung jika ada
-                                $pesan = "Hallo.. !! Apakah berkenan saya bertanya terkait informasi sekolah ?";
-                                $encoded_pesan = urlencode($pesan);  // Meng-encode pesan agar aman dalam URL
-                                $whatsapp_url = "https://wa.me/{$no_telp}?text={$encoded_pesan}";  // Membuat URL lengkap
+                                    $no_telp = str_replace(['-', ' ', '+'], '', $profil->no_telp); // Menghapus tanda tambah (+), spasi, dan tanda hubung jika ada
+                                    $pesan = 'Hallo.. !! Apakah berkenan saya bertanya terkait informasi sekolah ?';
+                                    $encoded_pesan = urlencode($pesan); // Meng-encode pesan agar aman dalam URL
+                                    $whatsapp_url = "https://wa.me/{$no_telp}?text={$encoded_pesan}"; // Membuat URL lengkap
                                 @endphp
-                                
-                                <a href="{{ $whatsapp_url }}" class="btn" target="_blank"><i class="lni lni-whatsapp"></i>&nbsp; Kontak Via WhatsApp</a>
-                                
+
+                                <a href="{{ $whatsapp_url }}" class="btn" target="_blank"><i
+                                        class="lni lni-whatsapp"></i>&nbsp; Kontak Via WhatsApp</a>
+
                             </div>
-                         
+
                         </div>
                     </div>
                 </div>
@@ -89,69 +104,71 @@
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-12">
-                <div class="nav-inner">
-                    <nav class="navbar navbar-expand-lg">
-                        <a class="navbar-brand" href="/">
-                            <img src="/upload/profil/{{ $profil->logo }}" alt="Logo" style="width: 80px; height: auto;">
-                        </a>
-                        
-                        <button class="navbar-toggler mobile-menu-btn" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                            aria-expanded="false" aria-label="Toggle navigation">
-                            <span class="toggler-icon"></span>
-                            <span class="toggler-icon"></span>
-                            <span class="toggler-icon"></span>
-                        </button>
-                        <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
-                            <ul id="nav" class="navbar-nav ms-auto" >
-                           
-                                <li class="nav-item"><a class="active" href="/">Beranda</a></li>
-                                <li class="nav-item">
-                                    <a class="page-scroll dd-menu collapsed" href="/javascript:void(0)"
-                                        data-bs-toggle="collapse" data-bs-target="#submenu-1-1"
-                                        aria-controls="navbarSupportedContent" aria-expanded="false"
-                                        aria-label="Toggle navigation" >Profil </a>
-                                    <ul class="sub-menu collapse" id="submenu-1-1">
-                                        <li class="nav-item"><a href="/tentang">Tentang Sekolah</a></li>
-                                        <li class="nav-item"><a href="/guru_sekolah">Guru dan Staf</a></li>
-                                    </ul>
-                                </li>
-                                <li class="nav-item"><a href="/kegiatan_sekolah">Kegiatan</a></li>
-                                <li class="nav-item"><a href="/galeri_sekolah">Galeri</a></li>
-                                <li class="nav-item"><a href="/berita_sekolah">Berita</a></li>
-                               
-                               
-                               
-                                <li class="nav-item"><a href="/unduhan_sekolah">Unduhan</a></li>
-                                <li class="nav-item"><a href="/kontak_sekolah">Kontak</a></li>
-                                <li class="nav-item">
-                                    <a class="page-scroll dd-menu collapsed" href="javascript:void(0)"
-                                        data-bs-toggle="collapse" data-bs-target="#submenu-1-5"
-                                        aria-controls="navbarSupportedContent" aria-expanded="false"
-                                        aria-label="Toggle navigation">Link </a>
-                                    <ul class="sub-menu collapse" id="submenu-1-5">
-                                        @foreach ($link as $p)
-                                        <li class="nav-item"><a href="{{ $p->link }}" target="_blank">{{ $p->nama_link }}</a></li>
-                                         @endforeach
-                                    </ul>
-                                </li>
-                            </ul>
-                            <form class="d-flex search-form">
-                                <input class="form-control me-2" type="search" placeholder="Cari..."
-                                    aria-label="Search">
-                                <button class="btn btn-outline-success" type="submit"><i
-                                        class="lni lni-search-alt"></i></button>
-                            </form>
-                        </div> <!-- navbar collapse -->
-                    </nav> <!-- navbar -->
-                </div>
+                    <div class="nav-inner">
+                        <nav class="navbar navbar-expand-lg">
+                            <a class="navbar-brand" href="/">
+                                <img src="/upload/profil/{{ $profil->logo }}" alt="Logo"
+                                    style="width: 80px; height: auto;">
+                            </a>
+
+                            <button class="navbar-toggler mobile-menu-btn" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                                aria-expanded="false" aria-label="Toggle navigation">
+                                <span class="toggler-icon"></span>
+                                <span class="toggler-icon"></span>
+                                <span class="toggler-icon"></span>
+                            </button>
+                            <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
+                                <ul id="nav" class="navbar-nav ms-auto">
+
+                                    <li class="nav-item"><a class="active" href="/">Beranda</a></li>
+                                    <li class="nav-item">
+                                        <a class="page-scroll dd-menu collapsed" href="/javascript:void(0)"
+                                            data-bs-toggle="collapse" data-bs-target="#submenu-1-1"
+                                            aria-controls="navbarSupportedContent" aria-expanded="false"
+                                            aria-label="Toggle navigation">Profil </a>
+                                        <ul class="sub-menu collapse" id="submenu-1-1">
+                                            <li class="nav-item"><a href="/tentang">Tentang Sekolah</a></li>
+                                            <li class="nav-item"><a href="/guru_sekolah">Guru dan Staf</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="nav-item"><a href="/kegiatan_sekolah">Kegiatan</a></li>
+                                    <li class="nav-item"><a href="/galeri_sekolah">Galeri</a></li>
+                                    <li class="nav-item"><a href="/berita_sekolah">Berita</a></li>
+
+
+
+                                    <li class="nav-item"><a href="/unduhan_sekolah">Unduhan</a></li>
+                                    <li class="nav-item"><a href="/kontak_sekolah">Kontak</a></li>
+                                    <li class="nav-item">
+                                        <a class="page-scroll dd-menu collapsed" href="javascript:void(0)"
+                                            data-bs-toggle="collapse" data-bs-target="#submenu-1-5"
+                                            aria-controls="navbarSupportedContent" aria-expanded="false"
+                                            aria-label="Toggle navigation">Link </a>
+                                        <ul class="sub-menu collapse" id="submenu-1-5">
+                                            @foreach ($link as $p)
+                                                <li class="nav-item"><a href="{{ $p->link }}"
+                                                        target="_blank">{{ $p->nama_link }}</a></li>
+                                            @endforeach
+                                        </ul>
+                                    </li>
+                                </ul>
+                                <form class="d-flex search-form">
+                                    <input class="form-control me-2" type="search" placeholder="Cari..."
+                                        aria-label="Search">
+                                    <button class="btn btn-outline-success" type="submit"><i
+                                            class="lni lni-search-alt"></i></button>
+                                </form>
+                            </div> <!-- navbar collapse -->
+                        </nav> <!-- navbar -->
+                    </div>
                 </div>
             </div> <!-- row -->
         </div> <!-- container -->
     </header>
     <!-- End Header Area -->
 
-     
+
     @yield('content')
 
 
@@ -243,7 +260,7 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="left">
-                               <p>© Copyright 2024. All Rights Reserved By {{ $profil->nama_sekolah }}</p>
+                                <p>© Copyright 2024. All Rights Reserved By {{ $profil->nama_sekolah }}</p>
                             </div>
                         </div>
                     </div>
@@ -349,4 +366,5 @@
 
 
 <!-- Mirrored from demo.graygrids.com/themes/edugrids/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 14 Apr 2024 10:01:06 GMT -->
+
 </html>

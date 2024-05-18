@@ -185,7 +185,7 @@
                                 <div class="col-lg-6 col-12">
                                     <div class="form-group">
                                         <label>No Telp Ayah</label>
-                                        <input name="no_telp_ayah" id="no_telp_ayah" placeholder="" required="required" >
+                                        <input type="number" name="no_telp_ayah" id="no_telp_ayah" placeholder="" required="required" >
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-12">
@@ -197,7 +197,7 @@
                                 <div class="col-lg-6 col-12">
                                     <div class="form-group">
                                         <label>No Telp Ibu</label>
-                                        <input name="no_telp_ibu" id="no_telp_ibu" placeholder="" required="required" >
+                                        <input type="number" name="no_telp_ibu" id="no_telp_ibu" placeholder="" required="required" >
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-12">

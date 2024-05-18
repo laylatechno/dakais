@@ -10,4 +10,9 @@ class Pendaftaran extends Model
     use HasFactory;
     protected $table = 'pendaftaran';
     protected $guarded = [];
+
+    public function siswa()
+    {
+        return $this->belongsTo(Siswa::class, 'siswa_id');
+    }
 }

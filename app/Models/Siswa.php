@@ -4,49 +4,26 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
+use Illuminate\Auth\Authenticatable;
+use Illuminate\Support\Facades\Hash;
 
-class Siswa extends Model
+class Siswa extends Model implements AuthenticatableContract
 {
-    use HasFactory;
+    use HasFactory, Authenticatable;
+
     protected $table = 'siswa';
     protected $guarded = [];
-    // protected $fillable = [
-    //     'nik',
-    //     'nis',
-    //     'nama_siswa',
-    //     'email',
-    //     'jenis_kelamin',
-    //     'tanggal_lahir',
-    //     'tempat_lahir',
-    //     'provinsi',
-    //     'kota',
-    //     'alamat',
-    //     'nama_ayah',
-    //     'pekerjaan_ayah',
-    //     'penghasilan_ayah',
-    //     'no_telp_ayah',
-    //     'nama_ibu',
-    //     'pekerjaan_ibu',
-    //     'penghasilan_ibu',
-    //     'no_telp_ibu',
-    //     'nama_wali',
-    //     'pekerjaan_wali',
-    //     'penghasilan_wali',
-    //     'no_telp_wali',
-    //     'tahun_masuk',
-    //     'sekolah_asal',
-    //     'kelas',
-    //     'foto',
-    //     'kk',
-    //     'ijazah',
-    //     'akte',
-    //     'ktp',
-    // ];
-    
+
+    // Set password attribute to be hashed before saving
+    public function setPasswordAttribute($value)
+    {
+        $this->attributes['password'] = Hash::make($value);
+    }
+
     // pada pemanggilan siswa multiple penempatan kelas
-        public function penempatanKelas()
+    public function penempatanKelas()
     {
         return $this->hasMany(PenempatanKelasDetail::class, 'siswa_id');
     }
-    
 }

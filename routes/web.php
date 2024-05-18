@@ -8,6 +8,8 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfilController;
 use App\Http\Controllers\AlasanController;
+use App\Http\Controllers\AreaController;
+use App\Http\Controllers\AuthAreaController;
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\BayarSppController;
 use App\Http\Controllers\BeritaController;
@@ -309,7 +311,15 @@ Route::middleware(['auth', 'checkrole:Superadmin|Guru'])->group(function () {
     Route::get('/kelas/{kelasId}/siswa', [AbsensiController::class, 'getSiswaByKelas'])->name('absensi.getSiswaByKelas');
 
     // Pendaftaran 
-    Route::get('/pendaftaran', [PendaftaranController::class, 'home']);
+    Route::get('/pendaftaran', [PendaftaranController::class, 'home'])->name('pendaftaran.home');;
+    Route::get('/pendaftaran/delete-all', [PendaftaranController::class, 'deleteAll'])->name('pendaftaran.delete-all');
+    Route::get('/pendaftaran/{id}/edit', [PendaftaranController::class, 'edit'])->name('pendaftaran.edit');
+    Route::put('/pendaftaran/update/{id}', [PendaftaranController::class, 'update'])->name('pendaftaran.update');
+    Route::delete('/pendaftaran/{id}', [PendaftaranController::class, 'destroy'])->name('pendaftaran.destroy');
+    // web.php
+    Route::get('/pendaftaran/{id}/editStatus', [PendaftaranController::class, 'editStatus'])->name('pendaftaran.editStatus');
+    Route::put('/pendaftaran/{id}/status', [PendaftaranController::class, 'updateStatus'])->name('pendaftaran.updateStatus');
+
 
     // PENILAIAN
     // Jenis Ujian
@@ -402,3 +412,12 @@ Route::get('/berita_sekolah/cari', [HomeController::class, 'cari_berita'])->name
 Route::resource('/kontak_sekolah', KontakController::class);
 Route::get('/unduhan_sekolah', [HomeController::class, 'unduhan_sekolah']);
 Route::resource('/daftar_sekolah', PendaftaranController::class);
+
+
+Route::get('/login-area', [AuthAreaController::class, 'login'])->name('area.login');
+Route::post('/login-area', [AuthAreaController::class, 'authenticate'])->name('area.authenticate');
+Route::post('/logout-area', [AuthAreaController::class, 'logout'])->name('area.logout');
+
+Route::middleware(['auth.siswa'])->group(function () {
+    Route::resource('/area', AreaController::class);
+});

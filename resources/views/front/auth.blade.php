@@ -10,13 +10,11 @@
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="{{ asset('themplete_login') }}/vendor/bootstrap/css/bootstrap.min.css">
     <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css"
-        href="{{ asset('themplete_login') }}/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="{{ asset('themplete_login') }}/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="{{ asset('themplete_login') }}/vendor/animate/animate.css">
     <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css"
-        href="{{ asset('themplete_login') }}/vendor/css-hamburgers/hamburgers.min.css">
+    <link rel="stylesheet" type="text/css" href="{{ asset('themplete_login') }}/vendor/css-hamburgers/hamburgers.min.css">
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="{{ asset('themplete_login') }}/vendor/select2/select2.min.css">
     <!--===============================================================================================-->
@@ -35,25 +33,24 @@
                     {{-- <img src="{{ asset('themplete_login')}}/images/img-01.png" alt="IMG"> --}}
                 </div>
 
-                <form class="login100-form validate-form" action="" method="post">
+                <form action="{{ route('area.authenticate') }}" method="post">
                     @csrf
 
                     @if ($errors->any())
                         <div style="background-color: brown; text-align:center; color:white;">
-
                             @foreach ($errors->all() as $item)
                                 <li>{{ $item }}</li>
                             @endforeach
-
                         </div>
-
                     @endif
+                   
+                    
                     <span class="login100-form-title">
                         Login User
                     </span>
 
                     <div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
-                        <input class="input100" type="text" name="email" placeholder="Email">
+                        <input class="input100" type="text" name="email" placeholder="Email" value="{{ old('email') }}">
                         <span class="focus-input100"></span>
                         <span class="symbol-input100">
                             <i class="fa fa-envelope" aria-hidden="true"></i>
@@ -79,7 +76,6 @@
                     <script>
                         function togglePasswordVisibility() {
                             var passwordInput = document.getElementById("password");
-
                             if (passwordInput.type === "password") {
                                 passwordInput.type = "text";
                             } else {
@@ -88,29 +84,18 @@
                         }
                     </script>
 
-
                     <div class="container-login100-form-btn">
                         <button class="login100-form-btn" name="submit" type="submit">
                             Login
                         </button>
                     </div>
 
-                    <div class="text-center p-t-12">
-
-                    </div>
-
-                    <div class="text-center p-t-136">
-
-                    </div>
+                    <div class="text-center p-t-12"></div>
+                    <div class="text-center p-t-136"></div>
                 </form>
-
-
             </div>
         </div>
     </div>
-
-
-
 
     <!--===============================================================================================-->
     <script src="{{ asset('themplete_login') }}/vendor/jquery/jquery-3.2.1.min.js"></script>
@@ -132,3 +117,8 @@
 </body>
 
 </html>
+
+
+
+
+

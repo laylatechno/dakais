@@ -10,10 +10,13 @@ class CheckRole
 {
     public function handle(Request $request, Closure $next, ...$roles)
     {
+        $arrayRole = explode("|",$roles[0]);
+         
         // Periksa apakah pengguna telah terautentikasi
         if (Auth::check()) {
+            // dd(Auth::user()->role);
             // Jika pengguna terautentikasi, periksa peran pengguna
-            if (in_array(Auth::user()->role, $roles)) {
+            if (in_array(Auth::user()->role, $arrayRole)) {
                 return $next($request);
             }
         }
