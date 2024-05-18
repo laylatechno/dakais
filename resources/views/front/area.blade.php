@@ -65,32 +65,69 @@
                                         aria-labelledby="headingOne1" data-bs-parent="#accordionExample">
                                         <div class="accordion-body">
                                             <div class="row">
+                                                
+                                                <div class="col-lg-12 col-12" style="margin-bottom: 10px; text-align: center;">
+                                                    <div class="form-group">
+                                                        <a href="/upload/foto_siswa/{{$loggedInSiswa->foto}}" target="_blank">
+                                                            <img style="max-width:300px; max-height:300px; display: inline-block;" src="/upload/foto_siswa/{{$loggedInSiswa->foto}}" alt="">
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                                <br>
                                                 <div class="col-lg-6 col-12" style="margin-bottom: 10px;">
                                                     <div class="form-group">
                                                         <label>Nama</label>
-                                                        <input name="nama_kontak" class="form-control" id="nama_kontak"
-                                                            type="text" placeholder="" required="required">
+                                                        <input name="" class="form-control" id=""
+                                                            type="text" value="{{ $loggedInSiswa->nama_siswa }}">
                                                     </div>
                                                 </div>
-                                                <div class="col-lg-6 col-12">
+                                                <div class="col-lg-6 col-12" style="margin-bottom: 10px;">
                                                     <div class="form-group">
                                                         <label>NIS</label>
-                                                        <input name="nama_kontak" class="form-control" id="nama_kontak"
-                                                            type="text" placeholder="" required="required">
+                                                        <input name="" class="form-control" id=""
+                                                            type="text" value="{{ $loggedInSiswa->nis }}">
                                                     </div>
                                                 </div>
-                                                <div class="col-lg-6 col-12">
+                                                <div class="col-lg-6 col-12" style="margin-bottom: 10px;">
                                                     <div class="form-group">
                                                         <label>Email</label>
-                                                        <input name="nama_kontak" class="form-control" id="nama_kontak"
-                                                            type="text" placeholder="" required="required">
+                                                        <input name="" class="form-control" id=""
+                                                            type="text" value="{{ $loggedInSiswa->email }}">
                                                     </div>
                                                 </div>
-                                                <div class="col-lg-6 col-12">
+                                                <div class="col-lg-6 col-12" style="margin-bottom: 10px;">
                                                     <div class="form-group">
                                                         <label>Jenis Kelamin</label>
-                                                        <input name="nama_kontak" class="form-control" id="nama_kontak"
-                                                            type="text" placeholder="" required="required">
+                                                        <input name="" class="form-control" id=""
+                                                            type="text" value="{{ $loggedInSiswa->jenis_kelamin }}">
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6 col-12" style="margin-bottom: 10px;">
+                                                    <div class="form-group">
+                                                        <label>Nama</label>
+                                                        <input name="" class="form-control" id=""
+                                                            type="text" value="{{ $loggedInSiswa->nama_siswa }}">
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6 col-12" style="margin-bottom: 10px;">
+                                                    <div class="form-group">
+                                                        <label>NIS</label>
+                                                        <input name="" class="form-control" id=""
+                                                            type="text" value="{{ $loggedInSiswa->nis }}">
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6 col-12" style="margin-bottom: 10px;">
+                                                    <div class="form-group">
+                                                        <label>Email</label>
+                                                        <input name="" class="form-control" id=""
+                                                            type="text" value="{{ $loggedInSiswa->email }}">
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6 col-12" style="margin-bottom: 10px;">
+                                                    <div class="form-group">
+                                                        <label>Jenis Kelamin</label>
+                                                        <input name="" class="form-control" id=""
+                                                            type="text" value="{{ $loggedInSiswa->jenis_kelamin }}">
                                                     </div>
                                                 </div>
 
