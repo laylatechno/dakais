@@ -22,7 +22,7 @@
                                         <div class="button wow fadeInUp" data-wow-delay=".9s">
                                             <a href="#tentang-kami" class="btn">Tentang Kami</a>
 
-                                            <a href="courses-grid.html" class="btn alt-btn">Selengkapnya</a>
+                                            <a href="" class="btn alt-btn">Selengkapnya</a>
                                         </div>
                                     </div>
                                 </div>

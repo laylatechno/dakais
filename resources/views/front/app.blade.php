@@ -71,17 +71,20 @@
                     <div class="col-lg-6 col-md-6 col-12">
                         <div class="toolbar-login">
                             <div class="button">
-
+                                
                                 @guest('siswa')
                                     <a href="/login-area">Login</a>
                                 @endguest
                                 @auth('siswa')
+                                   
                                     <form id="logout-form" action="{{ route('area.logout') }}" method="POST"
                                         style="display: inline;">
                                         @csrf
                                         <button type="submit"
                                             style="background: none; border: none; padding: 0; margin-right:5px; color: #eef1f4;   cursor: pointer;">Logout</button>
                                     </form>
+                                |
+                                    <a href="/area">&nbsp;Dashboard</a>
                                 @endauth
                                 @php
                                     $no_telp = str_replace(['-', ' ', '+'], '', $profil->no_telp); // Menghapus tanda tambah (+), spasi, dan tanda hubung jika ada
@@ -271,6 +274,7 @@
     </footer>
     <!--/ End Footer Area -->
 
+    @stack('scripts')   
     <!-- ========================= scroll-top ========================= -->
     <a href="#" class="scroll-top btn-hover">
         <i class="lni lni-chevron-up"></i>

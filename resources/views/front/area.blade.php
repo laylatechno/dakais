@@ -1,7 +1,29 @@
 @extends('front.app')
 @section('title', 'Halaman Area')
 @section('subtitle', 'Menu Area')
+<style>
+    .update-button {
+        background-color: #28a745;
+        /* Warna latar belakang hijau */
+        color: white;
+        /* Warna teks putih */
+        border: none;
+        /* Menghilangkan border */
+        padding: 10px 20px;
+        /* Padding untuk ukuran tombol */
+        font-size: 16px;
+        /* Ukuran font */
+        border-radius: 5px;
+        /* Sudut border melengkung */
+        cursor: pointer;
+        /* Menampilkan pointer pada hover */
+    }
 
+    .update-button:hover {
+        background-color: #218838;
+        /* Warna latar belakang hijau gelap saat hover */
+    }
+</style>
 @section('content')
 
     <!-- Start Breadcrumbs -->
@@ -14,7 +36,7 @@
                         <p>{{ $profil->nama_sekolah }}</p>
                     </div>
                     <ul class="breadcrumb-nav">
-                        <a href="" >
+                        <a href="">
                             <h4 style="color: white;">{{ $loggedInSiswa->nama_siswa }}</h4>
                         </a>
 
@@ -61,79 +83,204 @@
                                                 untuk segera di perbaiki !</span><i class="lni lni-chevron-down"></i>
                                         </button>
                                     </h2>
+
+
+
+
+
                                     <div id="collapseOne1" class="accordion-collapse collapse show"
                                         aria-labelledby="headingOne1" data-bs-parent="#accordionExample">
                                         <div class="accordion-body">
-                                            <div class="row">
-                                                
-                                                <div class="col-lg-12 col-12" style="margin-bottom: 10px; text-align: center;">
-                                                    <div class="form-group">
-                                                        <a href="/upload/foto_siswa/{{$loggedInSiswa->foto}}" target="_blank">
-                                                            <img style="max-width:300px; max-height:300px; display: inline-block;" src="/upload/foto_siswa/{{$loggedInSiswa->foto}}" alt="">
-                                                        </a>
+                                            @if (session('message'))
+                                            <div class="alert alert-success">
+                                                {{ session('message') }}
+                                            </div>
+                                        @endif
+                                        
+                                        @if (session('error'))
+                                            <div class="alert alert-danger">
+                                                {{ session('error') }}
+                                            </div>
+                                        @endif
+                                        
+                                        @if ($errors->any())
+                                            <div class="alert alert-danger">
+                                                @foreach ($errors->all() as $error)
+                                                    {{ $error }}
+                                                @endforeach
+                                            </div>
+                                        @endif
+                                        
+                                            <form action="{{ route('area.update', ['area' => $loggedInSiswa->id]) }}" method="post">
+                                                @csrf
+                                                <div class="row">
+
+                                                    <div class="col-lg-12 col-12"
+                                                        style="margin-bottom: 10px; text-align: center;">
+                                                        <div class="form-group">
+                                                            <a href="/upload/foto_siswa/{{ $loggedInSiswa->foto }}"
+                                                                target="_blank">
+                                                                <img style="max-width:300px; max-height:300px; display: inline-block;"
+                                                                    src="/upload/foto_siswa/{{ $loggedInSiswa->foto }}"
+                                                                    alt="">
+                                                            </a>
+                                                        </div>
                                                     </div>
+                                                    <br>
+                                                    <div class="col-lg-12 col-12" style="margin-bottom: 10px;">
+                                                        <div class="form-group">
+                                                            <label>NIS</label>
+                                                            <input name="" class="form-control" id=""
+                                                                type="text" value="{{ $loggedInSiswa->nis }}" readonly>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6 col-12" style="margin-bottom: 10px;">
+                                                        <div class="form-group">
+                                                            <label>Nama</label>
+                                                            <input name="" class="form-control" id=""
+                                                                type="text" value="{{ $loggedInSiswa->nama_siswa }}"
+                                                                readonly>
+                                                        </div>
+                                                    </div>
+                                                   
+                                                    <div class="col-lg-6 col-12" style="margin-bottom: 10px;">
+                                                        <div class="form-group">
+                                                            <label>Jenis Kelamin</label>
+                                                            <input name="" class="form-control" id=""
+                                                                type="text"
+                                                                value="{{ $loggedInSiswa->jenis_kelamin }}" readonly>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6 col-12" style="margin-bottom: 10px;">
+                                                        <div class="form-group">
+                                                            <label>Tempat Lahir</label>
+                                                            <input name="" class="form-control" id=""
+                                                                type="text" value="{{ $loggedInSiswa->tempat_lahir }}"
+                                                                readonly>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6 col-12" style="margin-bottom: 10px;">
+                                                        <div class="form-group">
+                                                            <label>Tanggal Lahir</label>
+                                                            <input name="" class="form-control" id=""
+                                                                type="text"
+                                                                value="{{ $loggedInSiswa->tanggal_lahir }}" readonly>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6 col-12" style="margin-bottom: 10px;">
+                                                        <div class="form-group">
+                                                            <label>Provinsi</label>
+                                                            <input name="" class="form-control" id=""
+                                                                type="text" value="{{ $loggedInSiswa->provinsi }}"
+                                                                readonly>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6 col-12" style="margin-bottom: 10px;">
+                                                        <div class="form-group">
+                                                            <label>Kota</label>
+                                                            <input name="" class="form-control" id=""
+                                                                type="text" value="{{ $loggedInSiswa->kota }}"
+                                                                readonly>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-12 col-12" style="margin-bottom: 10px;">
+                                                        <div class="form-group">
+                                                            <label>Alamat</label>
+                                                            <textarea class="form-control" name="" id="" cols="30" rows="3" readonly>{{ $loggedInSiswa->alamat }}</textarea>
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6 col-12" style="margin-bottom: 10px;">
+                                                        <div class="form-group">
+                                                            <label>Nama Ayah</label>
+                                                            <input name="" class="form-control" id=""
+                                                                type="text" value="{{ $loggedInSiswa->nama_ayah }}"
+                                                                readonly>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6 col-12" style="margin-bottom: 10px;">
+                                                        <div class="form-group">
+                                                            <label>No telp Ayah</label>
+                                                            <input name="" class="form-control" id=""
+                                                                type="text" value="{{ $loggedInSiswa->no_telp_ayah }}"
+                                                                readonly>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6 col-12" style="margin-bottom: 10px;">
+                                                        <div class="form-group">
+                                                            <label>Nama Ibu</label>
+                                                            <input name="" class="form-control" id=""
+                                                                type="text" value="{{ $loggedInSiswa->nama_ibu }}"
+                                                                readonly>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6 col-12" style="margin-bottom: 10px;">
+                                                        <div class="form-group">
+                                                            <label>No telp Ibu</label>
+                                                            <input name="" class="form-control" id=""
+                                                                type="text" value="{{ $loggedInSiswa->no_telp_ibu }}"
+                                                                readonly>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6 col-12" style="margin-bottom: 10px;">
+                                                        <div class="form-group">
+                                                            <label>Sekolah Asal</label>
+                                                            <input name="" class="form-control" id=""
+                                                                type="text" value="{{ $loggedInSiswa->sekolah_asal }}"
+                                                                readonly>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6 col-12" style="margin-bottom: 10px;">
+                                                        <div class="form-group">
+                                                            <label>Kelas</label>
+                                                            <input name="" class="form-control" id=""
+                                                                type="text" value="{{ $loggedInSiswa->kelas }}"
+                                                                readonly>
+                                                        </div>
+                                                    </div>
+                                                    <br>
+                                                    <hr>
+                                                    <div class="col-lg-4 col-12" style="margin-bottom: 10px;">
+                                                        <div class="form-group">
+                                                            <label>Email</label>
+                                                            <input name="" class="form-control" id=""
+                                                                type="text" value="{{ $loggedInSiswa->email }}"
+                                                                readonly>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-4 col-12" style="margin-bottom: 10px;">
+                                                        <div class="form-group">
+                                                            <label>Ganti Password</label>
+                                                            <input name="password" class="form-control" id="password"
+                                                                type="password" value=""
+                                                                placeholder="Kosongkan jika tidak ada perubahan">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-4 col-12" style="margin-bottom: 10px;">
+                                                        <div class="form-group">
+                                                            <label>Konfirmasi Password</label>
+                                                            <input name="password_confirmation" class="form-control" id="password2" type="password" value="" placeholder="Kosongkan jika tidak ada perubahan">
+
+                                                        </div>
+                                                    </div>
+
+
+
+
                                                 </div>
                                                 <br>
-                                                <div class="col-lg-6 col-12" style="margin-bottom: 10px;">
-                                                    <div class="form-group">
-                                                        <label>Nama</label>
-                                                        <input name="" class="form-control" id=""
-                                                            type="text" value="{{ $loggedInSiswa->nama_siswa }}">
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-6 col-12" style="margin-bottom: 10px;">
-                                                    <div class="form-group">
-                                                        <label>NIS</label>
-                                                        <input name="" class="form-control" id=""
-                                                            type="text" value="{{ $loggedInSiswa->nis }}">
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-6 col-12" style="margin-bottom: 10px;">
-                                                    <div class="form-group">
-                                                        <label>Email</label>
-                                                        <input name="" class="form-control" id=""
-                                                            type="text" value="{{ $loggedInSiswa->email }}">
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-6 col-12" style="margin-bottom: 10px;">
-                                                    <div class="form-group">
-                                                        <label>Jenis Kelamin</label>
-                                                        <input name="" class="form-control" id=""
-                                                            type="text" value="{{ $loggedInSiswa->jenis_kelamin }}">
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-6 col-12" style="margin-bottom: 10px;">
-                                                    <div class="form-group">
-                                                        <label>Nama</label>
-                                                        <input name="" class="form-control" id=""
-                                                            type="text" value="{{ $loggedInSiswa->nama_siswa }}">
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-6 col-12" style="margin-bottom: 10px;">
-                                                    <div class="form-group">
-                                                        <label>NIS</label>
-                                                        <input name="" class="form-control" id=""
-                                                            type="text" value="{{ $loggedInSiswa->nis }}">
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-6 col-12" style="margin-bottom: 10px;">
-                                                    <div class="form-group">
-                                                        <label>Email</label>
-                                                        <input name="" class="form-control" id=""
-                                                            type="text" value="{{ $loggedInSiswa->email }}">
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-6 col-12" style="margin-bottom: 10px;">
-                                                    <div class="form-group">
-                                                        <label>Jenis Kelamin</label>
-                                                        <input name="" class="form-control" id=""
-                                                            type="text" value="{{ $loggedInSiswa->jenis_kelamin }}">
+                                                <div class="hero-text">
+                                                    <div class="button wow fadeInUp" data-wow-delay=".2s">
+                                                        <button type="submit" class="btn alt-btn"><i
+                                                                class="lni lni-save"></i> Update Data</button>
                                                     </div>
                                                 </div>
 
-                                            </div>
+
+                                            </form>
                                         </div>
                                     </div>
+
                                 </div>
 
                             </div>

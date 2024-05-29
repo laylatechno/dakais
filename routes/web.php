@@ -420,4 +420,7 @@ Route::post('/logout-area', [AuthAreaController::class, 'logout'])->name('area.l
 
 Route::middleware(['auth.siswa'])->group(function () {
     Route::resource('/area', AreaController::class);
+    Route::post('/area/{area}', [AreaController::class, 'update'])->name('area.update');
+ 
 });
+

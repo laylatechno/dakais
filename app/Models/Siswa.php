@@ -16,10 +16,10 @@ class Siswa extends Model implements AuthenticatableContract
     protected $guarded = [];
 
     // Set password attribute to be hashed before saving
-    public function setPasswordAttribute($value)
-    {
-        $this->attributes['password'] = Hash::make($value);
-    }
+    // public function setPasswordAttribute($value)
+    // {
+    //     $this->attributes['password'] = Hash::make($value);
+    // }
 
     // pada pemanggilan siswa multiple penempatan kelas
     public function penempatanKelas()

@@ -61,7 +61,7 @@
                     @enderror
                     <div class="form-group">
                     <label>Password Baru <small class="text-muted">(Kosongkan jika tidak ingin merubah)</small></label>
-                    <input type="password" class="form-control"  id="password" placeholder="Masukkan Password Baru">
+                    <input type="password" class="form-control" name="password" id="password" placeholder="Masukkan Password Baru">
                     </div>
 
                     @error('password_confirmation')
