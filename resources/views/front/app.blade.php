@@ -27,6 +27,8 @@
     <link rel="stylesheet" href="{{ asset('themplete/front/1') }}/assets/css/main.css" />
     {{-- Add --}}
 
+     
+
 </head>
 
 <body>
@@ -71,19 +73,18 @@
                     <div class="col-lg-6 col-md-6 col-12">
                         <div class="toolbar-login">
                             <div class="button">
-                                
+
                                 @guest('siswa')
                                     <a href="/login-area">Login</a>
                                 @endguest
                                 @auth('siswa')
-                                   
                                     <form id="logout-form" action="{{ route('area.logout') }}" method="POST"
                                         style="display: inline;">
                                         @csrf
                                         <button type="submit"
                                             style="background: none; border: none; padding: 0; margin-right:5px; color: #eef1f4;   cursor: pointer;">Logout</button>
                                     </form>
-                                |
+                                    |
                                     <a href="/area">&nbsp;Dashboard</a>
                                 @endauth
                                 @php
@@ -274,11 +275,18 @@
     </footer>
     <!--/ End Footer Area -->
 
-    @stack('scripts')   
+    @stack('scripts')
     <!-- ========================= scroll-top ========================= -->
     <a href="#" class="scroll-top btn-hover">
         <i class="lni lni-chevron-up"></i>
     </a>
+
+
+
+
+
+
+ 
 
     <!-- ========================= JS here ========================= -->
     <script src="{{ asset('themplete/front/1') }}/assets/js/bootstrap.min.js"></script>

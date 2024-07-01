@@ -26,4 +26,5 @@ class Siswa extends Model implements AuthenticatableContract
     {
         return $this->hasMany(PenempatanKelasDetail::class, 'siswa_id');
     }
+    protected $with = ['penempatanKelas'];
 }

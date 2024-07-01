@@ -74,8 +74,7 @@ Route::get('/login_user', [LoginController::class, 'login'])->name('login');
 // Auth/Login dan Logout
 Route::get('/auth', [AuthController::class, 'login'])->name('login');
 Route::post('/auth', [AuthController::class, 'authenticate']);
-// Route::get('/login', [AuthController::class, 'login'])->name('login');
-// Route::post('/login', [AuthController::class, 'authenticate']);
+
 Route::get('/logout', [AuthController::class, 'logout']);
 
 
@@ -406,9 +405,9 @@ Route::get('/guru_sekolah', [HomeController::class, 'guru_sekolah']);
 Route::get('/kegiatan_sekolah', [HomeController::class, 'kegiatan_sekolah']);
 Route::get('/kegiatan_sekolah/{id}', [HomeController::class, 'kegiatan_sekolah_detail'])->name('kegiatan_sekolah.kegiatan_sekolah_detail');
 Route::get('/berita_sekolah', [HomeController::class, 'berita_sekolah']);
+Route::get('/berita_sekolah/cari', [HomeController::class, 'cari_berita'])->name('berita_sekolah.cari_berita');
 Route::get('/berita_sekolah/{slug}', [HomeController::class, 'berita_sekolah_detail'])->name('berita_sekolah.berita_sekolah_detail');
 Route::get('/berita_sekolah/kategori/{id}', [HomeController::class, 'berita_sekolah_by_category_id'])->name('berita_sekolah.by_category_id');
-Route::get('/berita_sekolah/cari', [HomeController::class, 'cari_berita'])->name('berita_sekolah.cari_berita');
 Route::resource('/kontak_sekolah', KontakController::class);
 Route::get('/unduhan_sekolah', [HomeController::class, 'unduhan_sekolah']);
 Route::resource('/daftar_sekolah', PendaftaranController::class);
@@ -419,8 +418,10 @@ Route::post('/login-area', [AuthAreaController::class, 'authenticate'])->name('a
 Route::post('/logout-area', [AuthAreaController::class, 'logout'])->name('area.logout');
 
 Route::middleware(['auth.siswa'])->group(function () {
-    Route::resource('/area', AreaController::class);
+    Route::get('/area', [AreaController::class, 'index'])->name('area.index');
+    Route::resource('/area', AreaController::class)->except(['index']);
     Route::post('/area/{area}', [AreaController::class, 'update'])->name('area.update');
- 
+   
 });
+
 

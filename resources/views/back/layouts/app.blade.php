@@ -41,7 +41,6 @@
 
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
-
     <!-- DataTables -->
     <link rel="stylesheet"
         href="{{ asset('themplete/back') }}/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
@@ -138,6 +137,14 @@
                     <a class="nav-link" data-widget="fullscreen" href="#" role="button">
                         <i class="fas fa-expand-arrows-alt"></i>
                     </a>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a href="/logout" class="nav-link"  style="color: red;">
+                        <i class="nav-icon fas fa-undo"></i> <b>Logout
+                        </b>
+                    </a>
+
                 </li>
 
             </ul>
@@ -965,15 +972,7 @@
                         </li>
                         @endif
 
-                        <li class="nav-header">Logout</li>
-                        <li class="nav-item">
-                            <a href="/logout" class="nav-link">
-                                <i class="nav-icon fas fa-undo"></i>
-                                <p>
-                                    Logout
-                                </p>
-                            </a>
-                        </li>
+                       
 
 
 

@@ -1,6 +1,7 @@
 @extends('front.app')
 @section('title', 'Halaman Area')
 @section('subtitle', 'Menu Area')
+
 <style>
     .update-button {
         background-color: #28a745;
@@ -24,6 +25,12 @@
         /* Warna latar belakang hijau gelap saat hover */
     }
 </style>
+
+@push('css')
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+@endpush
+
 @section('content')
 
     <!-- Start Breadcrumbs -->
@@ -37,7 +44,11 @@
                     </div>
                     <ul class="breadcrumb-nav">
                         <a href="">
-                            <h4 style="color: white;">{{ $loggedInSiswa->nama_siswa }}</h4>
+                            <h4 style="color: white;">{{ $loggedInSiswa->nama_siswa }}</h4> -  @forelse ($loggedInSiswa->penempatanKelas as $kelas)
+                            <li>{{ $kelas->nama_kelas }}</li>
+                        @empty
+                            <li>Belum ada kelas yang diikuti.</li>
+                        @endforelse
                         </a>
 
                     </ul>
@@ -54,9 +65,10 @@
                 <div class="col-lg-10 offset-lg-1 col-md-12 col-12">
                     <nav>
                         <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                            <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab"
-                                data-bs-target="#nav-general" type="button" role="tab" aria-controls="nav-general"
-                                aria-selected="true">Data Diri</button>
+                            <button
+                                class="nav-link {{ Request::is('area*') && !request()->has('search') && !request()->has('page') ? 'active' : '' }}"
+                                id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-general" type="button"
+                                role="tab" aria-controls="nav-general" aria-selected="true">Data Diri</button>
                             <button class="nav-link" id="nav-admission-tab" data-bs-toggle="tab"
                                 data-bs-target="#nav-admission" type="button" role="tab" aria-controls="nav-admission"
                                 aria-selected="false">Bayar Spp</button>
@@ -66,13 +78,16 @@
                             <button class="nav-link" id="nav-career-tab" data-bs-toggle="tab" data-bs-target="#nav-career"
                                 type="button" role="tab" aria-controls="nav-career"
                                 aria-selected="false">Tabungan</button>
-                            <button class="nav-link" id="nav-notice-tab" data-bs-toggle="tab" data-bs-target="#nav-notice"
-                                type="button" role="tab" aria-controls="nav-notice" aria-selected="false">Agenda
-                                Sekolah</button>
+                            <button
+                                class="nav-link {{ Request::is('area*') && (request()->has('search') || request()->has('page')) ? 'active' : '' }}"
+                                id="nav-notice-tab" data-bs-toggle="tab" data-bs-target="#nav-notice" type="button"
+                                role="tab" aria-controls="nav-notice" aria-selected="false">Agenda Sekolah</button>
+
                         </div>
                     </nav>
                     <div class="tab-content" id="nav-tabContent">
-                        <div class="tab-pane fade show active" id="nav-general" role="tabpanel">
+                        <div class="tab-pane fade {{ Request::is('area*') && !request()->has('search') && !request()->has('page') ? 'show active' : '' }}"
+                            id="nav-general" role="tabpanel" aria-labelledby="nav-home-tab">
                             <div class="accordion" id="accordionExample">
                                 <div class="accordion-item">
                                     <h2 class="accordion-header" id="headingOne1">
@@ -92,26 +107,27 @@
                                         aria-labelledby="headingOne1" data-bs-parent="#accordionExample">
                                         <div class="accordion-body">
                                             @if (session('message'))
-                                            <div class="alert alert-success">
-                                                {{ session('message') }}
-                                            </div>
-                                        @endif
-                                        
-                                        @if (session('error'))
-                                            <div class="alert alert-danger">
-                                                {{ session('error') }}
-                                            </div>
-                                        @endif
-                                        
-                                        @if ($errors->any())
-                                            <div class="alert alert-danger">
-                                                @foreach ($errors->all() as $error)
-                                                    {{ $error }}
-                                                @endforeach
-                                            </div>
-                                        @endif
-                                        
-                                            <form action="{{ route('area.update', ['area' => $loggedInSiswa->id]) }}" method="post">
+                                                <div class="alert alert-success">
+                                                    {{ session('message') }}
+                                                </div>
+                                            @endif
+
+                                            @if (session('error'))
+                                                <div class="alert alert-danger">
+                                                    {{ session('error') }}
+                                                </div>
+                                            @endif
+
+                                            @if ($errors->any())
+                                                <div class="alert alert-danger">
+                                                    @foreach ($errors->all() as $error)
+                                                        {{ $error }}
+                                                    @endforeach
+                                                </div>
+                                            @endif
+
+                                            <form action="{{ route('area.update', ['area' => $loggedInSiswa->id]) }}"
+                                                method="post">
                                                 @csrf
                                                 <div class="row">
 
@@ -131,7 +147,8 @@
                                                         <div class="form-group">
                                                             <label>NIS</label>
                                                             <input name="" class="form-control" id=""
-                                                                type="text" value="{{ $loggedInSiswa->nis }}" readonly>
+                                                                type="text" value="{{ $loggedInSiswa->nis }}"
+                                                                readonly>
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-6 col-12" style="margin-bottom: 10px;">
@@ -142,7 +159,7 @@
                                                                 readonly>
                                                         </div>
                                                     </div>
-                                                   
+
                                                     <div class="col-lg-6 col-12" style="margin-bottom: 10px;">
                                                         <div class="form-group">
                                                             <label>Jenis Kelamin</label>
@@ -259,7 +276,9 @@
                                                     <div class="col-lg-4 col-12" style="margin-bottom: 10px;">
                                                         <div class="form-group">
                                                             <label>Konfirmasi Password</label>
-                                                            <input name="password_confirmation" class="form-control" id="password2" type="password" value="" placeholder="Kosongkan jika tidak ada perubahan">
+                                                            <input name="password_confirmation" class="form-control"
+                                                                id="password2" type="password" value=""
+                                                                placeholder="Kosongkan jika tidak ada perubahan">
 
                                                         </div>
                                                     </div>
@@ -300,15 +319,7 @@
                                     <div id="collapseOne11" class="accordion-collapse collapse show"
                                         aria-labelledby="headingOne11" data-bs-parent="#accordionExample2">
                                         <div class="accordion-body">
-                                            <p>Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus
-                                                terry richardson ad squid. 3 wolf moon officia aute, non cupidatat
-                                                skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod.
-                                                Brunch 3 wolf moon tempor.</p>
 
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facilis
-                                                repellat autem dolor expedita minima quidem vero ipsa ea tempore dolorem
-                                                nobis eius, modi molestiae dignissimos assumenda aliquid molestias
-                                                adipisci veritatis!</p>
                                         </div>
                                     </div>
                                 </div>
@@ -329,15 +340,50 @@
                                     <div id="collapseOne111" class="accordion-collapse collapse show"
                                         aria-labelledby="headingOne111" data-bs-parent="#accordionExample3">
                                         <div class="accordion-body">
-                                            <p>Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus
-                                                terry richardson ad squid. 3 wolf moon officia aute, non cupidatat
-                                                skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod.
-                                                Brunch 3 wolf moon tempor.</p>
+                                            <div class="container">
 
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facilis
-                                                repellat autem dolor expedita minima quidem vero ipsa ea tempore dolorem
-                                                nobis eius, modi molestiae dignissimos assumenda aliquid molestias
-                                                adipisci veritatis!</p>
+                                                <div class="row">
+
+                                                    <div class="col-lg-12 col-md-12 col-12">
+                                                        <!-- Start Single Event -->
+                                                        <div class="single-event wow fadeInUp" data-wow-delay=".2s">
+                                                            <table id="example1"
+                                                                class="table table-bordered table-striped">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>No</th>
+                                                                        <th>Tahun Ajaran</th>
+                                                                        <th>Kelas</th>
+                                                                        <th>Mapel</th>
+                                                                        <th>Total Nilai</th>
+                                                                        <th>Keterangan</th>
+                                                                        <th>Detail Nilai</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    @foreach ($nilai_siswa as $p)
+                                                                        <tr>
+                                                                            <!-- Add other column data as needed -->
+                                                                            <td>{{ $loop->iteration }}</td>
+                                                                            <td>{{ $p->nama_tahun_ajaran }}</td>
+                                                                            <td>{{ $p->nama_kelas }}</td>
+                                                                            <td>{{ $p->nama_mapel }}</td>
+                                                                            <td>{{ $p->total_nilai }}</td>
+                                                                            <td>{{ $p->keterangan }}</td>
+                                                                            <td>{!! $p->detail_nilai !!}</td>
+
+
+                                                                        </tr>
+                                                                    @endforeach
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                        <!-- End Single Event -->
+                                                    </div>
+
+
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -358,22 +404,15 @@
                                     <div id="collapseOne1111" class="accordion-collapse collapse show"
                                         aria-labelledby="headingOne1111" data-bs-parent="#accordionExample4">
                                         <div class="accordion-body">
-                                            <p>Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus
-                                                terry richardson ad squid. 3 wolf moon officia aute, non cupidatat
-                                                skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod.
-                                                Brunch 3 wolf moon tempor.</p>
 
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facilis
-                                                repellat autem dolor expedita minima quidem vero ipsa ea tempore dolorem
-                                                nobis eius, modi molestiae dignissimos assumenda aliquid molestias
-                                                adipisci veritatis!</p>
                                         </div>
                                     </div>
                                 </div>
 
                             </div>
                         </div>
-                        <div class="tab-pane fade" id="nav-notice" role="tabpanel" aria-labelledby="nav-notice-tab">
+                        <div class="tab-pane fade {{ Request::is('area*') && (request()->has('search') || request()->has('page')) ? 'show active' : '' }}"
+                            id="nav-notice" role="tabpanel" aria-labelledby="nav-notice-tab">
                             <div class="accordion" id="accordionExample5">
                                 <div class="accordion-item">
                                     <h2 class="accordion-header" id="headingOne11111">
@@ -387,15 +426,61 @@
                                     <div id="collapseOne11111" class="accordion-collapse collapse show"
                                         aria-labelledby="headingOne11111" data-bs-parent="#accordionExample5">
                                         <div class="accordion-body">
-                                            <p>Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus
-                                                terry richardson ad squid. 3 wolf moon officia aute, non cupidatat
-                                                skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod.
-                                                Brunch 3 wolf moon tempor.</p>
 
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facilis
-                                                repellat autem dolor expedita minima quidem vero ipsa ea tempore dolorem
-                                                nobis eius, modi molestiae dignissimos assumenda aliquid molestias
-                                                adipisci veritatis!</p>
+
+
+
+                                            <div class="container mt-4">
+                                                <form method="GET" action="{{ route('area.index') }}" class="mb-4">
+                                                    <div class="input-group">
+                                                        <input type="text" name="search" class="form-control"
+                                                            placeholder="Search for..."
+                                                            value="{{ request()->input('search') }}">
+                                                        <span class="input-group-btn">
+                                                            <button class="btn btn-secondary"
+                                                                type="submit">Search</button>
+                                                        </span>
+                                                    </div>
+                                                </form>
+
+                                                <div class="row">
+                                                    @foreach ($kegiatan as $p)
+                                                        <div class="col-md-3 mb-4">
+                                                            <div class="card h-100">
+                                                                <img src="/upload/kegiatan/{{ $p->gambar }}"
+                                                                    class="card-img-top"
+                                                                    style="max-height:150px; object-fit:cover;"
+                                                                    alt="Gambar Kegiatan">
+                                                                <div class="card-body">
+                                                                    <a
+                                                                        href="{{ route('kegiatan_sekolah.kegiatan_sekolah_detail', $p->id) }}">
+                                                                        <h5 class="card-title">{{ $p->nama_kegiatan }}
+                                                                        </h5>
+                                                                    </a>
+                                                                    <p class="card-text"><strong>Tanggal:</strong>
+                                                                        {{ $p->tanggal_kegiatan }}</p>
+                                                                    <p class="card-text"><strong>Jam:</strong>
+                                                                        {{ $p->jam }}</p>
+                                                                    <p class="card-text"><strong>Tempat:</strong>
+                                                                        {{ $p->tempat }}</p>
+                                                                    <p class="card-text"><strong>Status:</strong>
+                                                                        {{ $p->status }}</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    @endforeach
+                                                </div>
+                                                <!-- Tampilkan pagination links -->
+
+                                                <div class="pagination center">
+                                                    {{ $kegiatan->links() }}
+                                                </div>
+
+                                            </div>
+
+
+
+
                                         </div>
                                     </div>
                                 </div>
@@ -408,4 +493,57 @@
         </div>
     </div>
     <!--/ End Faq Area -->
+
+    <!-- Theme style -->
+    <link rel="stylesheet" href="{{ asset('themplete/back') }}/dist/css/adminlte.min.css">
+    <!-- overlayScrollbars -->
+
+    <!-- DataTables -->
+    <link rel="stylesheet" href="{{ asset('themplete/back') }}/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+
+
+
+
+
+
+    <!-- jQuery -->
+    <script src="{{ asset('themplete/back') }}/plugins/jquery/jquery.min.js"></script>
+    <!-- jQuery UI 1.11.4 -->
+    <script src="{{ asset('themplete/back') }}/plugins/jquery-ui/jquery-ui.min.js"></script>
+    <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+
+
+
+
+
+
+    <!-- DataTables  & Plugins -->
+    <script src="{{ asset('themplete/back') }}/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="{{ asset('themplete/back') }}/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <script src="{{ asset('themplete/back') }}/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="{{ asset('themplete/back') }}/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+
+
+
+
+
+
+    <script>
+        $(function() {
+            $("#example1").DataTable({
+                "responsive": true,
+                "lengthChange": true, // Aktifkan opsi Show entries
+                "lengthMenu": [10, 25, 50, 100], // Tampilkan opsi 10, 25, 50, dan 100 entri
+                "autoWidth": false
+                // Opsi "buttons" dihapus
+            });
+        });
+    </script>
 @endsection
+
+@push('script')
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+@endpush

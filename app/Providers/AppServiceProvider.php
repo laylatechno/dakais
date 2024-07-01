@@ -4,7 +4,7 @@ namespace App\Providers;
 
 use App\Models\Link;
 use App\Models\Profil;
-use App\Models\Siswa; // Tambahkan model Siswa
+ 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;

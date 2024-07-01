@@ -145,8 +145,11 @@ class HomeController extends Controller
             ->paginate(2); // Menggunakan pagination
 
         $mitra = Mitra::all();
+        $berita_all = Berita::where('status', 'Aktif')->take(6)->get();
+        $kategori_berita = KategoriBerita::withCount('berita')->get();
 
-        return view('front.berita', compact('berita', 'mitra')); // Mengembalikan tampilan dengan hasil pencarian
+
+        return view('front.berita', compact('berita', 'mitra','berita_all','kategori_berita')); // Mengembalikan tampilan dengan hasil pencarian
     }
 
 

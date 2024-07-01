@@ -21,6 +21,10 @@ class PenempatanKelasHead extends Model
         return $this->belongsTo(Kelas::class, 'kelas_id', 'id');
     }
 
+    public function siswa()
+    {
+        return $this->belongsTo(Siswa::class, 'siswa_id');
+    }
  
   
     
