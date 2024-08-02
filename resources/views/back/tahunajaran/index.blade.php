@@ -13,16 +13,17 @@
         <div class="card-body">
             <a href="/tahunajaran/create" class="btn btn-primary mb-3"><i class="fas fa-plus-circle"></i> Tambah Data</a>
             
-            {{-- Tampilkan pesan kesalahan jika ada --}}
+            {{-- Tampilkan pesan sukses jika ada --}}
             @if ($message = Session::get('message'))
             <div class="alert alert-success" role="alert">
                 {{ $message }}
             </div>
             @endif
 
-            @if ($message = Session::get('messagehapus'))
+            {{-- Tampilkan pesan kesalahan jika ada --}}
+            @if ($errors->any())
             <div class="alert alert-danger" role="alert">
-                {{ $message }}
+                {{ $errors->first('message') }}
             </div>
             @endif
             

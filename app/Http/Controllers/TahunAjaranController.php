@@ -62,24 +62,25 @@ class TahunAjaranController extends Controller
             'nama_tahun_ajaran.required' => 'Nama Wajib diisi',
             'status.required' => 'Status Wajib diisi',
         ]);
-
+    
         // Cek apakah ada data dengan status 'Aktif'
         $activeTahunAjaran = TahunAjaran::where('status', 'Aktif')->first();
-
+    
         if ($request->status == 'Aktif' && $activeTahunAjaran) {
-            return redirect()->back()->with('message', 'Hanya satu Tahun Ajaran yang dapat memiliki status Aktif.');
+            return redirect()->back()->withErrors(['message' => 'Hanya satu Tahun Ajaran yang dapat memiliki status Aktif.']);
         }
-
+    
         $input = $request->all();
         $tahun_ajaran = TahunAjaran::create($input);
-
+    
         // Mendapatkan ID pengguna yang sedang login
         $loggedInUserId = Auth::id();
-
+    
         // Simpan log histori untuk operasi Create dengan user_id yang sedang login
         $this->simpanLogHistori('Create', 'Form Tahun Ajaran', $tahun_ajaran->id, $loggedInUserId, null, json_encode($input));
         return redirect('/tahunajaran')->with('message', 'Data berhasil ditambahkan');
     }
+    
 
 
     /**
@@ -117,42 +118,35 @@ class TahunAjaranController extends Controller
         $request->validate([
             'nama_tahun_ajaran' => 'required',
             'status' => 'required',
-
         ], [
             'nama_tahun_ajaran.required' => 'Nama Wajib diisi',
-            'status.required' => 'Urutan Wajib diisi',
-
+            'status.required' => 'Status Wajib diisi',
         ]);
-
-        // Cek apakah ada data dengan status 'Aktif'
-        $activeTahunAjaran = TahunAjaran::where('status', 'Aktif')->first();
-
+    
+        // Cek apakah ada data dengan status 'Aktif' selain yang sedang diupdate
+        $activeTahunAjaran = TahunAjaran::where('status', 'Aktif')->where('id', '!=', $id)->first();
+    
         if ($request->status == 'Aktif' && $activeTahunAjaran) {
             return redirect()->back()->with('message', 'Hanya satu Tahun Ajaran yang dapat memiliki status Aktif.');
         }
-
+    
         $data = [
             'nama_tahun_ajaran' => $request->nama_tahun_ajaran,
             'status' => $request->status,
-
-
         ];
-
-
-
-        // Membuat user baru dan mendapatkan data pengguna yang baru dibuat
+    
+        // Update data tahun ajaran
         $tahun_ajaran = TahunAjaran::findOrFail($id);
-
-        // Mendapatkan ID pengguna yang sedang login
         $loggedInUserId = Auth::id();
-
-        // Simpan log histori untuk operasi Update dengan tahun_ajaran_id yang sedang login
+    
+        // Simpan log histori untuk operasi Update
         $this->simpanLogHistori('Update', 'Form Tahun Ajaran', $tahun_ajaran->id, $loggedInUserId, json_encode($tahun_ajaran), json_encode($data));
-
+    
         $tahun_ajaran->update($data);
-
+    
         return redirect('/tahunajaran')->with('message', 'Data berhasil diperbarui');
     }
+    
 
 
     /**

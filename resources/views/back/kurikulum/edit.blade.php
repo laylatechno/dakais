@@ -14,6 +14,9 @@
                 <form action="{{ route('kurikulum.update', $data->id) }}"  method="post" enctype="multipart/form-data">
                     @csrf
                     @method('put')
+                    @if (session('message'))
+                    <div class="alert alert-danger">{{ session('message') }}</div>
+                @endif
                     @error('nama_kurikulum')
                         <small style="color: red">{{ $message }} </small>
                     @enderror

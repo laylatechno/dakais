@@ -65,20 +65,21 @@ class KurikulumController extends Controller
         $activeKurikulum = Kurikulum::where('status', 'Aktif')->first();
     
         if ($request->status == 'Aktif' && $activeKurikulum) {
-            return redirect()->back()->with('message', 'Hanya satu Tahun Ajaran yang dapat memiliki status Aktif.');
+            return redirect()->back()->withInput()->with('message', 'Hanya satu Kurikulum yang dapat memiliki status Aktif.');
         }
     
         $input = $request->all();
         $kurikulum = Kurikulum::create($input);
-
+    
         // Mendapatkan ID pengguna yang sedang login
         $loggedInUserId = Auth::id();
-
+    
         // Simpan log histori untuk operasi Create dengan kurikulum_id yang sedang login
         $this->simpanLogHistori('Create', 'Form Tambah Kurikulum', $kurikulum->id, $loggedInUserId, null, json_encode($input));
-
+    
         return redirect('/kurikulum')->with('message', 'Data berhasil ditambahkan');
     }
+    
     
 
     /**

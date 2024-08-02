@@ -91,7 +91,7 @@ class GuruController extends Controller
             'honor.required' => 'Honor Wajib diisi',
             'username.required' => 'Username Wajib diisi',
             'password.required' => 'password Wajib diisi',
-            'tanggal_masuk.required' => 'tanggal_masuk Wajib diisi',
+            'tanggal_masuk.required' => 'Tanggal Masuk Wajib diisi',
             'status.required' => 'Status Wajib diisi',
         ]);
 

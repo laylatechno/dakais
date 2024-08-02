@@ -125,13 +125,13 @@
                     </a>
 
                 </li>
-                <li class="nav-item dropdown">
+                {{-- <li class="nav-item dropdown">
                     <a class="nav-link"  style="color: red;">
                         <i class="far fa-envelope"></i> <b>Kontak Masuk
                         </b>
                     </a>
 
-                </li>
+                </li> --}}
 
                 <li class="nav-item">
                     <a class="nav-link" data-widget="fullscreen" href="#" role="button">
